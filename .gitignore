@@ -1,0 +1,5 @@
+tools/
+jogo.proj.DotSettings.user
+bin/
+cmake-build-debug/
+.idea/

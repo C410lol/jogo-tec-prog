@@ -1,0 +1,57 @@
+#include "../../../includes/entities/characters/Player.h"
+#include <SFML/System.hpp>
+
+
+
+
+namespace game {
+    namespace entities {
+        namespace characters {
+
+            Player::Player(): points(0)
+            {
+                size = sf::Vector2f(100.0f, 150.0f);
+                position = sf::Vector2f(200.0f, 200.0f);
+
+                rectangle.setSize(size);
+                rectangle.setPosition(position);
+                rectangle.setFillColor(sf::Color::Blue);
+            };
+            Player::~Player() = default;
+
+
+            void Player::exec()
+            {
+                mover();
+            }
+
+
+            void Player::mover()
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                {
+                    position.x += -1;
+                    rectangle.setPosition(position);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                {
+                    position.x += 1;
+                    rectangle.setPosition(position);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                {
+                    position.y += -1;
+                    rectangle.setPosition(position);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                {
+                    position.y += 1;
+                    rectangle.setPosition(position);
+                }
+            }
+
+
+        }
+    }
+}
+

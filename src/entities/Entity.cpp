@@ -17,11 +17,11 @@ namespace game {
 
         float Entity::getPositionX() const
         {
-            return position.x / 2;
+            return position.x;
         }
         float Entity::getPositionY() const
         {
-            return position.y / 2;
+            return position.y;
         }
         sf::Vector2f Entity::getSize() const
         {
@@ -31,6 +31,8 @@ namespace game {
         void Entity::setPosition(sf::Vector2f r_position)
         {
             position = r_position;
+
+
         }
 
 

@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "fases/Fase.h"
 
 
 
@@ -11,7 +10,6 @@ namespace game
         fases::Fase::setGraphicManager(&graphicManager);
         exec();
     }
-
     Game::~Game() = default;
 
     void Game::exec()
@@ -26,7 +24,6 @@ namespace game
                     graphicManager.getWindow()->close();
                 }
             }
-
             graphicManager.clear();
             prologue.exec();
             graphicManager.display();

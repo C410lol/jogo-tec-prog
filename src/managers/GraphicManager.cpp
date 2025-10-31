@@ -50,6 +50,5 @@ namespace game {
             return pWindow;
         }
 
-
     }
 }

@@ -4,6 +4,7 @@
 #include "entities/Entity.h"
 
 #define LIFES 3
+#define GRAVITY 0.1
 
 
 
@@ -15,14 +16,16 @@ namespace game {
             class Character: public Entity
             {
             protected:
-                int lives{};
+                int lives;
 
             public:
                 Character();
                 ~Character() override;
 
                 void exec() override = 0;
+
                 virtual void mover() = 0;
+                virtual void fall();
             };
 
         }

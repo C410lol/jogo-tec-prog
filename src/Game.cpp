@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "fases/Fase.h"
 
 
 
@@ -7,8 +8,10 @@ namespace game
 {
     Game::Game()
     {
+        fases::Fase::setGraphicManager(&graphicManager);
         exec();
-    };
+    }
+
     Game::~Game() = default;
 
     void Game::exec()
@@ -24,7 +27,9 @@ namespace game
                 }
             }
 
+            graphicManager.clear();
             prologue.exec();
+            graphicManager.display();
         }
     }
 }

@@ -1,5 +1,6 @@
-#include "../../../includes/entities/characters/Player.h"
+#include "entities/characters/Player.h"
 #include <SFML/System.hpp>
+#include <iostream>
 
 
 
@@ -23,6 +24,7 @@ namespace game {
             void Player::exec()
             {
                 mover();
+                Character::exec();
             }
 
 
@@ -31,22 +33,19 @@ namespace game {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                 {
                     position.x += -1;
-                    rectangle.setPosition(position);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                 {
                     position.x += 1;
-                    rectangle.setPosition(position);
+
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                 {
                     position.y += -1;
-                    rectangle.setPosition(position);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                 {
                     position.y += 1;
-                    rectangle.setPosition(position);
                 }
             }
 

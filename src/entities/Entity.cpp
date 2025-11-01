@@ -10,6 +10,19 @@ namespace game {
         Entity::Entity() {}
         Entity::~Entity() {}
 
+        void Entity::move(const float x, const float y)
+        {
+            setPosition(sf::Vector2f(
+                getPosition().x + x, getPosition().y + y
+            ));
+        }
+        void Entity::move(const sf::Vector2f move)
+        {
+            setPosition(getPosition() + move);
+        }
+
+
+
         sf::RectangleShape Entity::getRectangle() const
         {
             return rectangle;

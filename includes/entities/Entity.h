@@ -21,6 +21,8 @@ namespace game {
             virtual ~Entity();
 
             virtual void exec() = 0;
+            void move(float x, float y);
+            void move(sf::Vector2f move);
 
             sf::RectangleShape getRectangle() const;
             sf::Vector2f getPosition() const;

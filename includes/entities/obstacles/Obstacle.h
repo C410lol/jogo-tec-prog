@@ -2,7 +2,6 @@
 #define JOGO_OBSTACLE_H
 
 #include "entities/Entity.h"
-#include <iostream>
 
 
 

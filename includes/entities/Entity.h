@@ -21,10 +21,11 @@ namespace game {
             virtual ~Entity();
 
             virtual void exec() = 0;
+            void move(float x, float y);
+            void move(sf::Vector2f move);
 
             sf::RectangleShape getRectangle() const;
-            float getPositionX() const;
-            float getPositionY() const;
+            sf::Vector2f getPosition() const;
             sf::Vector2f getSize() const;
 
             void setPosition(sf::Vector2f r_position);

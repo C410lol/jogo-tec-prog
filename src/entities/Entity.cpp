@@ -10,18 +10,26 @@ namespace game {
         Entity::Entity() {}
         Entity::~Entity() {}
 
+        void Entity::move(const float x, const float y)
+        {
+            setPosition(sf::Vector2f(
+                getPosition().x + x, getPosition().y + y
+            ));
+        }
+        void Entity::move(const sf::Vector2f move)
+        {
+            setPosition(getPosition() + move);
+        }
+
+
+
         sf::RectangleShape Entity::getRectangle() const
         {
             return rectangle;
         }
-
-        float Entity::getPositionX() const
+        sf::Vector2f Entity::getPosition() const
         {
-            return position.x;
-        }
-        float Entity::getPositionY() const
-        {
-            return position.y;
+            return position;
         }
         sf::Vector2f Entity::getSize() const
         {
@@ -31,10 +39,7 @@ namespace game {
         void Entity::setPosition(sf::Vector2f r_position)
         {
             position = r_position;
-
-
         }
-
 
     }
 }

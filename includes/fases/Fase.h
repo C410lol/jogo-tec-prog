@@ -1,28 +1,28 @@
 #ifndef JOGO_FASE_H
 #define JOGO_FASE_H
 
-#include "managers/GraphicManager.h"
-#include "managers/Collision.h"
-#include "entities/characters/Player.h"
-#include "entities/obstacles/Obstacle.h"
-#include "entities/characters/enemies/Flying.h"
-#include "entities/characters/enemies/Land.h"
+#include "gerenciadores/GerenciadorGrafico.h"
+#include "gerenciadores/GerenciadorColisao.h"
+#include "entidades/personagens/Jogador.h"
+#include "entidades/obstaculos/Obstaculo.h"
+#include "entidades/personagens/inimigos/Voador.h"
+#include "entidades/personagens/inimigos/Terrestre.h"
 
 
 
 
-namespace game {
+namespace jogo {
     namespace fases {
 
         class Fase
         {
         protected:
-            static managers::GraphicManager *pGraphicManager;
-            static managers::Collision *pCollision;
-            entities::characters::Player player;
+            static gerenciadores::GerenciadorGrafico *pGerenciadorGrafico;
+            static gerenciadores::GerenciadorColisao *pGerenciadorColisao;
+            entidades::personagens::Jogador jogador;
             //entities::obstacles::Obstacle obstacle;
-            entities::characters::enemies::Flying flying;
-            entities::characters::enemies::Land land;
+            entidades::personagens::inimigos::Voador voador;
+            entidades::personagens::inimigos::Terrestre terrestre;
 
         public:
             Fase();
@@ -30,8 +30,8 @@ namespace game {
 
             virtual void exec();
 
-            static void setGraphicManager(managers::GraphicManager *r_pGraphicManager);
-            static void setCollision(managers::Collision *r_pCollision);
+            static void setGerenciadorGrafico(gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico);
+            static void setGerenciadorColisao(gerenciadores::GerenciadorColisao *r_pGerenciadorColisao);
         };
 
     }

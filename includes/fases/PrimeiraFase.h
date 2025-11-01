@@ -6,14 +6,14 @@
 
 
 
-namespace game {
+namespace jogo {
     namespace fases {
 
-        class Prologue : public Fase
+        class PrimeiraFase : public Fase
         {
         public:
-            Prologue();
-            ~Prologue() override;
+            PrimeiraFase();
+            ~PrimeiraFase() override;
 
             void exec() override;
         };

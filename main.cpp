@@ -1,11 +1,11 @@
-#include "Game.h"
+#include "Jogo.h"
 
 
 
 
 int main()
 {
-    game::Game jogo;
+    jogo::Jogo jogo;
 
     return 0;
 }

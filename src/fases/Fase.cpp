@@ -3,45 +3,45 @@
 
 
 
-namespace game {
+namespace jogo {
     namespace fases {
 
-        managers::GraphicManager *Fase::pGraphicManager = nullptr;
-        managers::Collision *Fase::pCollision = nullptr;
+        gerenciadores::GerenciadorGrafico *Fase::pGerenciadorGrafico = nullptr;
+        gerenciadores::GerenciadorColisao *Fase::pGerenciadorColisao = nullptr;
 
 
-        Fase::Fase(): flying(&player), land(&player)
+        Fase::Fase(): voador(&jogador), terrestre(&jogador)
         {
             //pCollision = new managers::Collision(&player, &obstacle);
         };
         Fase::~Fase() = default;
 
 
-        void Fase::setGraphicManager(
-            managers::GraphicManager *r_pGraphicManager
+        void Fase::setGerenciadorGrafico(
+            gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico
         )
         {
-            pGraphicManager = r_pGraphicManager;
+            pGerenciadorGrafico = r_pGerenciadorGrafico;
         }
-        void Fase::setCollision(managers::Collision *r_pCollision)
+        void Fase::setGerenciadorColisao(gerenciadores::GerenciadorColisao *r_pGerenciadorColisao)
         {
-            pCollision = r_pCollision;
+            pGerenciadorColisao = r_pGerenciadorColisao;
         }
 
 
         void Fase::exec()
         {
-            player.exec();
-            flying.exec();
-            land.exec();
+            jogador.exec();
+            voador.exec();
+            terrestre.exec();
 
-            if (pGraphicManager)
+            if (pGerenciadorGrafico)
             {
                 //pCollision->checkCollisions();
 
-                pGraphicManager->draw(player);
-                pGraphicManager->draw(flying);
-                pGraphicManager->draw(land);
+                pGerenciadorGrafico->desenhar(jogador);
+                pGerenciadorGrafico->desenhar(voador);
+                pGerenciadorGrafico->desenhar(terrestre);
                 //pGraphicManager->draw(obstacle);
             }
         }

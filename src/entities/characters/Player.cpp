@@ -24,6 +24,8 @@ namespace game {
             void Player::exec()
             {
                 mover();
+
+                //Character::fall();
                 Character::exec();
             }
 
@@ -32,20 +34,20 @@ namespace game {
             {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                 {
-                    position.x += -1;
+                    move(-0.5f, 0.f);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                 {
-                    position.x += 1;
+                    move(0.5f, 0.f);
 
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                 {
-                    position.y += -1;
+                    move(0.f, -0.5f);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                 {
-                    position.y += 1;
+                    move(0.f, 0.5f);
                 }
             }
 

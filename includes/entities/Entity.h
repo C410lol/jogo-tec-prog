@@ -23,8 +23,7 @@ namespace game {
             virtual void exec() = 0;
 
             sf::RectangleShape getRectangle() const;
-            float getPositionX() const;
-            float getPositionY() const;
+            sf::Vector2f getPosition() const;
             sf::Vector2f getSize() const;
 
             void setPosition(sf::Vector2f r_position);

@@ -14,14 +14,9 @@ namespace game {
         {
             return rectangle;
         }
-
-        float Entity::getPositionX() const
+        sf::Vector2f Entity::getPosition() const
         {
-            return position.x;
-        }
-        float Entity::getPositionY() const
-        {
-            return position.y;
+            return position;
         }
         sf::Vector2f Entity::getSize() const
         {
@@ -31,10 +26,7 @@ namespace game {
         void Entity::setPosition(sf::Vector2f r_position)
         {
             position = r_position;
-
-
         }
-
 
     }
 }

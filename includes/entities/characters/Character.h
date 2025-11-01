@@ -26,6 +26,7 @@ namespace game {
 
                 virtual void mover() = 0;
                 virtual void fall();
+
             };
 
         }

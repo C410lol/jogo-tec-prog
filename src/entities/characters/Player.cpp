@@ -11,12 +11,12 @@ namespace game {
 
             Player::Player(): points(0)
             {
-                size = sf::Vector2f(100.0f, 150.0f);
+                size = sf::Vector2f(50.0f, 50.0f);
                 position = sf::Vector2f(200.0f, 200.0f);
+
                 rectangle.setSize(size);
                 rectangle.setPosition(position);
                 rectangle.setFillColor(sf::Color::Blue);
-                rectangle.setOrigin(rectangle.getSize()/2.f);
             };
             Player::~Player() = default;
 

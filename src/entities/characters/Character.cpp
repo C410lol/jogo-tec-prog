@@ -7,7 +7,7 @@ namespace game {
     namespace entities {
         namespace characters {
 
-            Character::Character() = default;
+            Character::Character(): lives(3) {};
             Character::~Character() = default;
 
             void Character::exec()
@@ -16,12 +16,10 @@ namespace game {
                 rectangle.setPosition(position);
             }
 
-
             void Character::fall()
             {
                 position.y += GRAVITY;
             }
-
 
         }
     }

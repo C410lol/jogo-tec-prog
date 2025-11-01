@@ -2,6 +2,7 @@
 
 
 
+
 namespace game {
     namespace fases {
 
@@ -9,11 +10,12 @@ namespace game {
         managers::Collision *Fase::pCollision = nullptr;
 
 
-        Fase::Fase()
+        Fase::Fase(): flying(&player), land(&player)
         {
-            pCollision = new managers::Collision(&player, &obstacle);
+            //pCollision = new managers::Collision(&player, &obstacle);
         };
-        Fase::~Fase() {};
+        Fase::~Fase() = default;
+
 
         void Fase::setGraphicManager(
             managers::GraphicManager *r_pGraphicManager
@@ -26,16 +28,21 @@ namespace game {
             pCollision = r_pCollision;
         }
 
+
         void Fase::exec()
         {
             player.exec();
+            flying.exec();
+            land.exec();
 
-            if (pGraphicManager && pCollision)
+            if (pGraphicManager)
             {
-                pCollision->checkCollisions();
+                //pCollision->checkCollisions();
 
                 pGraphicManager->draw(player);
-                pGraphicManager->draw(obstacle);
+                pGraphicManager->draw(flying);
+                pGraphicManager->draw(land);
+                //pGraphicManager->draw(obstacle);
             }
         }
 

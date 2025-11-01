@@ -5,6 +5,8 @@
 #include "managers/Collision.h"
 #include "entities/characters/Player.h"
 #include "entities/obstacles/Obstacle.h"
+#include "entities/characters/enemies/Flying.h"
+#include "entities/characters/enemies/Land.h"
 
 
 
@@ -18,7 +20,9 @@ namespace game {
             static managers::GraphicManager *pGraphicManager;
             static managers::Collision *pCollision;
             entities::characters::Player player;
-            entities::obstacles::Obstacle obstacle;
+            //entities::obstacles::Obstacle obstacle;
+            entities::characters::enemies::Flying flying;
+            entities::characters::enemies::Land land;
 
         public:
             Fase();

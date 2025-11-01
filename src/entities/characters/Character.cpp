@@ -12,7 +12,6 @@ namespace game {
 
             void Character::exec()
             {
-                fall();
                 rectangle.setPosition(position);
             }
 

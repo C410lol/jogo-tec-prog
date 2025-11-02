@@ -19,7 +19,7 @@ namespace jogo {
             Obstaculo::~Obstaculo() = default;
 
 
-            void Obstaculo::exec() {}
+            void Obstaculo::executar() {}
 
 
             void Obstaculo::obstaculizar(Entidade &entidade)

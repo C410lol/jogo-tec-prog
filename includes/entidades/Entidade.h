@@ -1,6 +1,7 @@
 #ifndef JOGO_ENTITY_H
 #define JOGO_ENTITY_H
 
+#include "Ente.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -9,7 +10,7 @@
 namespace jogo {
     namespace entidades {
 
-        class Entidade
+        class Entidade: public Ente
         {
         protected:
             sf::Vector2f posicao;
@@ -20,7 +21,7 @@ namespace jogo {
             Entidade();
             virtual ~Entidade();
 
-            virtual void exec() = 0;
+            virtual void executar() = 0;
             void mover(float x, float y);
             void mover(sf::Vector2f mover);
 

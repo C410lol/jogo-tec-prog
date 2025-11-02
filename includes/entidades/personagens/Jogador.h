@@ -19,7 +19,7 @@ namespace jogo {
                 Jogador();
                 ~Jogador() override;
 
-                void exec() override;
+                void executar() override;
                 void deslocar() override;
             };
 

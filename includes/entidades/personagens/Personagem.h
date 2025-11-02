@@ -22,7 +22,7 @@ namespace jogo {
                 Personagem();
                 ~Personagem() override;
 
-                void exec() override = 0;
+                void executar() override = 0;
 
                 virtual void deslocar() = 0;
                 virtual void cair();

@@ -19,12 +19,12 @@ namespace jogo {
             Jogador::~Jogador() = default;
 
 
-            void Jogador::exec()
+            void Jogador::executar()
             {
                 deslocar();
 
                 //Character::fall();
-                Personagem::exec();
+                Personagem::executar();
             }
 
 

@@ -10,7 +10,7 @@ namespace jogo {
             Personagem::Personagem(): vidas(3) {};
             Personagem::~Personagem() = default;
 
-            void Personagem::exec()
+            void Personagem::executar()
             {
                 retangulo.setPosition(posicao);
             }

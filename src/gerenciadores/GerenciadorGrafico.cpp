@@ -7,8 +7,13 @@
 namespace jogo {
     namespace gerenciadores {
 
+        sf::Font *GerenciadorGrafico::fonte = nullptr;
+
+
         GerenciadorGrafico::GerenciadorGrafico()
         {
+            fonte = new sf::Font();
+            fonte->loadFromFile("../assets/fonts/game_font.ttf");
             criarJanela();
         }
         GerenciadorGrafico::~GerenciadorGrafico() = default;
@@ -39,6 +44,12 @@ namespace jogo {
             if (pJanela)
                 pJanela->draw(entity.getRetangulo());
         }
+        void GerenciadorGrafico::desenhar(const sf::Drawable &drawable) const
+        {
+            if (pJanela)
+                pJanela->draw(drawable);
+        }
+
         void GerenciadorGrafico::mostrar() const
         {
             if (pJanela)

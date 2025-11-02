@@ -18,6 +18,8 @@ namespace jogo {
             void criarJanela();
 
         public:
+            static sf::Font *fonte;
+        public:
             GerenciadorGrafico();
             ~GerenciadorGrafico();
 
@@ -25,6 +27,7 @@ namespace jogo {
 
             void limpar() const;
             void desenhar(const entidades::Entidade &entidade) const;
+            void desenhar(const sf::Drawable &drawable) const;
             void mostrar() const;
 
             sf::RenderWindow* getJanela() const;

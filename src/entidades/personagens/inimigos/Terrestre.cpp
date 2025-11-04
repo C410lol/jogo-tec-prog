@@ -3,7 +3,7 @@
 
 
 
-
+#include "fases/Fase.h"
 namespace jogo {
     namespace entidades {
         namespace personagens {
@@ -56,7 +56,10 @@ namespace jogo {
                         }
                     }
                 }
-
+                void Terrestre::atacar()
+                {
+                    pFase->incluiprojetil(pFase->criaprojetil(this));
+                }
             }
         }
     }

@@ -17,7 +17,7 @@ namespace jogo {
                     float vel;
                     personagens::Personagem* pDono;
                 public:
-                    Projetil(personagens::Personagem* r_pPersonagem);
+                    Projetil(personagens::Personagem* r_pPersonagem, float vel);
                     ~Projetil();
                     void executar();
                     void deslocar();

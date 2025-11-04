@@ -58,7 +58,7 @@ namespace jogo {
                 }
                 void Terrestre::atacar()
                 {
-                    pFase->incluiprojetil(pFase->criaprojetil(this));
+                    pFase->incluiprojetil(pFase->criaprojetil(this, 0.3f));
                 }
             }
         }

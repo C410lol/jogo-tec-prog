@@ -1,5 +1,6 @@
 #include "entidades/personagens/inimigos/Terrestre.h"
 
+#include <iostream>
 
 
 namespace jogo {
@@ -17,6 +18,12 @@ namespace jogo {
                     retangulo.setFillColor(sf::Color::Red);
                 }
                 Terrestre::~Terrestre() = default;
+
+
+                void Terrestre::colidir(Entidade *pEntidade)
+                {
+                    std::cout << "Colidiu com terrestre" << std::endl;
+                }
 
 
                 void Terrestre::deslocar()

@@ -1,11 +1,12 @@
 #include "entidades/obstaculos/Obstaculo.h"
+#include "gerenciadores/GerenciadorColisao.h"
 
 
 
 
 namespace jogo {
     namespace entidades {
-        namespace obstacles {
+        namespace obstaculos {
 
             Obstaculo::Obstaculo()
             {
@@ -19,57 +20,41 @@ namespace jogo {
             Obstaculo::~Obstaculo() = default;
 
 
+
+
             void Obstaculo::executar() {}
 
 
-            void Obstaculo::obstaculizar(Entidade &entidade)
+
+
+            void Obstaculo::colidir(Entidade *pEntidade)
             {
-                float disX =
-                    (entidade.getPosicao().x + (getTamanho().x / 2.f)) -
-                    (getPosicao().x + (getTamanho().x / 2.f));
-                float disY =
-                    (entidade.getPosicao().y + (getTamanho().y / 2.f)) -
-                    (getPosicao().y + (getTamanho().y / 2.f));
-
-                float disAX = std::abs(disX);
-                float disAY = std::abs(disY);
-
-                float somX = (entidade.getTamanho().x / 2.f + getTamanho().x / 2);
-                float somY = (entidade.getTamanho().y / 2.f + getTamanho().y / 2.f);
-                if (disAX < somX && disAY < somY)
+                std::cout << "Colidiu com obstaculo" << std::endl;
+                obstaculizar(pEntidade);
+            }
+            void Obstaculo::obstaculizar(Entidade *pEntidade)
+            {
+                if (pEntidade)
                 {
-                    if (somX - disAX > somY - disAY)
+                    sf::Vector2f overlap = gerenciadores::GerenciadorColisao::calcOverlap(this, pEntidade);
+
+                    if (overlap.x < overlap.y)
                     {
-                        if (disX < 0)
-                        {
-                            entidade.setPosicao(
-                                sf::Vector2f(entidade.getPosicao().x - (somX - disAX), entidade.getPosicao().y)
-                            );
-                        }
+                        if (this->getPosicao().x < pEntidade->getPosicao().x)
+                            pEntidade->mover(overlap.x, 0);
                         else
-                        {
-                            entidade.setPosicao(
-                                sf::Vector2f(entidade.getPosicao().x + (somX - disAX), entidade.getPosicao().y)
-                            );
-                        }
+                            pEntidade->mover(-overlap.x, 0);
                     }
                     else
                     {
-                        if (disY < 0)
-                        {
-                            entidade.setPosicao(
-                                sf::Vector2f(entidade.getPosicao().x, entidade.getPosicao().y - (somY - disAY))
-                            );
-                        }
+                        if (this->getPosicao().y < pEntidade->getPosicao().y)
+                            pEntidade->mover(0, overlap.y);
                         else
-                        {
-                            entidade.setPosicao(
-                                sf::Vector2f(entidade.getPosicao().x, entidade.getPosicao().y + (somY - disAY))
-                            );
-                        }
+                            pEntidade->mover(0, -overlap.y);
                     }
                 }
             }
+
 
 
         }

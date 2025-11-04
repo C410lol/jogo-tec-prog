@@ -8,7 +8,8 @@
 
 namespace jogo {
     namespace entidades {
-        namespace obstacles {
+        namespace obstaculos {
+
             class Obstaculo: public Entidade
             {
             protected:
@@ -19,8 +20,11 @@ namespace jogo {
                 virtual ~Obstaculo();
 
                 void executar() override;
-                virtual void obstaculizar(Entidade &entidade);
+                virtual void obstaculizar(Entidade *entidade);
+
+                virtual void colidir(Entidade *pEntidade);
             };
+
         }
     }
 }

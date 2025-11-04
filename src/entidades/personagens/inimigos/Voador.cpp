@@ -1,8 +1,7 @@
 #include "entidades/personagens/inimigos/Voador.h"
 
 #include <cmath>
-
-
+#include <iostream>
 
 
 namespace jogo {
@@ -21,6 +20,13 @@ namespace jogo {
                 }
 
                 Voador::~Voador() = default;
+
+
+                void Voador::colidir(Entidade *pEntidade)
+                {
+                    std::cout << "Colidiu com voador" << std::endl;
+                }
+
 
 
                 void Voador::deslocar()

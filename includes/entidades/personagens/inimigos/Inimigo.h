@@ -25,6 +25,8 @@ namespace jogo {
 
                     void executar() override;
                     virtual void deslocar() = 0;
+
+                    virtual void colidir(Entidade *pEntidade) = 0;
                 };
 
             }

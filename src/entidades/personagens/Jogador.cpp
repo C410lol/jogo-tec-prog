@@ -28,6 +28,13 @@ namespace jogo {
             }
 
 
+            void Jogador::colidir(Entidade *pEntidade)
+            {
+
+            }
+
+
+
             void Jogador::deslocar()
             {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))

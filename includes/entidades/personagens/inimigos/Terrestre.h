@@ -22,6 +22,7 @@ namespace jogo {
                     ~Terrestre();
 
                     void deslocar() override;
+                    void colidir(Entidade *pEntidade) override;
                 };
 
             }

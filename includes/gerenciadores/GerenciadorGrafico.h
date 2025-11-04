@@ -24,7 +24,7 @@ namespace jogo {
             bool isJanelaAberta() const;
 
             void limpar() const;
-            void desenhar(const entidades::Entidade &entidade) const;
+            void desenhar(const entidades::Entidade *pEntidade) const;
             void mostrar() const;
 
             sf::RenderWindow* getJanela() const;

@@ -34,10 +34,10 @@ namespace jogo {
             if (pJanela)
                 pJanela->clear();
         }
-        void GerenciadorGrafico::desenhar(const entidades::Entidade &entity) const
+        void GerenciadorGrafico::desenhar(const entidades::Entidade *pEntidade) const
         {
-            if (pJanela)
-                pJanela->draw(entity.getRetangulo());
+            if (pJanela && pEntidade)
+                pJanela->draw(pEntidade->getRetangulo());
         }
         void GerenciadorGrafico::mostrar() const
         {

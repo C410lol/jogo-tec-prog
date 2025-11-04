@@ -7,17 +7,44 @@ namespace jogo {
     namespace entidades {
         namespace personagens {
 
-            Personagem::Personagem(): vidas(3) {};
+            Personagem::Personagem(): vidas(3), noChao(false) {};
             Personagem::~Personagem() = default;
 
             void Personagem::executar()
             {
+                deslocar();
+                setNoChao(false);
+
+                posicao.x += velocidade.x / 30.f;
+                posicao.y += velocidade.y / 30.f;
                 retangulo.setPosition(posicao);
             }
 
             void Personagem::cair()
             {
-                posicao.y += GRAVIDADE;
+                velocidade.y += GRAVIDADE;
+            }
+
+
+
+
+            sf::Vector2f Personagem::getVelocidade() const {
+                return velocidade;
+            }
+            void Personagem::setVelocidade(const sf::Vector2f r_velocidade) {
+                velocidade = r_velocidade;
+            }
+
+
+
+
+
+
+            bool Personagem::getNoChao() const {
+                return noChao;
+            }
+            void Personagem::setNoChao(const bool r_noChao) {
+                noChao = r_noChao;
             }
 
         }

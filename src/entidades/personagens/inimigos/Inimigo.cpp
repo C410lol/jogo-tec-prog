@@ -16,7 +16,6 @@ namespace jogo {
                 {
                     deslocar();
 
-                    //Character::fall();
                     Personagem::executar();
                 }
 

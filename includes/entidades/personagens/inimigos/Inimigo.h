@@ -12,7 +12,7 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                #define VELOCIDADE 0.05f
+                #define VELOCIDADE 3.f
 
                 class Inimigo: public Personagem
                 {

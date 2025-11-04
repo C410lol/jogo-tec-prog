@@ -12,7 +12,7 @@ namespace jogo {
                 Voador::Voador(Jogador *r_pJogador): Inimigo(r_pJogador)
                 {
                     tamanho = sf::Vector2f(50.0f, 50.0f);
-                    posicao = sf::Vector2f(600.0f, 500.0f);
+                    posicao = sf::Vector2f(600.0f, 100.0f);
 
                     retangulo.setSize(tamanho);
                     retangulo.setPosition(posicao);
@@ -20,6 +20,8 @@ namespace jogo {
                 }
 
                 Voador::~Voador() = default;
+
+
 
 
                 void Voador::colidir(Entidade *pEntidade)

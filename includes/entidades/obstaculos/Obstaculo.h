@@ -18,7 +18,7 @@ namespace jogo {
                 Obstaculo();
                 virtual ~Obstaculo();
 
-                void exec() override;
+                void executar() override;
                 virtual void obstaculizar(Entidade &entidade);
             };
         }

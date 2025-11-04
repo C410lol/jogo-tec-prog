@@ -23,7 +23,7 @@ namespace jogo {
                     Inimigo(Jogador *r_pJogadorAlvo);
                     virtual ~Inimigo();
 
-                    void exec() override;
+                    void executar() override;
                     virtual void deslocar() = 0;
                 };
 

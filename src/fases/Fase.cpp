@@ -31,9 +31,9 @@ namespace jogo {
 
         void Fase::exec()
         {
-            jogador.exec();
-            voador.exec();
-            terrestre.exec();
+            jogador.executar();
+            voador.executar();
+            terrestre.executar();
 
             if (pGerenciadorGrafico)
             {

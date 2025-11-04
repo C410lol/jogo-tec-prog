@@ -12,12 +12,12 @@ namespace jogo {
                 Inimigo::~Inimigo() = default;
 
 
-                void Inimigo::exec()
+                void Inimigo::executar()
                 {
                     deslocar();
 
                     //Character::fall();
-                    Personagem::exec();
+                    Personagem::executar();
                 }
 
             }

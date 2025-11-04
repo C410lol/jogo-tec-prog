@@ -1,15 +1,14 @@
 #include "listas/Lista.h"
-#include "listas/Lista.h"
-
-#include "entidades/Entidade.h"
 
 
+
+
+/*
 namespace jogo {
     namespace listas {
 
-        /*
-         CLASSE LISTA
-        */
+
+        //  CLASSE LISTA
         template<typename TL>
         Lista<TL>::Lista() : pPrimeiro(nullptr), pUltimo(nullptr) { limpar(); }
         template<typename TL>
@@ -17,7 +16,7 @@ namespace jogo {
 
 
         template<typename TL>
-        void Lista<TL>::incluir(TL *elemento)
+        void Lista<TL>::incluir(TL elemento)
         {
             if (!pPrimeiro)
             {
@@ -31,7 +30,7 @@ namespace jogo {
             }
         }
         template<typename TL>
-        void Lista<TL>::retirar(TL *elemento)
+        void Lista<TL>::retirar(TL elemento)
         {
             Iterator itAtual = begin();
             Iterator itAnterior = end();
@@ -97,11 +96,9 @@ namespace jogo {
 
 
 
-        /*
-         CLASSE ELEMENTO
-        */
+        //  CLASSE ELEMENTO
         template<typename TL>
-        Lista<TL>::Elemento::Elemento(TL *r_pInfo) : pProximo(nullptr)
+        Lista<TL>::Elemento::Elemento(TL r_pInfo) : pProximo(nullptr)
         {
             pInfo = r_pInfo;
         }
@@ -111,7 +108,7 @@ namespace jogo {
             pProximo = nullptr;
         }
         template<typename TL>
-        TL* Lista<TL>::Elemento::getInfo() const
+        TL Lista<TL>::Elemento::getInfo() const
         {
             return pInfo;
         }
@@ -129,23 +126,26 @@ namespace jogo {
 
 
 
-        /*
-         CLASSE ITERATOR
-        */
+        //  CLASSE ITERATOR
         template<typename TL>
         Lista<TL>::Iterator::Iterator(Elemento *r_pElemento)
         {
             pElemento = r_pElemento;
         }
         template<typename TL>
+        Lista<TL>::Iterator::Iterator()
+        {
+            pElemento = nullptr;
+        };
+        template<typename TL>
         Lista<TL>::Iterator::~Iterator()
         {
             pElemento = nullptr;
         }
         template<typename TL>
-        typename Lista<TL>::Elemento* Lista<TL>::Iterator::operator*()
+        TL Lista<TL>::Iterator::operator*()
         {
-            return pElemento;
+            return pElemento->getInfo();
         }
         template<typename TL>
         void Lista<TL>::Iterator::operator++()
@@ -155,14 +155,15 @@ namespace jogo {
         template<typename TL>
         bool Lista<TL>::Iterator::operator==(Iterator it)
         {
-            return pElemento == *it;
+            return pElemento->getInfo() == *it;
         }
         template<typename TL>
         bool Lista<TL>::Iterator::operator!=(Iterator it)
         {
-            return pElemento != *it;
+            return pElemento->getInfo() != *it;
         }
 
 
     }
 }
+*/

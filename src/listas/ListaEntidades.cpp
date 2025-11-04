@@ -16,12 +16,12 @@ namespace jogo {
         }
         void ListaEntidades::percorrer()
         {
-            Lista<entidades::Entidade>::Iterator it;
+            Lista<entidades::Entidade*>::Iterator it;
             for (it = listaEntidades.begin(); it != listaEntidades.end(); ++it)
             {
                 if (*it)
                 {
-                    (*it)->getInfo()->exec();
+                    (*it)->executar();
                 }
             }
         }

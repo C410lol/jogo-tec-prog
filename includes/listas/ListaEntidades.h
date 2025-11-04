@@ -13,7 +13,7 @@ namespace jogo {
         class ListaEntidades
         {
         private:
-            Lista<entidades::Entidade> listaEntidades;
+            Lista<entidades::Entidade*> listaEntidades;
 
         public:
             ListaEntidades();

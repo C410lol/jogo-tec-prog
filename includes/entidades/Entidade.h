@@ -25,12 +25,13 @@ namespace jogo {
             void mover(float x, float y);
             void mover(sf::Vector2f mover);
 
+            virtual void colidir(Entidade *pEntidade) = 0;
+
             sf::RectangleShape getRetangulo() const;
             sf::Vector2f getPosicao() const;
             sf::Vector2f getTamanho() const;
 
             void setPosicao(sf::Vector2f r_posicao);
-
         };
 
     }

@@ -1,20 +1,57 @@
 #include "fases/Fase.h"
 
+#include <iostream>
 
+#include "entidades/personagens/inimigos/Voador.h"
+#include "entidades/personagens/inimigos/Terrestre.h"
+#include "gerenciadores/GerenciadorGrafico.h"
 
 
 namespace jogo {
     namespace fases {
 
         gerenciadores::GerenciadorGrafico *Fase::pGerenciadorGrafico = nullptr;
-        gerenciadores::GerenciadorColisao *Fase::pGerenciadorColisao = nullptr;
 
 
-        Fase::Fase(): voador(&jogador), terrestre(&jogador)
+        Fase::Fase()
         {
-            //pCollision = new managers::Collision(&player, &obstacle);
+            pGerenciadorColisao = new gerenciadores::GerenciadorColisao(
+                &listaJogadores, &listaInimigos, &listaObstaculos
+            );
+
+            criaJogadores();
+            criaInimigos();
+            criaObstaculos();
         };
         Fase::~Fase() = default;
+
+
+
+
+        void Fase::criaJogadores()
+        {
+            entidades::personagens::Jogador *pJogador = new entidades::personagens::Jogador();
+            listaJogadores.incluir(pJogador);
+        }
+        void Fase::criaInimigos()
+        {
+            entidades::personagens::inimigos::Voador *pVoador = new entidades::personagens::inimigos::Voador(
+                *listaJogadores.begin()
+            );
+            entidades::personagens::inimigos::Terrestre *pTerrestre = new entidades::personagens::inimigos::Terrestre(
+                *listaJogadores.begin()
+            );
+            listaInimigos.incluir(pVoador);
+            listaInimigos.incluir(pTerrestre);
+        }
+        void Fase::criaObstaculos()
+        {
+            entidades::obstaculos::Obstaculo *pObstaculo = new entidades::obstaculos::Obstaculo();
+            listaObstaculos.incluir(pObstaculo);
+        }
+
+
+
 
 
         void Fase::setGerenciadorGrafico(
@@ -23,26 +60,43 @@ namespace jogo {
         {
             pGerenciadorGrafico = r_pGerenciadorGrafico;
         }
-        void Fase::setGerenciadorColisao(gerenciadores::GerenciadorColisao *r_pGerenciadorColisao)
-        {
-            pGerenciadorColisao = r_pGerenciadorColisao;
-        }
 
 
         void Fase::exec()
         {
-            jogador.executar();
-            voador.executar();
-            terrestre.executar();
+            if (pGerenciadorColisao)
+                pGerenciadorColisao->checarColisoes();
 
             if (pGerenciadorGrafico)
             {
-                //pCollision->checkCollisions();
+                listas::Lista<entidades::personagens::Jogador*>::Iterator itJogador;
+                listas::Lista<entidades::personagens::inimigos::Inimigo*>::Iterator itInimigo;
+                listas::Lista<entidades::obstaculos::Obstaculo*>::Iterator itObstaculo;
 
-                pGerenciadorGrafico->desenhar(jogador);
-                pGerenciadorGrafico->desenhar(voador);
-                pGerenciadorGrafico->desenhar(terrestre);
-                //pGraphicManager->draw(obstacle);
+                for (itJogador = listaJogadores.begin(); itJogador != listaJogadores.end(); ++itJogador)
+                {
+                    if (!(*itJogador))
+                        continue;
+
+                    (*itJogador)->executar();
+                    pGerenciadorGrafico->desenhar(*itJogador);
+                }
+                for (itInimigo = listaInimigos.begin(); itInimigo != listaInimigos.end(); ++itInimigo)
+                {
+                    if (!(*itInimigo))
+                        continue;
+
+                    (*itInimigo)->executar();
+                    pGerenciadorGrafico->desenhar(*itInimigo);
+                }
+                for (itObstaculo = listaObstaculos.begin(); itObstaculo != listaObstaculos.end(); ++itObstaculo)
+                {
+                    if (!(*itObstaculo))
+                        continue;
+
+                    (*itObstaculo)->executar();
+                    pGerenciadorGrafico->desenhar(*itObstaculo);
+                }
             }
         }
 

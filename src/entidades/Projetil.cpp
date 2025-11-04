@@ -10,7 +10,7 @@ namespace jogo {
             pos.x+=50;
             setPosicao(pos);
         }
-        void Projetil::exec() {
+        void Projetil::executar() {
             deslocar();
         }
         void Projetil::deslocar() {

@@ -19,7 +19,7 @@ namespace jogo {
                 public:
                     Projetil(personagens::Personagem* r_pPersonagem);
                     ~Projetil();
-                    void exec();
+                    void executar();
                     void deslocar();
             };
         }

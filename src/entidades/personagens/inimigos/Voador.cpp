@@ -2,7 +2,7 @@
 #include "entidades/personagens/Jogador.h"
 
 #include <cmath>
-
+#include "fases/Fase.h"
 
 
 
@@ -52,6 +52,10 @@ namespace jogo {
                             mover(dirX * static_cast<float>(deslocamento), dirY * static_cast<float>(deslocamento));
                         }
                     }
+                }
+                void Voador::atacar()
+                {
+                    pFase->incluiprojetil(pFase->criaprojetil(this));
                 }
 
             }

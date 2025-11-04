@@ -24,6 +24,7 @@ namespace jogo {
                     ~Voador();
 
                     void deslocar() override;
+                    void atacar();
                 };
 
             }

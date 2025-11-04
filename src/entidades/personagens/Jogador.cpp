@@ -7,7 +7,7 @@ namespace jogo {
     namespace entidades {
         namespace personagens {
 
-            Jogador::Jogador(): pontos(0)
+            Jogador::Jogador(): Personagem(3, true), pontos(0)
             {
                 tamanho = sf::Vector2f(50.0f, 50.0f);
                 posicao = sf::Vector2f(200.0f, 200.0f);
@@ -21,9 +21,6 @@ namespace jogo {
 
             void Jogador::executar()
             {
-                deslocar();
-
-                Personagem::cair();
                 Personagem::executar();
             }
 

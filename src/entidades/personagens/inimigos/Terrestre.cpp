@@ -8,10 +8,11 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                Terrestre::Terrestre(Jogador *r_pJogador): Inimigo(r_pJogador)
+                Terrestre::Terrestre(Jogador *r_pJogador):
+                Inimigo(r_pJogador, 1, true)
                 {
                     tamanho = sf::Vector2f(50.0f, 50.0f);
-                    posicao = sf::Vector2f(600.0f, 300.0f);
+                    posicao = sf::Vector2f(600.0f, 200.0f);
 
                     retangulo.setSize(tamanho);
                     retangulo.setPosition(posicao);
@@ -21,7 +22,6 @@ namespace jogo {
 
 
                 void Terrestre::executar() {
-                    Personagem::cair();
                     Personagem::executar();
                 }
 

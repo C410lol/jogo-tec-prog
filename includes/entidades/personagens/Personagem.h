@@ -18,11 +18,12 @@ namespace jogo {
             protected:
                 int vidas;
                 sf::Vector2f velocidade;
+                bool sofreGravidade;
                 bool noChao;
                 bool olhandoDireita;
 
             public:
-                Personagem();
+                Personagem(int r_vidas, bool r_sofreGravidade);
                 ~Personagem() override;
 
                 void executar() override = 0;

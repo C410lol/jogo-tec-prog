@@ -7,12 +7,15 @@ namespace jogo {
     namespace entidades {
         namespace personagens {
 
-            Personagem::Personagem(): vidas(3), noChao(false) {};
+            Personagem::Personagem(const int r_vidas, const bool r_sofreGravidade):
+            vidas(r_vidas), sofreGravidade(r_sofreGravidade), noChao(false), olhandoDireita(true)
+            {}
             Personagem::~Personagem() = default;
 
             void Personagem::executar()
             {
                 deslocar();
+                cair();
                 setNoChao(false);
 
                 posicao.x += velocidade.x / 30.f;
@@ -22,7 +25,8 @@ namespace jogo {
 
             void Personagem::cair()
             {
-                velocidade.y += GRAVIDADE;
+                if (sofreGravidade)
+                    velocidade.y += GRAVIDADE;
             }
 
 

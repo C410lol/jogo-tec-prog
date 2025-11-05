@@ -12,7 +12,7 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                #define VELOCIDADE 0.05f
+                #define VELOCIDADE 3.f
 
                 class Inimigo: public Personagem
                 {
@@ -20,7 +20,7 @@ namespace jogo {
                     Jogador *pJogadorAlvo;
 
                 public:
-                    Inimigo(Jogador *r_pJogadorAlvo);
+                    Inimigo(Jogador *r_pJogadorAlvo, int r_vidas, bool r_sofreGravidade);
                     virtual ~Inimigo();
 
                     void executar() override;

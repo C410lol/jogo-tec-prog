@@ -1,13 +1,13 @@
 #include "entidades/personagens/Jogador.h"
 
-
+#include <iostream>
 
 
 namespace jogo {
     namespace entidades {
         namespace personagens {
 
-            Jogador::Jogador(): pontos(0)
+            Jogador::Jogador(): Personagem(3, true), pontos(0)
             {
                 tamanho = sf::Vector2f(50.0f, 50.0f);
                 posicao = sf::Vector2f(200.0f, 200.0f);
@@ -21,9 +21,6 @@ namespace jogo {
 
             void Jogador::executar()
             {
-                deslocar();
-
-                //Character::fall();
                 Personagem::executar();
             }
 
@@ -39,20 +36,24 @@ namespace jogo {
             {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                 {
-                    mover(-0.5f, 0.f);
+                    mover(-7.5f, 0);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                 {
-                    mover(0.5f, 0.f);
-
+                    mover(7.5f, 0);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                 {
-                    mover(0.f, -0.5f);
+                    pular();
                 }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                {
-                    mover(0.f, 0.5f);
+            }
+
+
+
+
+            void Jogador::pular() {
+                if (noChao) {
+                    setVelocidade(sf::Vector2f(getVelocidade().x, -150));
                 }
             }
 

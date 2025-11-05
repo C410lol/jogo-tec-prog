@@ -10,6 +10,8 @@
 namespace jogo {
     namespace gerenciadores {
 
+        #define FRAMERATE_LIMIT 30
+
         class GerenciadorGrafico
         {
         private:

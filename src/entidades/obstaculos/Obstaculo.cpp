@@ -10,8 +10,8 @@ namespace jogo {
 
             Obstaculo::Obstaculo()
             {
-                tamanho = sf::Vector2f(400.0f, 50.0f);
-                posicao = sf::Vector2f(500.0f, 550.0f);
+                tamanho = sf::Vector2f(1280.0f, 50.0f);
+                posicao = sf::Vector2f(0.0f, 550.0f);
 
                 retangulo.setSize(tamanho);
                 retangulo.setPosition(posicao);
@@ -37,9 +37,11 @@ namespace jogo {
                 if (pEntidade)
                 {
                     sf::Vector2f overlap = gerenciadores::GerenciadorColisao::calcOverlap(this, pEntidade);
+                    personagens::Personagem* pPersonagem = dynamic_cast<personagens::Personagem*>(pEntidade);
 
                     if (overlap.x < overlap.y)
                     {
+                        pPersonagem->setVelocidade(sf::Vector2f(0, pPersonagem->getVelocidade().y));
                         if (this->getPosicao().x < pEntidade->getPosicao().x)
                             pEntidade->mover(overlap.x, 0);
                         else
@@ -47,10 +49,13 @@ namespace jogo {
                     }
                     else
                     {
+                        pPersonagem->setVelocidade(sf::Vector2f(pPersonagem->getVelocidade().x, 0));
                         if (this->getPosicao().y < pEntidade->getPosicao().y)
                             pEntidade->mover(0, overlap.y);
-                        else
+                        else {
+                            pPersonagem->setNoChao(true);
                             pEntidade->mover(0, -overlap.y);
+                        }
                     }
                 }
             }

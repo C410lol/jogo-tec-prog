@@ -21,6 +21,7 @@ namespace jogo {
                     Terrestre(Jogador *r_pJogador);
                     ~Terrestre();
 
+                    void executar() override;
                     void deslocar() override;
                     void colidir(Entidade *pEntidade) override;
                 };

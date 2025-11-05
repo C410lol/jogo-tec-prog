@@ -16,11 +16,12 @@ namespace jogo {
                 bool danoso;
 
             public:
+                Obstaculo(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso);
                 Obstaculo();
                 virtual ~Obstaculo();
 
                 void executar() override;
-                virtual void obstaculizar(Entidade *entidade);
+                virtual void obstaculizar(Entidade *entidade) = 0;
 
                 virtual void colidir(Entidade *pEntidade);
             };

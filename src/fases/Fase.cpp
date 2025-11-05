@@ -2,9 +2,14 @@
 
 #include <iostream>
 
+#include "entidades/obstaculos/Espinho.h"
+#include "entidades/obstaculos/Plataforma.h"
+#include "entidades/obstaculos/Meleca.h"
 #include "entidades/personagens/inimigos/Voador.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "gerenciadores/GerenciadorGrafico.h"
+
+
 
 
 namespace jogo {
@@ -46,8 +51,12 @@ namespace jogo {
         }
         void Fase::criaObstaculos()
         {
-            entidades::obstaculos::Obstaculo *pObstaculo = new entidades::obstaculos::Obstaculo();
-            listaObstaculos.incluir(pObstaculo);
+            entidades::obstaculos::Plataforma *pPlataforma = new entidades::obstaculos::Plataforma();
+            entidades::obstaculos::Espinho *pEspinho = new entidades::obstaculos::Espinho();
+            entidades::obstaculos::Meleca *pMeleca = new entidades::obstaculos::Meleca();
+            listaObstaculos.incluir(pPlataforma);
+            listaObstaculos.incluir(pEspinho);
+            listaObstaculos.incluir(pMeleca);
         }
 
 

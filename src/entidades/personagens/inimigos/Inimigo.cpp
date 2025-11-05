@@ -14,10 +14,36 @@ namespace jogo {
                 Inimigo::~Inimigo() = default;
 
 
+
+
                 void Inimigo::executar()
                 {
                     Personagem::executar();
                 }
+
+
+
+
+                void Inimigo::colidir(Entidade *pEntidade)
+                {
+                    if (!pEntidade)
+                        return;
+
+                    Jogador* pJogador = dynamic_cast<Jogador*>(pEntidade);
+                    sf::Vector2f vetorVelocidade;
+
+                    vetorVelocidade.y = -400;
+                    if (this->getPosicao().x < pJogador->getPosicao().x)
+                        vetorVelocidade.x = 300;
+                    else
+                        vetorVelocidade.x = -300;
+
+                    pJogador->setNoChao(false);
+                    pJogador->setKnokback(true);
+                    pJogador->setVelocidade(vetorVelocidade);
+                    --(*pJogador);
+                }
+
 
             }
         }

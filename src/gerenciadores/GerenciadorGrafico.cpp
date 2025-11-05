@@ -14,6 +14,8 @@ namespace jogo {
         GerenciadorGrafico::~GerenciadorGrafico() = default;
 
 
+
+
         void GerenciadorGrafico::criarJanela()
         {
             pJanela = new sf::RenderWindow(sf::VideoMode({1280, 720}), "Game");
@@ -22,6 +24,7 @@ namespace jogo {
         void GerenciadorGrafico::fecharJanela() const {
             pJanela->close();
         }
+
 
 
 

@@ -19,6 +19,10 @@ namespace jogo {
             pJanela = new sf::RenderWindow(sf::VideoMode({1280, 720}), "Game");
             pJanela->setFramerateLimit(30);
         }
+        void GerenciadorGrafico::fecharJanela() const {
+            pJanela->close();
+        }
+
 
 
         bool GerenciadorGrafico::isJanelaAberta() const

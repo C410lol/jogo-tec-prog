@@ -28,6 +28,7 @@ namespace jogo {
             void limpar() const;
             void desenhar(const entidades::Entidade *pEntidade) const;
             void mostrar() const;
+            void fecharJanela() const;
 
             sf::RenderWindow* getJanela() const;
         };

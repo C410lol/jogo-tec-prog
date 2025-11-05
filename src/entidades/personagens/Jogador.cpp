@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "gerenciadores/GerenciadorGrafico.h"
+
 
 namespace jogo {
     namespace entidades {
@@ -19,9 +21,18 @@ namespace jogo {
             Jogador::~Jogador() = default;
 
 
+
+
+            void Jogador::checarEstaMorto() const {
+                if (vidas <= 0)
+                    pGerenciadorGrafico->fecharJanela();
+            }
+
+
+
             void Jogador::executar()
             {
-                std::cout << vidas << std::endl;
+                checarEstaMorto();
                 Personagem::executar();
             }
 

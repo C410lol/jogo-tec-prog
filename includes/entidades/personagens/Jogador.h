@@ -13,7 +13,11 @@ namespace jogo {
             class Jogador: public Personagem
             {
             private:
+                float deslocamentoX;
+                bool naMeleca;
                 int pontos;
+            private:
+                void atualizarNaMeleca();
 
             public:
                 Jogador();
@@ -23,6 +27,8 @@ namespace jogo {
                 void deslocar() override;
                 void colidir(Entidade *pEntidade) override;
                 void checarEstaMorto() const;
+
+                void setNaMeleca(bool r_estaNaMeleca);
 
                 void pular();
             };

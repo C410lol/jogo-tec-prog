@@ -9,7 +9,10 @@ namespace jogo {
     namespace entidades {
         namespace personagens {
 
-            Jogador::Jogador(): Personagem(10, true), pontos(0)
+            #define DESLOCAMENTO_JOGADOR_PADRAO 7.5
+
+            Jogador::Jogador():
+            Personagem(10, true), deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
             {
                 tamanho = sf::Vector2f(48.0f, 48.0f);
                 posicao = sf::Vector2f(200.0f, 200.0f);
@@ -32,8 +35,9 @@ namespace jogo {
 
             void Jogador::executar()
             {
-                checarEstaMorto();
                 Personagem::executar();
+                atualizarNaMeleca();
+                checarEstaMorto();
             }
 
 
@@ -51,11 +55,11 @@ namespace jogo {
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                 {
-                    mover(-7.5f, 0);
+                    mover(-deslocamentoX, 0);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                 {
-                    mover(7.5f, 0);
+                    mover(deslocamentoX, 0);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                 {
@@ -66,8 +70,26 @@ namespace jogo {
 
 
 
+            void Jogador::setNaMeleca(bool r_estaNaMeleca)
+            {
+                naMeleca = r_estaNaMeleca;
+            }
+            void Jogador::atualizarNaMeleca()
+            {
+                if (naMeleca)
+                    deslocamentoX = 3.f;
+                else
+                    deslocamentoX = DESLOCAMENTO_JOGADOR_PADRAO;
+                naMeleca = false;
+            }
+
+
+
+
+
+
             void Jogador::pular() {
-                if (noChao) {
+                if (noChao && !naMeleca) {
                     noChao = false;
                     setVelocidade(sf::Vector2f(getVelocidade().x, -550));
                 }

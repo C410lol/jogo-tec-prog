@@ -21,14 +21,13 @@ namespace jogo {
                 Terrestre::~Terrestre() = default;
 
 
+
+
                 void Terrestre::executar() {
                     Personagem::executar();
                 }
 
-                void Terrestre::colidir(Entidade *pEntidade)
-                {
-                    std::cout << "Colidiu com terrestre" << std::endl;
-                }
+
 
 
                 void Terrestre::deslocar()

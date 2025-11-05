@@ -1,6 +1,6 @@
 #include "./entidades/personagens/Personagem.h"
 
-
+#include <iostream>
 
 
 namespace jogo {
@@ -8,7 +8,7 @@ namespace jogo {
         namespace personagens {
 
             Personagem::Personagem(const int r_vidas, const bool r_sofreGravidade):
-            vidas(r_vidas), sofreGravidade(r_sofreGravidade), noChao(false), olhandoDireita(true)
+            vidas(r_vidas), sofreGravidade(r_sofreGravidade), noChao(false), olhandoDireita(true), knokback(false)
             {}
             Personagem::~Personagem() = default;
 
@@ -16,10 +16,10 @@ namespace jogo {
             {
                 deslocar();
                 cair();
-                setNoChao(false);
+                atualizaKnokback();
+                atualizaVelocidadeX();
+                atualizaPosicao();
 
-                posicao.x += velocidade.x / 30.f;
-                posicao.y += velocidade.y / 30.f;
                 retangulo.setPosition(posicao);
             }
 
@@ -32,6 +32,16 @@ namespace jogo {
 
 
 
+            void Personagem::atualizaVelocidadeX()
+            {
+                if (noChao)
+                    setVelocidade(sf::Vector2f(0, getVelocidade().y));
+            }
+            void Personagem::atualizaPosicao()
+            {
+                posicao.x += velocidade.x / 30.f;
+                posicao.y += velocidade.y / 30.f;
+            }
             sf::Vector2f Personagem::getVelocidade() const {
                 return velocidade;
             }
@@ -50,6 +60,34 @@ namespace jogo {
             void Personagem::setNoChao(const bool r_noChao) {
                 noChao = r_noChao;
             }
+
+
+
+
+            void Personagem::atualizaKnokback()
+            {
+                if (getNoChao())
+                    setKnokback(false);
+            }
+            bool Personagem::getKnokback() const
+            {
+                return knokback;
+            }
+            void Personagem::setKnokback(bool r_knokback)
+            {
+                knokback = r_knokback;
+            }
+
+
+
+
+
+
+            void Personagem::operator--()
+            {
+                --vidas;
+            }
+
 
         }
     }

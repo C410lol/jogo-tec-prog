@@ -25,13 +25,6 @@ namespace jogo {
 
 
 
-                void Voador::colidir(Entidade *pEntidade)
-                {
-                    std::cout << "Colidiu com voador" << std::endl;
-                }
-
-
-
                 void Voador::deslocar()
                 {
                     if (pJogadorAlvo)

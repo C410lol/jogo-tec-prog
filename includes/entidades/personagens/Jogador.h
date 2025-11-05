@@ -22,6 +22,7 @@ namespace jogo {
                 void executar() override;
                 void deslocar() override;
                 void colidir(Entidade *pEntidade) override;
+                void checarEstaMorto() const;
 
                 void pular();
             };

@@ -2,14 +2,16 @@
 
 #include <iostream>
 
+#include "gerenciadores/GerenciadorGrafico.h"
+
 
 namespace jogo {
     namespace entidades {
         namespace personagens {
 
-            Jogador::Jogador(): Personagem(3, true), pontos(0)
+            Jogador::Jogador(): Personagem(10, true), pontos(0)
             {
-                tamanho = sf::Vector2f(50.0f, 50.0f);
+                tamanho = sf::Vector2f(48.0f, 48.0f);
                 posicao = sf::Vector2f(200.0f, 200.0f);
 
                 retangulo.setSize(tamanho);
@@ -19,8 +21,18 @@ namespace jogo {
             Jogador::~Jogador() = default;
 
 
+
+
+            void Jogador::checarEstaMorto() const {
+                if (vidas <= 0)
+                    pGerenciadorGrafico->fecharJanela();
+            }
+
+
+
             void Jogador::executar()
             {
+                checarEstaMorto();
                 Personagem::executar();
             }
 
@@ -34,6 +46,9 @@ namespace jogo {
 
             void Jogador::deslocar()
             {
+                if (getKnokback())
+                    return;
+
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                 {
                     mover(-7.5f, 0);
@@ -53,7 +68,8 @@ namespace jogo {
 
             void Jogador::pular() {
                 if (noChao) {
-                    setVelocidade(sf::Vector2f(getVelocidade().x, -150));
+                    noChao = false;
+                    setVelocidade(sf::Vector2f(getVelocidade().x, -550));
                 }
             }
 

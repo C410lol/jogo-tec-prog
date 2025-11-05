@@ -11,16 +11,22 @@ namespace jogo {
         namespace personagens {
 
             #define JOGADOR_VIDAS 3
-            #define GRAVIDADE 10
+            #define GRAVIDADE 50
 
             class Personagem: public Entidade
             {
+            private:
+                void atualizaPosicao();
+                void atualizaVelocidadeX();
+                void atualizaKnokback();
+
             protected:
                 int vidas;
                 sf::Vector2f velocidade;
                 bool sofreGravidade;
                 bool noChao;
                 bool olhandoDireita;
+                bool knokback;
 
             public:
                 Personagem(int r_vidas, bool r_sofreGravidade);
@@ -36,6 +42,11 @@ namespace jogo {
 
                 bool getNoChao() const;
                 void setNoChao(bool r_noChao);
+
+                bool getKnokback() const;
+                void setKnokback(bool r_knokback);
+
+                void operator--();
             };
 
         }

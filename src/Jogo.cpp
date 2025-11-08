@@ -8,6 +8,7 @@ namespace jogo
     Jogo::Jogo()
     {
         Ente::setGerenciadorGrafico(&gerenciadorGrafico);
+        pFase = new fases::PrimeiraFase();
         exec();
     }
     Jogo::~Jogo() = default;
@@ -26,7 +27,7 @@ namespace jogo
                 }
             }
             gerenciadorGrafico.limpar();
-            primeiraFase.exec();
+            pFase->executar();
             gerenciadorGrafico.mostrar();
         }
     }

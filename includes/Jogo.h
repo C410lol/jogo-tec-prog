@@ -11,7 +11,7 @@ namespace jogo {
 
     class Jogo
     {
-        fases::PrimeiraFase primeiraFase;
+        fases::Fase *pFase;
         gerenciadores::GerenciadorGrafico gerenciadorGrafico;
 
     public:

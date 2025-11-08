@@ -8,7 +8,7 @@ namespace jogo {
         namespace obstaculos {
 
             Obstaculo::Obstaculo(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso):
-            danoso(r_danoso)
+            Entidade(r_posicao, r_tamanho), danoso(r_danoso)
             {}
             Obstaculo::Obstaculo(): danoso(false) {}
             Obstaculo::~Obstaculo() = default;
@@ -27,8 +27,6 @@ namespace jogo {
             {
                 obstaculizar(pEntidade);
             }
-
-
 
         }
     }

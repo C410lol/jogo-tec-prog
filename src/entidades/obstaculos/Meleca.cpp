@@ -9,16 +9,10 @@ namespace jogo {
 
             Meleca::Meleca(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_viscosidade):
             Obstaculo(r_posicao, r_tamanho, r_danoso), viscosidade(r_viscosidade)
-            {}
-            Meleca::Meleca()
             {
-                tamanho = sf::Vector2f(100.f, 5.f);
-                posicao = sf::Vector2f(601.f, 495.f);
-
-                retangulo.setSize(tamanho);
-                retangulo.setPosition(posicao);
                 retangulo.setFillColor(sf::Color::Green);
             }
+            Meleca::Meleca(): viscosidade(0) {}
             Meleca::~Meleca() = default;
 
 

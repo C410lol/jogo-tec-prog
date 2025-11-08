@@ -20,6 +20,7 @@ namespace jogo {
                 void atualizarNaMeleca();
 
             public:
+                Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
                 Jogador();
                 ~Jogador() override;
 

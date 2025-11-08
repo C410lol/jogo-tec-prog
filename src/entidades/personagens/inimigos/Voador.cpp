@@ -9,17 +9,12 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                Voador::Voador(Jogador *r_pJogador):
-                Inimigo(r_pJogador, 2, false)
+                Voador::Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
+                Inimigo(r_posicao, r_tamanho, 2, false)
                 {
-                    tamanho = sf::Vector2f(50.0f, 50.0f);
-                    posicao = sf::Vector2f(600.0f, 100.0f);
-
-                    retangulo.setSize(tamanho);
-                    retangulo.setPosition(posicao);
                     retangulo.setFillColor(sf::Color::Yellow);
                 }
-
+                Voador::Voador() = default;
                 Voador::~Voador() = default;
 
 

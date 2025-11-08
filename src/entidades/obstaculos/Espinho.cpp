@@ -1,5 +1,7 @@
 #include "entidades/obstaculos/Espinho.h"
 
+#include <iostream>
+
 #include "entidades/personagens/Jogador.h"
 
 
@@ -9,15 +11,10 @@ namespace jogo {
 
             Espinho::Espinho(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_danosidade):
             Obstaculo(r_posicao, r_tamanho, r_danoso), danosidade(r_danosidade)
-            {}
-            Espinho::Espinho(): danosidade(0) {
-                tamanho = sf::Vector2f(48.f, 48.f);
-                posicao = sf::Vector2f(400.f, 452.f);
-
-                retangulo.setSize(tamanho);
-                retangulo.setPosition(posicao);
-                retangulo.setFillColor(sf::Color::Cyan);
+            {
+                retangulo.setFillColor(sf::Color::Magenta);
             }
+            Espinho::Espinho(): danosidade(0) {}
             Espinho::~Espinho() = default;
 
 
@@ -32,11 +29,11 @@ namespace jogo {
                     return;
 
                 sf::Vector2f vetorVelocidade;
-                vetorVelocidade.y = -400;
+                vetorVelocidade.y = -275;
                 if (this->getPosicao().x < pJogador->getPosicao().x)
-                    vetorVelocidade.x = 300;
+                    vetorVelocidade.x = 175;
                 else
-                    vetorVelocidade.x = -300;
+                    vetorVelocidade.x = -175;
 
                 pJogador->setNoChao(false);
                 pJogador->setKnokback(true);

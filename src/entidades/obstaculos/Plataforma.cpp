@@ -9,15 +9,10 @@ namespace jogo {
 
             Plataforma::Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_movel):
             Obstaculo(r_posicao, r_tamanho, r_danoso), movel(r_movel)
-            {}
-            Plataforma::Plataforma(): movel(false) {
-                tamanho = sf::Vector2f(1280.f, 50.f);
-                posicao = sf::Vector2f(0.f, 500.f);
-
-                retangulo.setSize(tamanho);
-                retangulo.setPosition(posicao);
+            {
                 retangulo.setFillColor(sf::Color::White);
             }
+            Plataforma::Plataforma(): movel(false) {}
             Plataforma::~Plataforma() = default;
 
 

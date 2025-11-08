@@ -20,7 +20,8 @@ namespace jogo {
                     Jogador *pJogadorAlvo;
 
                 public:
-                    Inimigo(Jogador *r_pJogadorAlvo, int r_vidas, bool r_sofreGravidade);
+                    Inimigo(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade);
+                    Inimigo();
                     virtual ~Inimigo();
 
                     void executar() override;

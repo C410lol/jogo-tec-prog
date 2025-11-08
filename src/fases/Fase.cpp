@@ -15,59 +15,41 @@
 namespace jogo {
     namespace fases {
 
-
-
-        Fase::Fase()
-        {
-            criaJogadores();
-            criaInimigos();
-            criaObstaculos();
-        };
+        Fase::Fase() { setarProporcao(); }
         Fase::~Fase() = default;
 
 
 
 
-        void Fase::criaJogadores()
+        void Fase::setarProporcao()
         {
-            entidades::personagens::Jogador *pJogador = new entidades::personagens::Jogador();
-            listaEntidades.incluir(pJogador);
-            GerenciadorColisao.incluirJogador(pJogador);
-        }
-        void Fase::criaInimigos()
-        {
-            entidades::personagens::inimigos::Voador *pVoador = new entidades::personagens::inimigos::Voador(
-                GerenciadorColisao.getJogador()
-            );
-            entidades::personagens::inimigos::Terrestre *pTerrestre = new entidades::personagens::inimigos::Terrestre(
-                GerenciadorColisao.getJogador()
-            );
-            listaEntidades.incluir(pVoador);
-            listaEntidades.incluir(pTerrestre);
-            GerenciadorColisao.incluirInimigo(pVoador);
-            GerenciadorColisao.incluirInimigo(pTerrestre);
-        }
-        void Fase::criaObstaculos()
-        {
-            entidades::obstaculos::Plataforma *pPlataforma = new entidades::obstaculos::Plataforma();
-            entidades::obstaculos::Espinho *pEspinho = new entidades::obstaculos::Espinho();
-            entidades::obstaculos::Meleca *pMeleca = new entidades::obstaculos::Meleca();
-            listaEntidades.incluir(pPlataforma);
-            listaEntidades.incluir(pEspinho);
-            listaEntidades.incluir(pMeleca);
-            GerenciadorColisao.incluirObstaculo(pPlataforma);
-            GerenciadorColisao.incluirObstaculo(pEspinho);
-            GerenciadorColisao.incluirObstaculo(pMeleca);
-        }
-
-        void Fase::exec()
-        {
-            GerenciadorColisao.checarColisoes();
-            listaEntidades.percorrer();
-
+            if (pGerenciadorGrafico)
+            {
+                proporcao.x = pGerenciadorGrafico->getWindowSize().x / 42.f;
+                proporcao.y = pGerenciadorGrafico->getWindowSize().y / 24.f;
             }
         }
 
 
+
+
+
+        void Fase::criarCenario()
+        {
+            //criarJogadores();
+            //criarInimigos();
+            criarObstaculos();
+        }
+
+
+
+
+        void Fase::executar()
+        {
+            gerenciadorColisao.checarColisoes();
+            listaEntidades.percorrer();
+        }
+
     }
+}
 

@@ -1,9 +1,11 @@
 #ifndef JOGO_FASE_H
 #define JOGO_FASE_H
 
+#include <fstream>
+
+#include "Ente.h"
 #include "gerenciadores/GerenciadorColisao.h"
-#include "listas/Lista.h"
-#include"listas/ListaEntidades.h"
+#include "listas/ListaEntidades.h"
 
 
 
@@ -11,25 +13,29 @@
 namespace jogo {
     namespace fases {
 
-        class Fase
+        class Fase: public Ente
         {
-        private:
-            void criaJogadores();
-            void criaInimigos();
-            void criaObstaculos();
-
         protected:
-
-            gerenciadores::GerenciadorColisao GerenciadorColisao;
+            sf::Vector2f proporcao;
+            std::ifstream faseTemplate;
+            gerenciadores::GerenciadorColisao gerenciadorColisao;
             listas::ListaEntidades listaEntidades;
+            entidades::personagens::Jogador *jogador;
+        protected:
+            void setarProporcao();
+            virtual void abrirFaseTemplate() = 0;
+            virtual void criarTerrestres(sf::Vector2f posicao, sf::Vector2f tamanho) = 0;
+            virtual void criarPlataformas(sf::Vector2f posicao, sf::Vector2f tamanho) = 0;
+            virtual void criarJogadores(sf::Vector2f posicao, sf::Vector2f tamanho) = 0;
+            virtual void criarInimigos() = 0;
+            virtual void criarObstaculos() = 0;
+            void criarCenario();
 
         public:
             Fase();
             virtual ~Fase();
 
-            virtual void exec();
-
-
+            void executar() override;
         };
 
     }

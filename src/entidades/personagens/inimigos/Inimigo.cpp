@@ -1,6 +1,6 @@
 #include "entidades/personagens/inimigos/Inimigo.h"
 
-
+#include <iostream>
 
 
 namespace jogo {
@@ -30,6 +30,9 @@ namespace jogo {
                         return;
 
                     Jogador* pJogador = dynamic_cast<Jogador*>(pEntidade);
+                    if (!pJogador)
+                        return;
+
                     sf::Vector2f vetorVelocidade;
 
                     vetorVelocidade.y = -400;

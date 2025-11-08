@@ -7,7 +7,7 @@ namespace jogo
 {
     Jogo::Jogo()
     {
-        fases::Fase::setGerenciadorGrafico(&gerenciadorGrafico);
+        Ente::setGerenciadorGrafico(&gerenciadorGrafico);
         exec();
     }
     Jogo::~Jogo() = default;

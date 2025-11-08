@@ -30,6 +30,7 @@ namespace jogo {
             void mostrar() const;
             void fecharJanela() const;
 
+            sf::Vector2u getWindowSize() const;
             sf::RenderWindow* getJanela() const;
         };
 

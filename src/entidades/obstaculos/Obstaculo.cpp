@@ -1,7 +1,6 @@
 #include "entidades/obstaculos/Obstaculo.h"
 #include "gerenciadores/GerenciadorColisao.h"
-
-
+#include "gerenciadores/GerenciadorGrafico.h"
 
 
 namespace jogo {
@@ -17,7 +16,9 @@ namespace jogo {
 
 
 
-            void Obstaculo::executar() {}
+            void Obstaculo::executar() {
+                pGerenciadorGrafico->desenhar(this);
+            }
 
 
 

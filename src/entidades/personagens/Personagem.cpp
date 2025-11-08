@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "gerenciadores/GerenciadorGrafico.h"
+
 
 namespace jogo {
     namespace entidades {
@@ -19,6 +21,7 @@ namespace jogo {
                 atualizaKnokback();
                 atualizaVelocidadeX();
                 atualizaPosicao();
+                pGerenciadorGrafico->desenhar(this);
 
                 retangulo.setPosition(posicao);
             }

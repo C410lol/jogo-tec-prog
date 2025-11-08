@@ -15,15 +15,10 @@
 namespace jogo {
     namespace fases {
 
-        gerenciadores::GerenciadorGrafico *Fase::pGerenciadorGrafico = nullptr;
 
 
         Fase::Fase()
         {
-            pGerenciadorColisao = new gerenciadores::GerenciadorColisao(
-                &listaJogadores, &listaInimigos, &listaObstaculos
-            );
-
             criaJogadores();
             criaInimigos();
             criaObstaculos();
@@ -36,79 +31,43 @@ namespace jogo {
         void Fase::criaJogadores()
         {
             entidades::personagens::Jogador *pJogador = new entidades::personagens::Jogador();
-            listaJogadores.incluir(pJogador);
+            listaEntidades.incluir(pJogador);
+            GerenciadorColisao.incluirJogador(pJogador);
         }
         void Fase::criaInimigos()
         {
             entidades::personagens::inimigos::Voador *pVoador = new entidades::personagens::inimigos::Voador(
-                *listaJogadores.begin()
+                GerenciadorColisao.getJogador()
             );
             entidades::personagens::inimigos::Terrestre *pTerrestre = new entidades::personagens::inimigos::Terrestre(
-                *listaJogadores.begin()
+                GerenciadorColisao.getJogador()
             );
-            listaInimigos.incluir(pVoador);
-            listaInimigos.incluir(pTerrestre);
+            listaEntidades.incluir(pVoador);
+            listaEntidades.incluir(pTerrestre);
+            GerenciadorColisao.incluirInimigo(pVoador);
+            GerenciadorColisao.incluirInimigo(pTerrestre);
         }
         void Fase::criaObstaculos()
         {
             entidades::obstaculos::Plataforma *pPlataforma = new entidades::obstaculos::Plataforma();
             entidades::obstaculos::Espinho *pEspinho = new entidades::obstaculos::Espinho();
             entidades::obstaculos::Meleca *pMeleca = new entidades::obstaculos::Meleca();
-            listaObstaculos.incluir(pPlataforma);
-            listaObstaculos.incluir(pEspinho);
-            listaObstaculos.incluir(pMeleca);
+            listaEntidades.incluir(pPlataforma);
+            listaEntidades.incluir(pEspinho);
+            listaEntidades.incluir(pMeleca);
+            GerenciadorColisao.incluirObstaculo(pPlataforma);
+            GerenciadorColisao.incluirObstaculo(pEspinho);
+            GerenciadorColisao.incluirObstaculo(pMeleca);
         }
-
-
-
-
-
-        void Fase::setGerenciadorGrafico(
-            gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico
-        )
-        {
-            pGerenciadorGrafico = r_pGerenciadorGrafico;
-        }
-
 
         void Fase::exec()
         {
-            if (pGerenciadorColisao)
-                pGerenciadorColisao->checarColisoes();
+            GerenciadorColisao.checarColisoes();
+            listaEntidades.percorrer();
 
-            if (pGerenciadorGrafico)
-            {
-                listas::Lista<entidades::personagens::Jogador*>::Iterator itJogador;
-                listas::Lista<entidades::personagens::inimigos::Inimigo*>::Iterator itInimigo;
-                listas::Lista<entidades::obstaculos::Obstaculo*>::Iterator itObstaculo;
-
-                for (itJogador = listaJogadores.begin(); itJogador != listaJogadores.end(); ++itJogador)
-                {
-                    if (!(*itJogador))
-                        continue;
-
-                    (*itJogador)->executar();
-                    pGerenciadorGrafico->desenhar(*itJogador);
-                }
-                for (itInimigo = listaInimigos.begin(); itInimigo != listaInimigos.end(); ++itInimigo)
-                {
-                    if (!(*itInimigo))
-                        continue;
-
-                    (*itInimigo)->executar();
-                    pGerenciadorGrafico->desenhar(*itInimigo);
-                }
-                for (itObstaculo = listaObstaculos.begin(); itObstaculo != listaObstaculos.end(); ++itObstaculo)
-                {
-                    if (!(*itObstaculo))
-                        continue;
-
-                    (*itObstaculo)->executar();
-                    pGerenciadorGrafico->desenhar(*itObstaculo);
-                }
             }
         }
 
 
     }
-}
+

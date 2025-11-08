@@ -3,6 +3,7 @@
 
 #include "gerenciadores/GerenciadorColisao.h"
 #include "listas/Lista.h"
+#include"listas/ListaEntidades.h"
 
 
 
@@ -18,11 +19,9 @@ namespace jogo {
             void criaObstaculos();
 
         protected:
-            static gerenciadores::GerenciadorGrafico *pGerenciadorGrafico;
-            gerenciadores::GerenciadorColisao *pGerenciadorColisao;
-            listas::Lista<entidades::personagens::Jogador*> listaJogadores;
-            listas::Lista<entidades::personagens::inimigos::Inimigo*> listaInimigos;
-            listas::Lista<entidades::obstaculos::Obstaculo*> listaObstaculos;
+
+            gerenciadores::GerenciadorColisao GerenciadorColisao;
+            listas::ListaEntidades listaEntidades;
 
         public:
             Fase();
@@ -30,7 +29,7 @@ namespace jogo {
 
             virtual void exec();
 
-            static void setGerenciadorGrafico(gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico);
+
         };
 
     }

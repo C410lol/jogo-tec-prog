@@ -53,6 +53,13 @@ namespace jogo {
                 pJanela->display();
         }
 
+
+
+
+        sf::Vector2u GerenciadorGrafico::getWindowSize() const
+        {
+            return pJanela->getSize();
+        }
         sf::RenderWindow* GerenciadorGrafico::getJanela() const
         {
             return pJanela;

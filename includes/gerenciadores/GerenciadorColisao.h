@@ -1,6 +1,8 @@
 #ifndef JOGO_COLISION_H
 #define JOGO_COLISION_H
 
+#include <list>
+
 #include "listas/Lista.h"
 #include "entidades/personagens/Jogador.h"
 #include "entidades/personagens/inimigos/Inimigo.h"
@@ -15,9 +17,9 @@ namespace jogo {
         class GerenciadorColisao
         {
         private:
-            listas::Lista<entidades::personagens::Jogador*> *pListaJogadores;
-            listas::Lista<entidades::personagens::inimigos::Inimigo*> *pListaInimigos;
-            listas::Lista<entidades::obstaculos::Obstaculo*> *pListaObstaculos;
+            entidades::personagens::Jogador* pJog1;
+            std::vector<entidades::personagens::inimigos::Inimigo*> pListaInimigos;
+            std::list<entidades::obstaculos::Obstaculo*> pListaObstaculos;
         private:
             static float calcOverlapHor(entidades::Entidade *ent1, entidades::Entidade *ent2, float gap = 0);
             static float calcOverlapVert(entidades::Entidade *ent1, entidades::Entidade *ent2);
@@ -33,9 +35,6 @@ namespace jogo {
 
         public:
             GerenciadorColisao(
-                listas::Lista<entidades::personagens::Jogador*> *r_pListaJogadores,
-                listas::Lista<entidades::personagens::inimigos::Inimigo*> *r_pListaInimigos,
-                listas::Lista<entidades::obstaculos::Obstaculo*> *r_pListaObstaculos
             );
             ~GerenciadorColisao();
 
@@ -45,6 +44,10 @@ namespace jogo {
 
             void checarObstaculoColisoes();
             void checarInimigoColisoes();
+            void incluirJogador(entidades::personagens::Jogador* jog);
+            void incluirInimigo(entidades::personagens::inimigos::Inimigo* pInimigo);
+            void incluirObstaculo(entidades::obstaculos::Obstaculo* pObstaculo);
+            entidades::personagens::Jogador* const getJogador();
         };
 
     }

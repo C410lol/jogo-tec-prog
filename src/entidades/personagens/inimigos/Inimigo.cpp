@@ -1,7 +1,7 @@
 #include "entidades/personagens/inimigos/Inimigo.h"
 #include "entidades/personagens/Jogador.h"
 
-
+#include <iostream>
 
 
 namespace jogo {
@@ -9,9 +9,12 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                Inimigo::Inimigo(Jogador *r_pJogadorAlvo, int r_vidas, bool r_sofreGravidade):
-                Personagem(r_vidas, r_sofreGravidade), pJogadorAlvo(r_pJogadorAlvo)
+                Inimigo::Inimigo(
+                    sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade
+                ):
+                Personagem(r_posicao, r_tamanho, r_vidas, r_sofreGravidade), pJogadorAlvo(nullptr)
                 {}
+                Inimigo::Inimigo() = default;
                 Inimigo::~Inimigo() = default;
 
 
@@ -31,6 +34,9 @@ namespace jogo {
                         return;
 
                     Jogador* pJogador = dynamic_cast<Jogador*>(pEntidade);
+                    if (!pJogador)
+                        return;
+
                     sf::Vector2f vetorVelocidade;
 
                     vetorVelocidade.y = -400;

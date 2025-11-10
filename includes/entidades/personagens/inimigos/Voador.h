@@ -16,7 +16,10 @@ namespace jogo {
                 private:
 
                 public:
-                    Voador(Jogador *r_pJogador);
+                    static int instancias;
+                public:
+                    Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
+                    Voador();
                     ~Voador();
 
                     void deslocar() override;

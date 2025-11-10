@@ -1,10 +1,9 @@
 #include "fases/Fase.h"
 
-#include <iostream>
+#include <cstdlib>
 
 #include "entidades/obstaculos/Espinho.h"
 #include "entidades/obstaculos/Plataforma.h"
-#include "entidades/obstaculos/Meleca.h"
 #include "entidades/personagens/inimigos/Voador.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "gerenciadores/GerenciadorGrafico.h"
@@ -15,100 +14,156 @@
 namespace jogo {
     namespace fases {
 
-        gerenciadores::GerenciadorGrafico *Fase::pGerenciadorGrafico = nullptr;
-
-
-        Fase::Fase()
-        {
-            pGerenciadorColisao = new gerenciadores::GerenciadorColisao(
-                &listaJogadores, &listaInimigos, &listaObstaculos
-            );
-
-            criaJogadores();
-            criaInimigos();
-            criaObstaculos();
-        };
+        Fase::Fase() { setarProporcao(); }
         Fase::~Fase() = default;
 
 
 
 
-        void Fase::criaJogadores()
+        void Fase::setarProporcao()
         {
-            entidades::personagens::Jogador *pJogador = new entidades::personagens::Jogador();
-            listaJogadores.incluir(pJogador);
-        }
-        void Fase::criaInimigos()
-        {
-            entidades::personagens::inimigos::Voador *pVoador = new entidades::personagens::inimigos::Voador(
-                *listaJogadores.begin()
-            );
-            entidades::personagens::inimigos::Terrestre *pTerrestre = new entidades::personagens::inimigos::Terrestre(
-                *listaJogadores.begin()
-            );
-            listaInimigos.incluir(pVoador);
-            listaInimigos.incluir(pTerrestre);
-        }
-        void Fase::criaObstaculos()
-        {
-            entidades::obstaculos::Plataforma *pPlataforma = new entidades::obstaculos::Plataforma();
-            //entidades::obstaculos::Espinho *pEspinho = new entidades::obstaculos::Espinho();
-            //entidades::obstaculos::Meleca *pMeleca = new entidades::obstaculos::Meleca();
-            listaObstaculos.incluir(pPlataforma);
-            //listaObstaculos.incluir(pEspinho);
-            //listaObstaculos.incluir(pMeleca);
-        }
-
-
-
-
-
-        void Fase::setGerenciadorGrafico(
-            gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico
-        )
-        {
-            pGerenciadorGrafico = r_pGerenciadorGrafico;
-        }
-
-
-        void Fase::exec()
-        {
-            if (pGerenciadorColisao)
-                pGerenciadorColisao->checarColisoes();
-
             if (pGerenciadorGrafico)
             {
-                listas::Lista<entidades::personagens::Jogador*>::Iterator itJogador;
-                listas::Lista<entidades::personagens::inimigos::Inimigo*>::Iterator itInimigo;
-                listas::Lista<entidades::obstaculos::Obstaculo*>::Iterator itObstaculo;
-
-                for (itJogador = listaJogadores.begin(); itJogador != listaJogadores.end(); ++itJogador)
-                {
-                    if (!(*itJogador))
-                        continue;
-
-                    (*itJogador)->executar();
-                    pGerenciadorGrafico->desenhar(*itJogador);
-                }
-                for (itInimigo = listaInimigos.begin(); itInimigo != listaInimigos.end(); ++itInimigo)
-                {
-                    if (!(*itInimigo))
-                        continue;
-
-                    (*itInimigo)->executar();
-                    pGerenciadorGrafico->desenhar(*itInimigo);
-                }
-                for (itObstaculo = listaObstaculos.begin(); itObstaculo != listaObstaculos.end(); ++itObstaculo)
-                {
-                    if (!(*itObstaculo))
-                        continue;
-
-                    (*itObstaculo)->executar();
-                    pGerenciadorGrafico->desenhar(*itObstaculo);
-                }
+                proporcao.x = pGerenciadorGrafico->getWindowSize().x / 42.f;
+                proporcao.y = pGerenciadorGrafico->getWindowSize().y / 24.f;
             }
         }
 
 
+
+
+        void Fase::criarFase()
+        {
+            try
+            {
+                std::ifstream faseTemplate("../fases-template/primeira-fase.txt");
+                std::string linha;
+
+                float x = 0.f;
+                float y = 0.f;
+                while (std::getline(faseTemplate, linha))
+                {
+                    for (char c: linha)
+                    {
+                        criarEntidade(c, x, y);
+                        x += proporcao.x;
+                    }
+
+                    x = 0.f;
+                    y += proporcao.y;
+                }
+            }
+            catch (const std::exception e)
+            {
+                std::cerr << "Erro: " << e.what() << std::endl;
+            }
+        }
+        void Fase::criarEntidade(char c, float x, float y)
+        {
+            switch (c)
+            {
+                case 'p':   //  Plataforma
+                    criarPlataforma(sf::Vector2f(x, y), proporcao);
+                    break;
+                case 'e':   //  Espinho
+                    criarEspinho(
+                        sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2)
+                    );
+                    break;
+                case 't':   //  Terrestre
+                    criarTerrestre(sf::Vector2f(x, y), proporcao);
+                    break;
+                case 'v':   //  Voador
+                    criarVoador(sf::Vector2f(x, y), proporcao);
+                    break;
+                case 'j':   //  Jogador
+                    criarJogador(sf::Vector2f(x, y), proporcao);
+                    break;
+                case '1':   //  Terrestre aleatório
+                    if (rand() % 2)
+                        criarTerrestre(sf::Vector2f(x, y), proporcao);
+                    break;
+                case '2':   //  Voador aleatório
+                    if (rand() % 2)
+                        criarVoador(sf::Vector2f(x, y), proporcao);
+                    break;
+                case '4':   //  Espinho aleatório
+                    if (rand() % 2)
+                        criarEspinho(
+                            sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2)
+                        );
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+
+
+        void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
+        {
+            jogador = new entidades::personagens::Jogador(posicao, tamanho);
+          
+            listaEntidades.incluir(jogador);
+            gerenciadorColisao.incluirJogador(jogador);
+        }
+
+
+
+
+        void Fase::criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho)
+        {
+            entidades::personagens::inimigos::Terrestre *pTerrestre =
+                new entidades::personagens::inimigos::Terrestre(posicao, tamanho);
+
+            listaEntidades.incluir(pTerrestre);
+            gerenciadorColisao.incluirInimigo(pTerrestre);
+        }
+        void Fase::criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho)
+        {
+            entidades::personagens::inimigos::Voador *pVoador =
+                new entidades::personagens::inimigos::Voador(posicao, tamanho);
+
+            listaEntidades.incluir(pVoador);
+            gerenciadorColisao.incluirInimigo(pVoador);
+        }
+
+
+
+
+        void Fase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho)
+        {
+            entidades::obstaculos::Plataforma *pPlataforma =
+                new entidades::obstaculos::Plataforma(posicao, tamanho, false, false);
+
+            listaEntidades.incluir(pPlataforma);
+            gerenciadorColisao.incluirObstaculo(pPlataforma);
+        }
+        void Fase::criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho)
+        {
+            entidades::obstaculos::Espinho *pEspinho =
+                new entidades::obstaculos::Espinho(posicao, tamanho, true, 1);
+
+            listaEntidades.incluir(pEspinho);
+            gerenciadorColisao.incluirObstaculo(pEspinho);
+        }
+
+
+
+
+        void Fase::inicializar()
+        {
+            criarFase();
+        }
+
+        void Fase::executar()
+        {
+            gerenciadorColisao.checarColisoes();
+            listaEntidades.percorrer();
+        }
+
     }
 }
+

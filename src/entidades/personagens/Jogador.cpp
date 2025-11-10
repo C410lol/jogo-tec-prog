@@ -18,10 +18,14 @@ namespace jogo {
                 tamanho = sf::Vector2f(48.0f, 48.0f);
                 posicao = sf::Vector2f(200.0f, 200.0f);
 
-                retangulo.setSize(tamanho);
-                retangulo.setPosition(posicao);
+
+
+            Jogador::Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
+            Personagem(r_posicao, r_tamanho, 10, true), deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
+            {
                 retangulo.setFillColor(sf::Color::Blue);
-            };
+            }
+            Jogador::Jogador(): deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0) {}
             Jogador::~Jogador() = default;
 
 
@@ -130,7 +134,7 @@ namespace jogo {
             void Jogador::pular() {
                 if (noChao && !naMeleca) {
                     noChao = false;
-                    setVelocidade(sf::Vector2f(getVelocidade().x, -550));
+                    setVelocidade(sf::Vector2f(getVelocidade().x, -350));
                 }
             }
 

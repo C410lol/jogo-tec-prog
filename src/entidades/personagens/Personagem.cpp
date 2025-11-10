@@ -2,14 +2,20 @@
 
 #include <iostream>
 
+#include "gerenciadores/GerenciadorGrafico.h"
+
 
 namespace jogo {
     namespace entidades {
         namespace personagens {
 
-            Personagem::Personagem(const int r_vidas, const bool r_sofreGravidade):
-            vidas(r_vidas), sofreGravidade(r_sofreGravidade), noChao(false), olhandoDireita(true), knokback(false)
+            Personagem::Personagem(
+                sf::Vector2f r_posicao, sf::Vector2f r_tamanho, const int r_vidas, const bool r_sofreGravidade
+            ):
+            Entidade(r_posicao, r_tamanho), vidas(r_vidas), sofreGravidade(r_sofreGravidade), noChao(false),
+            olhandoDireita(true), knokback(false)
             {}
+            Personagem::Personagem() = default;
             Personagem::~Personagem() = default;
 
             void Personagem::executar()
@@ -19,6 +25,7 @@ namespace jogo {
                 atualizaKnokback();
                 atualizaVelocidadeX();
                 atualizaPosicao();
+                pGerenciadorGrafico->desenhar(this);
 
                 retangulo.setPosition(posicao);
             }

@@ -7,13 +7,7 @@ namespace jogo {
     namespace gerenciadores {
 
         GerenciadorColisao::GerenciadorColisao(
-            listas::Lista<entidades::personagens::Jogador*> *r_pListaJogadores,
-            listas::Lista<entidades::personagens::inimigos::Inimigo*> *r_pListaInimigos,
-            listas::Lista<entidades::obstaculos::Obstaculo*> *r_pListaObstaculos
-        ):
-        pListaJogadores(r_pListaJogadores),
-        pListaInimigos(r_pListaInimigos),
-        pListaObstaculos(r_pListaObstaculos)
+        )
         {}
         GerenciadorColisao::~GerenciadorColisao()
         {}
@@ -106,53 +100,38 @@ namespace jogo {
             entidades::obstaculos::Obstaculo *pObstaculo
         )
         {
-            if (pListaInimigos)
-            {
-                listas::Lista<entidades::personagens::inimigos::Inimigo*>::Iterator itInimigo;
-                for (
-                itInimigo = pListaInimigos->begin();
-                itInimigo != pListaInimigos->end();
-                ++itInimigo
-                )
+            if (!pObstaculo)
+                return;
+            std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
+            for (itInimigo=pListaInimigos.begin();
+                itInimigo != pListaInimigos.end();
+                ++itInimigo)
                 {
-                    if (!(*itInimigo))
+                    entidades::personagens::inimigos::Inimigo* pInimigo= *itInimigo;
+                    if (!pInimigo)
                         continue;
-
-                    if (colidiu(pObstaculo, *itInimigo))
-                        pObstaculo->colidir(*itInimigo);
-                }
+                    if (colidiu(pObstaculo,pInimigo))
+                        pObstaculo->colidir(pInimigo);
             }
         }
         void GerenciadorColisao::checarObstaculo_JogadoresColisao(
             entidades::obstaculos::Obstaculo *pObstaculo
         )
         {
-            if (pListaJogadores)
+            if (pJog1)
             {
-                listas::Lista<entidades::personagens::Jogador*>::Iterator itJogador;
-                for (
-                itJogador = pListaJogadores->begin();
-                itJogador != pListaJogadores->end();
-                ++itJogador
-                )
-                {
-                    if (!(*itJogador))
-                        continue;
-
-                    if (colidiu(pObstaculo, *itJogador))
-                        pObstaculo->colidir(*itJogador);
+                if (colidiu(pObstaculo, pJog1)) {
+                    pObstaculo->colidir(pJog1);
                 }
             }
         }
         void GerenciadorColisao::checarObstaculoColisoes()
         {
-            if (!pListaObstaculos)
-                return;
 
-            listas::Lista<entidades::obstaculos::Obstaculo*>::Iterator itObstaculo;
+            std::list<entidades::obstaculos::Obstaculo*>::iterator itObstaculo;
             for (
-                itObstaculo = pListaObstaculos->begin();
-                itObstaculo != pListaObstaculos->end();
+                itObstaculo = pListaObstaculos.begin();
+                itObstaculo != pListaObstaculos.end();
                 ++itObstaculo
             )
             {
@@ -169,7 +148,7 @@ namespace jogo {
             entidades::personagens::inimigos::Inimigo *pInimigo
         )
         {
-            if (pListaJogadores)
+            if (pJog1)
             {
                 listas::Lista<entidades::personagens::Jogador*>::Iterator itJogador;
                 for (
@@ -207,15 +186,11 @@ namespace jogo {
         }
         void GerenciadorColisao::checarInimigoColisoes()
         {
-            if (!pListaInimigos)
-                return;
 
-            listas::Lista<entidades::personagens::inimigos::Inimigo*>::Iterator itInimigo;
-            for (
-                itInimigo = pListaInimigos->begin();
-                itInimigo != pListaInimigos->end();
-                ++itInimigo
-            )
+            std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
+            for (itInimigo=pListaInimigos.begin();
+               itInimigo != pListaInimigos.end();
+               ++itInimigo)
             {
                 if (!(*itInimigo))
                     continue;
@@ -223,6 +198,21 @@ namespace jogo {
                 checarInimigo_JogadoresColisao(*itInimigo);
             }
         }
+        void GerenciadorColisao::incluirJogador(entidades::personagens::Jogador *jog) {
+            pJog1=jog;
+        }
+        void GerenciadorColisao::incluirInimigo(entidades::personagens::inimigos::Inimigo *pInimigo) {
+            pListaInimigos.push_back(pInimigo);
+        }
+        entidades::personagens::Jogador* const GerenciadorColisao::getJogador() {
+            return pJog1;
+        }
+        void GerenciadorColisao::incluirObstaculo(entidades::obstaculos::Obstaculo *pObstaculo) {
+            pListaObstaculos.push_back(pObstaculo);
+        }
+
+
+
 
     }
 }

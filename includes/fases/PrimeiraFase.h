@@ -9,13 +9,20 @@
 namespace jogo {
     namespace fases {
 
-        class PrimeiraFase : public Fase
+        class PrimeiraFase: public Fase
         {
+        private:
+            const int maxTerrestres;
+            const int maxVoadores;
+            const int maxEspinhos;
+        private:
+            void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho) override;
+            void criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho) override;
+            void criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho) override;
+
         public:
             PrimeiraFase();
             ~PrimeiraFase() override;
-
-            void exec() override;
         };
 
     }

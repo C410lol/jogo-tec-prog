@@ -18,7 +18,10 @@ namespace jogo {
                 private:
 
                 public:
-                    Terrestre(Jogador *r_pJogador);
+                    static int instancias;
+                public:
+                    Terrestre(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
+                    Terrestre();
                     ~Terrestre();
 
                     void executar() override;

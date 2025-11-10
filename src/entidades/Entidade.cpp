@@ -7,6 +7,12 @@
 namespace jogo {
     namespace entidades {
 
+        Entidade::Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
+        posicao(r_posicao), tamanho(r_tamanho)
+        {
+            retangulo.setPosition(posicao);
+            retangulo.setSize(tamanho);
+        }
         Entidade::Entidade() {}
         Entidade::~Entidade() {}
 

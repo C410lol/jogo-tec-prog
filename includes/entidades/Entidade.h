@@ -18,6 +18,7 @@ namespace jogo {
             sf::Vector2f tamanho;
 
         public:
+            Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
             Entidade();
             virtual ~Entidade();
 

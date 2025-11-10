@@ -1,4 +1,5 @@
 #include "entidades/personagens/inimigos/Inimigo.h"
+#include "entidades/personagens/Jogador.h"
 
 #include <iostream>
 

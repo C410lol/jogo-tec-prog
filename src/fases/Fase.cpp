@@ -105,6 +105,7 @@ namespace jogo {
         void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
             jogador = new entidades::personagens::Jogador(posicao, tamanho);
+          
             listaEntidades.incluir(jogador);
             gerenciadorColisao.incluirJogador(jogador);
         }

@@ -1,7 +1,9 @@
 #include "entidades/personagens/inimigos/Voador.h"
+#include "entidades/personagens/Jogador.h"
 
 #include <cmath>
-#include <iostream>
+
+
 
 
 namespace jogo {
@@ -39,6 +41,8 @@ namespace jogo {
                             //  Normaliza o vetor direção
                             float dirX = disX / magnitude;
                             float dirY = disY / magnitude;
+
+                            olhandoDireita = disX >= 0;
 
                             mover(dirX * VELOCIDADE, dirY * VELOCIDADE);
                         }

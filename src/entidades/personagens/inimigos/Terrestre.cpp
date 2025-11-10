@@ -1,6 +1,7 @@
 #include "entidades/personagens/inimigos/Terrestre.h"
+#include "entidades/personagens/Jogador.h"
 
-#include <iostream>
+
 
 
 namespace jogo {
@@ -41,11 +42,14 @@ namespace jogo {
                         //  Se desloca até o jogador até certo raio
                         //if (std::abs(disX) > TERRESTRE_RAIO_MAX)
                         //{
-                            if (disX > 0)
+                            if (disX > 0) {
                                 mover(VELOCIDADE, 0.f);
-                            if (disX < 0)
+                            }
+                            if (disX < 0) {
                                 mover(-VELOCIDADE, 0.f);
+                            }
                         //}
+                        olhandoDireita = disX >= 0;
                     }
                 }
 

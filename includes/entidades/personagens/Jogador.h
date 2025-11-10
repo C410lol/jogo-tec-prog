@@ -2,8 +2,7 @@
 #define JOGO_PLAYER_H
 
 #include "entidades/personagens/Personagem.h"
-
-
+#include "inimigos/Terrestre.h"
 
 
 namespace jogo {
@@ -15,6 +14,8 @@ namespace jogo {
             private:
                 float deslocamentoX;
                 bool naMeleca;
+                bool atacando;
+                int cooldown;
                 int pontos;
             private:
                 void atualizarNaMeleca();
@@ -31,6 +32,9 @@ namespace jogo {
 
                 void setNaMeleca(bool r_estaNaMeleca);
 
+                bool getAtacando() const;
+
+                void atacar(inimigos::Inimigo *pInimigo);
                 void pular();
             };
 

@@ -88,6 +88,15 @@ namespace jogo {
 
 
 
+            bool Personagem::getOlhandoDireita() const
+            {
+                return olhandoDireita;
+            }
+
+
+
+
+
 
 
             void Personagem::operator--()

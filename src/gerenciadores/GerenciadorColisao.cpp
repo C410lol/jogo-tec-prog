@@ -23,7 +23,8 @@ namespace jogo {
 
         float GerenciadorColisao::calcOverlapHor(
             entidades::Entidade *ent1,
-            entidades::Entidade *ent2
+            entidades::Entidade *ent2,
+            float gap
         )
         {
             if (!(ent1 && ent2))
@@ -35,7 +36,7 @@ namespace jogo {
             );
             float sumX = (ent1->getTamanho().x / 2.f) + (ent2->getTamanho().x / 2.f);
 
-            if (disX < sumX)
+            if (disX < sumX + gap)
                 return sumX - disX;
             return 0;
         }
@@ -66,10 +67,11 @@ namespace jogo {
 
         bool GerenciadorColisao::colidiuHor(
             entidades::Entidade *ent1,
-            entidades::Entidade *ent2
+            entidades::Entidade *ent2,
+            float gap
         )
         {
-            return calcOverlapHor(ent1, ent2) != 0;
+            return calcOverlapHor(ent1, ent2, gap) != 0;
         }
         bool GerenciadorColisao::colidiuVert(
             entidades::Entidade *ent1,
@@ -179,8 +181,27 @@ namespace jogo {
                     if (!(*itJogador))
                         continue;
 
-                    if (colidiu(pInimigo, *itJogador))
-                        pInimigo->colidir(*itJogador);
+                    if (colidiuVert(pInimigo, *itJogador))
+                    {
+                        if (colidiuHor(pInimigo, *itJogador))
+                            pInimigo->colidir(*itJogador);
+                        else if
+                        (
+                            colidiuHor(pInimigo, *itJogador, 50)
+                            &&
+                            (*itJogador)->getAtacando()
+                        )
+                        {
+                            float dirX = pInimigo->getPosicao().x - (*itJogador)->getPosicao().x;
+                            if
+                            (
+                                dirX < 0 && !(*itJogador)->getOlhandoDireita()
+                                ||
+                                dirX > 0 && (*itJogador)->getOlhandoDireita()
+                            )
+                                (*itJogador)->atacar(pInimigo);
+                        }
+                    }
                 }
             }
         }

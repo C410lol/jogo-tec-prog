@@ -1,6 +1,6 @@
 #include "entidades/personagens/Jogador.h"
 
-#include <iostream>
+#include <cmath>
 
 #include "gerenciadores/GerenciadorGrafico.h"
 
@@ -12,7 +12,8 @@ namespace jogo {
             #define DESLOCAMENTO_JOGADOR_PADRAO 7.5
 
             Jogador::Jogador():
-            Personagem(10, true), deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
+            Personagem(10, true), deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), cooldown(0),
+            pontos(0)
             {
                 tamanho = sf::Vector2f(48.0f, 48.0f);
                 posicao = sf::Vector2f(200.0f, 200.0f);
@@ -55,17 +56,38 @@ namespace jogo {
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                 {
+                    olhandoDireita = false;
                     mover(-deslocamentoX, 0);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                 {
+                    olhandoDireita = true;
                     mover(deslocamentoX, 0);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                 {
                     pular();
                 }
+
+                //  Ataque do Jogador
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !cooldown)
+                {
+                    cooldown = std::pow(2, 15);
+                    atacando = true;
+                }
+                else
+                    atacando = false;
+                cooldown /= 2;
             }
+
+
+
+
+            bool Jogador::getAtacando() const
+            {
+                return atacando;
+            }
+
 
 
 
@@ -87,6 +109,23 @@ namespace jogo {
 
 
 
+            void Jogador::atacar(inimigos::Inimigo *pInimigo)
+            {
+                if (!pInimigo)
+                    return;
+
+                sf::Vector2f vetorVelocidade;
+                vetorVelocidade.y = -400;
+                if (this->getPosicao().x < pInimigo->getPosicao().x)
+                    vetorVelocidade.x = 300;
+                else
+                    vetorVelocidade.x = -300;
+
+                pInimigo->setNoChao(false);
+                pInimigo->setKnokback(true);
+                pInimigo->setVelocidade(vetorVelocidade);
+                --(*pInimigo);
+            }
 
             void Jogador::pular() {
                 if (noChao && !naMeleca) {

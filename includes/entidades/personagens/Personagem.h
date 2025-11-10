@@ -46,6 +46,8 @@ namespace jogo {
                 bool getKnokback() const;
                 void setKnokback(bool r_knokback);
 
+                bool getOlhandoDireita() const;
+
                 void operator--();
             };
 

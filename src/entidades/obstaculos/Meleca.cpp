@@ -1,6 +1,7 @@
 #include "entidades/obstaculos/Meleca.h"
+#include "entidades/personagens/Jogador.h"
 
-#include "entidades/personagens/inimigos/Terrestre.h"
+
 
 
 namespace jogo {

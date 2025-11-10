@@ -2,7 +2,6 @@
 #define JOGO_ENEMY_H
 
 #include "entidades/personagens/Personagem.h"
-#include "entidades/personagens/Jogador.h"
 
 
 
@@ -10,6 +9,8 @@
 namespace jogo {
     namespace entidades {
         namespace personagens {
+            class Jogador;
+
             namespace inimigos {
 
                 #define VELOCIDADE 3.f

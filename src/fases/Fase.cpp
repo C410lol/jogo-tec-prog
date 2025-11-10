@@ -52,11 +52,11 @@ namespace jogo {
         void Fase::criaObstaculos()
         {
             entidades::obstaculos::Plataforma *pPlataforma = new entidades::obstaculos::Plataforma();
-            entidades::obstaculos::Espinho *pEspinho = new entidades::obstaculos::Espinho();
-            entidades::obstaculos::Meleca *pMeleca = new entidades::obstaculos::Meleca();
+            //entidades::obstaculos::Espinho *pEspinho = new entidades::obstaculos::Espinho();
+            //entidades::obstaculos::Meleca *pMeleca = new entidades::obstaculos::Meleca();
             listaObstaculos.incluir(pPlataforma);
-            listaObstaculos.incluir(pEspinho);
-            listaObstaculos.incluir(pMeleca);
+            //listaObstaculos.incluir(pEspinho);
+            //listaObstaculos.incluir(pMeleca);
         }
 
 

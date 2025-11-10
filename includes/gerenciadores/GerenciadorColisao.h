@@ -19,10 +19,10 @@ namespace jogo {
             listas::Lista<entidades::personagens::inimigos::Inimigo*> *pListaInimigos;
             listas::Lista<entidades::obstaculos::Obstaculo*> *pListaObstaculos;
         private:
-            static float calcOverlapHor(entidades::Entidade *ent1, entidades::Entidade *ent2);
+            static float calcOverlapHor(entidades::Entidade *ent1, entidades::Entidade *ent2, float gap = 0);
             static float calcOverlapVert(entidades::Entidade *ent1, entidades::Entidade *ent2);
 
-            bool colidiuHor(entidades::Entidade *ent1, entidades::Entidade *ent2);
+            bool colidiuHor(entidades::Entidade *ent1, entidades::Entidade *ent2, float gap = 0);
             bool colidiuVert(entidades::Entidade *ent1, entidades::Entidade *ent2);
             bool colidiu(entidades::Entidade *ent1, entidades::Entidade *ent2);
 

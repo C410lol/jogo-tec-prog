@@ -14,16 +14,11 @@ namespace jogo {
         private:
             const int maxTerrestres;
             const int maxVoadores;
+            const int maxEspinhos;
         private:
-            void abrirFaseTemplate() override;
-            void criarTerrestres(sf::Vector2f posicao, sf::Vector2f tamanho) override;
-            void criarPlataformas(sf::Vector2f posicao, sf::Vector2f tamanho) override;
-            void criarJogadores(sf::Vector2f posicao, sf::Vector2f tamanho) override;
-            void criarInimigos() override;
-            void criarObstaculos() override;
-
-            void criarVoadores(sf::Vector2f posicao, sf::Vector2f tamanho);
-            void criarMelecas(sf::Vector2f posicao, sf::Vector2f tamanho);
+            void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho) override;
+            void criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho) override;
+            void criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho) override;
 
         public:
             PrimeiraFase();

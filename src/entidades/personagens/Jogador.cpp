@@ -11,12 +11,6 @@ namespace jogo {
 
             #define DESLOCAMENTO_JOGADOR_PADRAO 7.5
 
-            Jogador::Jogador():
-            Personagem(10, true), deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), cooldown(0),
-            pontos(0)
-            {
-                tamanho = sf::Vector2f(48.0f, 48.0f);
-                posicao = sf::Vector2f(200.0f, 200.0f);
 
 
 

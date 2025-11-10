@@ -150,36 +150,25 @@ namespace jogo {
         {
             if (pJog1)
             {
-                listas::Lista<entidades::personagens::Jogador*>::Iterator itJogador;
-                for (
-                    itJogador = pListaJogadores->begin();
-                    itJogador != pListaJogadores->end();
-                    ++itJogador
-                )
+                if (colidiuVert(pInimigo, pJog1))
                 {
-                    if (!(*itJogador))
-                        continue;
-
-                    if (colidiuVert(pInimigo, *itJogador))
+                    if (colidiuHor(pInimigo, pJog1))
+                        pInimigo->colidir(pJog1);
+                    else if
+                    (
+                        colidiuHor(pInimigo, pJog1, 50)
+                        &&
+                        (pJog1)->getAtacando()
+                    )
                     {
-                        if (colidiuHor(pInimigo, *itJogador))
-                            pInimigo->colidir(*itJogador);
-                        else if
+                        float dirX = pInimigo->getPosicao().x - (pJog1)->getPosicao().x;
+                        if
                         (
-                            colidiuHor(pInimigo, *itJogador, 50)
-                            &&
-                            (*itJogador)->getAtacando()
+                            dirX < 0 && !(pJog1)->getOlhandoDireita()
+                            ||
+                            dirX > 0 && (pJog1)->getOlhandoDireita()
                         )
-                        {
-                            float dirX = pInimigo->getPosicao().x - (*itJogador)->getPosicao().x;
-                            if
-                            (
-                                dirX < 0 && !(*itJogador)->getOlhandoDireita()
-                                ||
-                                dirX > 0 && (*itJogador)->getOlhandoDireita()
-                            )
-                                (*itJogador)->atacar(pInimigo);
-                        }
+                            (pJog1)->atacar(pInimigo);
                     }
                 }
             }

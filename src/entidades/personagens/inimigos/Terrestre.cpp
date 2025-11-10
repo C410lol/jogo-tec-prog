@@ -8,9 +8,15 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
+                int Terrestre::instancias = 0;
+
+
+
+
                 Terrestre::Terrestre(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
                 Inimigo(r_posicao, r_tamanho, 1, true)
                 {
+                    ++instancias;
                     retangulo.setFillColor(sf::Color::Red);
                 }
                 Terrestre::Terrestre() = default;

@@ -13,6 +13,8 @@ namespace jogo {
                 int danosidade;
 
             public:
+                static int instancias;
+            public:
                 Espinho(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_danosidade);
                 Espinho();
                 ~Espinho();

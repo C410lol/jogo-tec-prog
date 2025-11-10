@@ -9,9 +9,15 @@ namespace jogo {
     namespace entidades {
         namespace obstaculos {
 
+            int Espinho::instancias = 0;
+
+
+
+
             Espinho::Espinho(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_danosidade):
             Obstaculo(r_posicao, r_tamanho, r_danoso), danosidade(r_danosidade)
             {
+                ++instancias;
                 retangulo.setFillColor(sf::Color::Magenta);
             }
             Espinho::Espinho(): danosidade(0) {}

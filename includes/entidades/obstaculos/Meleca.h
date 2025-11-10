@@ -13,6 +13,8 @@ namespace jogo {
                 int viscosidade;
 
             public:
+                static int instancias;
+            public:
                 Meleca(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_viscosidade);
                 Meleca();
                 ~Meleca();

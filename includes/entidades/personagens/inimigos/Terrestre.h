@@ -18,6 +18,8 @@ namespace jogo {
                 private:
 
                 public:
+                    static int instancias;
+                public:
                     Terrestre(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
                     Terrestre();
                     ~Terrestre();

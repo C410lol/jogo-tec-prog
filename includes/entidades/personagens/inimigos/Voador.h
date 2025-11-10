@@ -16,6 +16,8 @@ namespace jogo {
                 private:
 
                 public:
+                    static int instancias;
+                public:
                     Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
                     Voador();
                     ~Voador();

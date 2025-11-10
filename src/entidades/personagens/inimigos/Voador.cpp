@@ -9,9 +9,15 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
+                int Voador::instancias = 0;
+
+
+
+
                 Voador::Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
                 Inimigo(r_posicao, r_tamanho, 2, false)
                 {
+                    ++instancias;
                     retangulo.setFillColor(sf::Color::Yellow);
                 }
                 Voador::Voador() = default;

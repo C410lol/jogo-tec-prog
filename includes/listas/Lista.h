@@ -44,6 +44,7 @@ namespace jogo {
                 Iterator();
                 ~Iterator();
 
+                Elemento* getElemento();
                 TL operator*();
                 void operator++();
                 bool operator==(Iterator it);
@@ -106,8 +107,8 @@ namespace jogo {
 
             if (itAtual != end())
             {
-                Elemento* elementoAtual = *itAtual;
-                Elemento* elementoAnterior = *itAnterior;
+                Elemento* elementoAtual = itAtual.getElemento();
+                Elemento* elementoAnterior = itAnterior.getElemento();
 
                 if (elementoAtual == pPrimeiro)
                 {
@@ -121,9 +122,7 @@ namespace jogo {
                     pUltimo->setProximo(nullptr);
                 }
                 else
-                {
                     elementoAnterior->setProximo(elementoAtual->getProximo());
-                }
 
                 delete elementoAtual;
             }
@@ -210,6 +209,12 @@ namespace jogo {
         {
             pElemento = nullptr;
         }
+        template<typename TL>
+        typename Lista<TL>::Elemento *Lista<TL>::Iterator::getElemento()
+        {
+            return pElemento;
+        }
+
         template<typename TL>
         TL Lista<TL>::Iterator::operator*()
         {

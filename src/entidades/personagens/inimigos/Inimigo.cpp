@@ -50,11 +50,14 @@ namespace jogo {
                     pJogador->setVelocidade(vetorVelocidade);
                     --(*pJogador);
                 }
-        void Inimigo::setJogadoralvo(Jogador* pjog)
-        {
-            pJogadorAlvo=pjog;
-        }
 
+
+
+
+                void Inimigo::setJogadoralvo(Jogador* pjog)
+                {
+                    pJogadorAlvo=pjog;
+                }
 
             }
         }

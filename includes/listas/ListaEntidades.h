@@ -23,7 +23,6 @@ namespace jogo {
             ~ListaEntidades();
 
             void incluir(entidades::Entidade *pEntidade);
-            void setJogadoralvo(entidades::personagens::Jogador* pjog);
             void percorrer();
         };
 

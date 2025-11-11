@@ -42,8 +42,9 @@ namespace jogo {
             if (pJanela)
                 pJanela->clear();
         }
-        void GerenciadorGrafico::desenhar(const entidades::Entidade *pEntidade) const
+        void GerenciadorGrafico::desenhar(Ente *pEnte) const
         {
+            entidades::Entidade *pEntidade = dynamic_cast<entidades::Entidade*>(pEnte);
             if (pJanela && pEntidade)
                 pJanela->draw(pEntidade->getRetangulo());
         }

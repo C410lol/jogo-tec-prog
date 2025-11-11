@@ -26,7 +26,7 @@ namespace jogo {
             bool isJanelaAberta() const;
 
             void limpar() const;
-            void desenhar(const entidades::Entidade *pEntidade) const;
+            void desenhar(Ente *pEnte) const;
             void mostrar() const;
             void fecharJanela() const;
 

@@ -23,6 +23,7 @@ namespace jogo {
             ~ListaEntidades();
 
             void incluir(entidades::Entidade *pEntidade);
+            void retirar(entidades::Entidade *pEntidade);
             void percorrer();
         };
 

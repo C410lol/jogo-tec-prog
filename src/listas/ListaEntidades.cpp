@@ -1,6 +1,8 @@
 #include "listas/ListaEntidades.h"
 
-#include "entidades/personagens/inimigos/Inimigo.h"
+#include <list>
+
+#include "entidades/obstaculos/Obstaculo.h"
 
 
 namespace jogo {
@@ -14,6 +16,10 @@ namespace jogo {
         {
             listaEntidades.incluir(pEntidade);
         }
+        void ListaEntidades::retirar(entidades::Entidade *pEntidade)
+        {
+            listaEntidades.retirar(pEntidade);
+        }
 
 
 
@@ -24,9 +30,7 @@ namespace jogo {
             for (it = listaEntidades.begin(); it != listaEntidades.end(); ++it)
             {
                 if (*it)
-                {
                     (*it)->executar();
-                }
             }
         }
 

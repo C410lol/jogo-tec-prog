@@ -152,6 +152,7 @@ namespace jogo {
             {
                 if (colidiuVert(pInimigo, pJog1))
                 {
+                    pInimigo->setJogadoralvo(pJog1);
                     if (colidiuHor(pInimigo, pJog1))
                         pInimigo->colidir(pJog1);
                     else if

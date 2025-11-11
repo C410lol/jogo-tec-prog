@@ -1,6 +1,7 @@
 #include "entidades/personagens/Jogador.h"
 
 #include <cmath>
+#include <iostream>
 
 #include "gerenciadores/GerenciadorGrafico.h"
 

@@ -96,6 +96,12 @@ namespace jogo {
                             sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2)
                         );
                     break;
+                case '5':
+                    if (rand() % 2)
+                        criarPlataforma(
+                            sf::Vector2f(x, y), proporcao
+                        );
+                    break;
                 default:
                     break;
             }
@@ -161,12 +167,14 @@ namespace jogo {
 
         void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
         {
-            listaEntidades.retirar(pPersonagem);
-            if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem)) {
+            listaEntidades.deletar(pPersonagem);
+            if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem))
+            {
                 gerenciadorColisao.retirarJogador(
                     dynamic_cast<entidades::personagens::Jogador*>(pPersonagem)
                 );
 
+                --entidades::personagens::Jogador::instancias;
                 if (entidades::personagens::Jogador::instancias == 0)
                     pGerenciadorGrafico->fecharJanela();
             }
@@ -174,8 +182,6 @@ namespace jogo {
                 gerenciadorColisao.retirarInimigo(
                     dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
                 );
-
-            //delete pPersonagem;
         }
 
 
@@ -190,7 +196,7 @@ namespace jogo {
         void Fase::executar()
         {
             gerenciadorColisao.checarColisoes();
-            listaEntidades.percorrer();
+            listaEntidades.executar();
         }
 
     }

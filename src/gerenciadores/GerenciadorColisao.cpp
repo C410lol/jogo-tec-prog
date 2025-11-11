@@ -169,6 +169,7 @@ namespace jogo {
 
                 if (colidiuVert(pInimigo, *itJogadores))
                 {
+                    pInimigo->setJogadoralvo(*itJogadores);
                     if (colidiuHor(pInimigo, *itJogadores))
                         pInimigo->colidir(*itJogadores);
                     else if

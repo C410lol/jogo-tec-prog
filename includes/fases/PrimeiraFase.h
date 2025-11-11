@@ -14,6 +14,7 @@ namespace jogo {
         private:
             const int maxTerrestres;
             const int maxVoadores;
+            const int maxPlataformas;
             const int maxEspinhos;
         private:
             void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho) override;

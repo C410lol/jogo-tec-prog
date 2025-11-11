@@ -1,252 +1,158 @@
-#ifndef JOGO_LISTA_H
-#define JOGO_LISTA_H
-#include <iostream>
-
-#include "Lista.h"
-#include "entidades/Entidade.h"
+#pragma once
 
 
 namespace jogo {
-    namespace listas {
+  namespace listas {
 
-        template <typename TL>
-        class Lista
-        {
-        private:
-            class Elemento
-            {
-            private:
-                Elemento *pProximo;
-                TL pInfo;
+    template <class TL>
+    class Lista {
+    public:
+      // Classe Elemento aninhada
+      template <class TE>
+      class Elemento {
+      private:
+        Elemento<TE>* pProx;
+        TE* pInfo;
 
-            public:
-                Elemento(TL r_pInfo);
-                ~Elemento();
+      public:
+        Elemento() : pProx(nullptr), pInfo(nullptr) {}
+        Elemento(TE* info) : pInfo(info), pProx(nullptr) {}
+        ~Elemento() {
+          pProx = nullptr;
+          pInfo = nullptr;
+        }
+        void incluir(TE* pElem) { pInfo = pElem; }
+        void setProx(Elemento<TE>* pElem) { pProx = pElem; }
+        Elemento<TE>* getProximo() const { return pProx; }
+        TE* getInfo() const { return pInfo; }
+      };
 
-                TL getInfo() const;
-                Elemento* getProximo() const;
+    private:
+      Elemento<TL>* pPrimeiro;
+      Elemento<TL>* pUltimo;
+      int tamanho;
 
-                void setProximo(Elemento *r_pProximo);
-            };
+    public:
+      Lista() : pPrimeiro(nullptr), pUltimo(nullptr), tamanho(0) {}
 
-        private:
-            Elemento *pPrimeiro;
-            Elemento *pUltimo;
+      ~Lista() { limpar(); }
 
-        public:
-            class Iterator
-            {
-            private:
-                Elemento *pElemento;
+      Elemento<TL>* getpPrimeiro() const {
+        if (pPrimeiro) return pPrimeiro;
+      }
 
-            public:
-                Iterator(Elemento *r_pElemento);
-                Iterator();
-                ~Iterator();
+      Elemento<TL>* getpUltimo() const {
+        if (pUltimo) return pUltimo;
+      }
 
-                Elemento* getElemento();
-                TL operator*();
-                void operator++();
-                bool operator==(Iterator it);
-                bool operator!=(Iterator it);
-            };
+      void incluir(TL* p) {
+        if (p != nullptr) {
+          Elemento<TL>* node = new Elemento<TL>();
+          if (node != nullptr) {
+            node->incluir(p);
+            if (pPrimeiro == nullptr) {
+              pPrimeiro = node;
+              pUltimo = node;
+            } else {
+              pUltimo->setProx(node);
+              pUltimo = node;
+            }
+            tamanho++;
+          }
+        }
+      }
 
-            Lista();
-            ~Lista();
+      TL* operator[](int pos) {
+        Elemento<TL>* aux = pPrimeiro;
+        for (int i = 0; i < pos; i++) {
+          aux = aux->getProximo();
+        }
+        return aux->getInfo();
+      }
+      int getSize() const { return tamanho; }
 
-            void incluir(TL elemento);
-            void retirar(TL elemento);
-            void limpar();
+    public:
+      class Iterator {
+      private:
+        Elemento<TL>* pAtual;
 
-            Iterator begin();
-            Iterator end();
-        };
+      public:
+        Iterator() : pAtual(nullptr) {}
+        Iterator(Elemento<TL>* pElem) : pAtual(pElem) {}
+        ~Iterator() { pAtual = nullptr; }
 
-    }
+        TL* operator*() { return pAtual->getInfo(); }
+
+        Iterator& operator++() {
+          if (pAtual) {
+            pAtual = pAtual->getProximo();
+          }
+          return *this;
+        }
+
+        Iterator& operator=(const Iterator& outro) {
+          if (&outro != this) {
+            this->pAtual = outro.pAtual;
+          }
+          return *this;
+        }
+
+        bool operator!=(const Iterator& outro) const { return this->pAtual != outro.pAtual; }
+        Elemento<TL>* getAtual() const { return pAtual; }
+
+        friend class Lista;
+      };
+
+      Iterator begin() { return Iterator(pPrimeiro); }
+
+      Iterator end() { return Iterator(nullptr); }
+      void remover(TL* p) {
+        Iterator it = begin();
+        Iterator anterior = end();
+
+        while (it != end() && *it != p) {
+          anterior = it;
+          ++it;
+        }
+
+        if (it != end()) {
+          Elemento<TL>* atual = it.getAtual();
+
+          if (atual == pPrimeiro) {
+            pPrimeiro = atual->getProximo();
+            // Se a lista ficou vazia, atualiza pUltimo também
+            if (pPrimeiro == nullptr) {
+              pUltimo = nullptr;
+            }
+          } else if (atual == pUltimo) {
+            pUltimo = anterior.getAtual();
+            // Define o próximo do novo último elemento como nullptr
+            if (anterior != end()) {
+              anterior.getAtual()->setProx(nullptr);
+            }
+          } else {
+            // Atualiza o próximo do elemento anterior
+            anterior.getAtual()->setProx(atual->getProximo());
+          }
+
+          delete atual;
+          tamanho--;
+        }
+      }
+      void limpar() {
+        Iterator it = begin();
+
+        while (it != end()) {
+          Elemento<TL>* aux = it.getAtual();
+          ++it;
+          delete aux;
+        }
+
+        pPrimeiro = nullptr;
+        pUltimo = nullptr;
+        tamanho = 0;
+      }
+    };
+
+  }  // namespace Listas
 }
-
-
-
-
-namespace jogo {
-    namespace listas {
-
-        /*
-         CLASSE LISTA
-        */
-        template<typename TL>
-        Lista<TL>::Lista() : pPrimeiro(nullptr), pUltimo(nullptr) { limpar(); }
-        template<typename TL>
-        Lista<TL>::~Lista() = default;
-
-
-        template<typename TL>
-        void Lista<TL>::incluir(TL elemento)
-        {
-            if (!pPrimeiro)
-            {
-                pPrimeiro = new Elemento(elemento);
-                pUltimo = pPrimeiro;
-            }
-            else
-            {
-                pUltimo->setProximo(new Elemento(elemento));
-                pUltimo = pUltimo->getProximo();
-            }
-        }
-        template<typename TL>
-        void Lista<TL>::retirar(TL elemento)
-        {
-            Iterator itAtual = begin();
-            Iterator itAnterior = end();
-            while (itAtual != end() && *itAtual != elemento)
-            {
-                itAnterior = itAtual;
-                ++itAtual;
-            }
-
-            if (itAtual != end())
-            {
-                Elemento* elementoAtual = itAtual.getElemento();
-                Elemento* elementoAnterior = itAnterior.getElemento();
-
-                if (elementoAtual == pPrimeiro)
-                {
-                    pPrimeiro = pPrimeiro->getProximo();
-                    if (pPrimeiro == nullptr)
-                        pUltimo = nullptr;
-                }
-                else if (elementoAtual == pUltimo)
-                {
-                    pUltimo = elementoAnterior;
-                    pUltimo->setProximo(nullptr);
-                }
-                else
-                    elementoAnterior->setProximo(elementoAtual->getProximo());
-
-                delete elementoAtual;
-            }
-        }
-        template<typename TL>
-        void Lista<TL>::limpar()
-        {
-            Iterator itAtual = begin();
-            Iterator itAux = end();
-            while (itAtual != end())
-            {
-                itAux = itAtual;
-                ++itAtual;
-                delete *itAux;
-            }
-
-            pPrimeiro = nullptr;
-            pUltimo = nullptr;
-        }
-
-
-
-
-        template<typename TL>
-        typename Lista<TL>::Iterator Lista<TL>::begin()
-        {
-            return Iterator(pPrimeiro);
-        }
-        template<typename TL>
-        typename Lista<TL>::Iterator Lista<TL>::end()
-        {
-            return Iterator(nullptr);
-        }
-
-
-
-
-        /*
-         CLASSE ELEMENTO
-        */
-        template<typename TL>
-        Lista<TL>::Elemento::Elemento(TL r_pInfo) : pProximo(nullptr)
-        {
-            pInfo = r_pInfo;
-        }
-        template<typename TL>
-        Lista<TL>::Elemento::~Elemento()
-        {
-            pProximo = nullptr;
-        }
-        template<typename TL>
-        TL Lista<TL>::Elemento::getInfo() const
-        {
-            return pInfo;
-        }
-        template<typename TL>
-        typename Lista<TL>::Elemento* Lista<TL>::Elemento::getProximo() const
-        {
-            return pProximo;
-        }
-        template<typename TL>
-        void Lista<TL>::Elemento::setProximo(Elemento *r_pProximo)
-        {
-            pProximo = r_pProximo;
-        }
-
-
-
-
-        /*
-         CLASSE ITERATOR
-        */
-        template<typename TL>
-        Lista<TL>::Iterator::Iterator(Elemento *r_pElemento)
-        {
-            pElemento = r_pElemento;
-        }
-        template<typename TL>
-        Lista<TL>::Iterator::Iterator()
-        {
-            pElemento = nullptr;
-        };
-        template<typename TL>
-        Lista<TL>::Iterator::~Iterator()
-        {
-            pElemento = nullptr;
-        }
-        template<typename TL>
-        typename Lista<TL>::Elemento *Lista<TL>::Iterator::getElemento()
-        {
-            return pElemento;
-        }
-
-        template<typename TL>
-        TL Lista<TL>::Iterator::operator*()
-        {
-            if (pElemento)
-                return pElemento->getInfo();
-            return NULL;
-        }
-        template<typename TL>
-        void Lista<TL>::Iterator::operator++()
-        {
-            if (pElemento)
-                pElemento = pElemento->getProximo();
-        }
-        template<typename TL>
-        bool Lista<TL>::Iterator::operator==(Iterator it)
-        {
-            if (pElemento)
-                return pElemento->getInfo() == *it;
-        }
-        template<typename TL>
-        bool Lista<TL>::Iterator::operator!=(Iterator it)
-        {
-            if (pElemento)
-                return pElemento->getInfo() != *it;
-            return false;
-        }
-
-
-    }
-}
-
-
-
-#endif //JOGO_LISTA_H

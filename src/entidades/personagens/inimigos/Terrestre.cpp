@@ -29,7 +29,7 @@ namespace jogo {
 
 
                 void Terrestre::executar() {
-                    Personagem::executar();
+                    Inimigo::executar();
                 }
 
 

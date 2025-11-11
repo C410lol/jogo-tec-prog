@@ -7,6 +7,10 @@
 
 
 namespace jogo {
+    namespace fases {
+        class Fase;
+    }
+
     namespace entidades {
         namespace personagens {
 
@@ -21,6 +25,8 @@ namespace jogo {
                 void atualizaKnokback();
 
             protected:
+                static fases::Fase *pFase;
+
                 int vidas;
                 sf::Vector2f velocidade;
                 bool sofreGravidade;
@@ -37,6 +43,7 @@ namespace jogo {
 
                 virtual void deslocar() = 0;
                 virtual void cair();
+                void checarMorte();
 
                 sf::Vector2f getVelocidade() const;
                 void setVelocidade(sf::Vector2f r_velocidade);
@@ -50,6 +57,8 @@ namespace jogo {
                 bool getOlhandoDireita() const;
 
                 void operator--();
+
+                static void setFase(fases::Fase *r_pFase);
             };
 
         }

@@ -17,9 +17,10 @@ namespace jogo {
         class GerenciadorColisao
         {
         private:
-            entidades::personagens::Jogador* pJog1;
-            std::vector<entidades::personagens::inimigos::Inimigo*> pListaInimigos;
-            std::list<entidades::obstaculos::Obstaculo*> pListaObstaculos;
+            std::vector<entidades::personagens::inimigos::Inimigo*> listaInimigos;
+            std::list<entidades::obstaculos::Obstaculo*> listaObstaculos;
+            std::vector<entidades::personagens::Jogador*> listaJogadores;
+
         private:
             static float calcOverlapHor(entidades::Entidade *ent1, entidades::Entidade *ent2, float gap = 0);
             static float calcOverlapVert(entidades::Entidade *ent1, entidades::Entidade *ent2);
@@ -44,10 +45,13 @@ namespace jogo {
 
             void checarObstaculoColisoes();
             void checarInimigoColisoes();
+
             void incluirJogador(entidades::personagens::Jogador* jog);
             void incluirInimigo(entidades::personagens::inimigos::Inimigo* pInimigo);
             void incluirObstaculo(entidades::obstaculos::Obstaculo* pObstaculo);
-            entidades::personagens::Jogador* const getJogador();
+
+            void retirarJogador(entidades::personagens::Jogador* pJogador);
+            void retirarInimigo(entidades::personagens::inimigos::Inimigo* pInimigo);
         };
 
     }

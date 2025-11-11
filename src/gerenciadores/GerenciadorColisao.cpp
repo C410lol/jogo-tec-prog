@@ -103,8 +103,8 @@ namespace jogo {
             if (!pObstaculo)
                 return;
             std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
-            for (itInimigo=pListaInimigos.begin();
-                itInimigo != pListaInimigos.end();
+            for (itInimigo=listaInimigos.begin();
+                itInimigo != listaInimigos.end();
                 ++itInimigo)
                 {
                     entidades::personagens::inimigos::Inimigo* pInimigo= *itInimigo;
@@ -118,11 +118,19 @@ namespace jogo {
             entidades::obstaculos::Obstaculo *pObstaculo
         )
         {
-            if (pJog1)
+            std::vector<entidades::personagens::Jogador*>::iterator itJogador;
+            for
+            (
+                itJogador = listaJogadores.begin();
+                itJogador != listaJogadores.end();
+                ++itJogador
+            )
             {
-                if (colidiu(pObstaculo, pJog1)) {
-                    pObstaculo->colidir(pJog1);
-                }
+                if (!(*itJogador))
+                    continue;
+
+                if (colidiu(pObstaculo, *itJogador))
+                    pObstaculo->obstaculizar(*itJogador);
             }
         }
         void GerenciadorColisao::checarObstaculoColisoes()
@@ -130,8 +138,8 @@ namespace jogo {
 
             std::list<entidades::obstaculos::Obstaculo*>::iterator itObstaculo;
             for (
-                itObstaculo = pListaObstaculos.begin();
-                itObstaculo != pListaObstaculos.end();
+                itObstaculo = listaObstaculos.begin();
+                itObstaculo != listaObstaculos.end();
                 ++itObstaculo
             )
             {
@@ -148,28 +156,36 @@ namespace jogo {
             entidades::personagens::inimigos::Inimigo *pInimigo
         )
         {
-            if (pJog1)
+            std::vector<entidades::personagens::Jogador*>::iterator itJogadores;
+            for
+            (
+                itJogadores = listaJogadores.begin();
+                itJogadores != listaJogadores.end();
+                ++itJogadores
+            )
             {
-                if (colidiuVert(pInimigo, pJog1))
+                if (!(*itJogadores))
+                    continue;
+
+                if (colidiuVert(pInimigo, *itJogadores))
                 {
-                    pInimigo->setJogadoralvo(pJog1);
-                    if (colidiuHor(pInimigo, pJog1))
-                        pInimigo->colidir(pJog1);
+                    if (colidiuHor(pInimigo, *itJogadores))
+                        pInimigo->colidir(*itJogadores);
                     else if
                     (
-                        colidiuHor(pInimigo, pJog1, 50)
+                        colidiuHor(pInimigo, *itJogadores, 50)
                         &&
-                        (pJog1)->getAtacando()
+                        (*itJogadores)->getAtacando()
                     )
                     {
-                        float dirX = pInimigo->getPosicao().x - (pJog1)->getPosicao().x;
+                        float dirX = pInimigo->getPosicao().x - (*itJogadores)->getPosicao().x;
                         if
                         (
-                            dirX < 0 && !(pJog1)->getOlhandoDireita()
+                            dirX < 0 && !(*itJogadores)->getOlhandoDireita()
                             ||
-                            dirX > 0 && (pJog1)->getOlhandoDireita()
+                            dirX > 0 && (*itJogadores)->getOlhandoDireita()
                         )
-                            (pJog1)->atacar(pInimigo);
+                            (*itJogadores)->atacar(pInimigo);
                     }
                 }
             }
@@ -178,8 +194,8 @@ namespace jogo {
         {
 
             std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
-            for (itInimigo=pListaInimigos.begin();
-               itInimigo != pListaInimigos.end();
+            for (itInimigo=listaInimigos.begin();
+               itInimigo != listaInimigos.end();
                ++itInimigo)
             {
                 if (!(*itInimigo))
@@ -188,21 +204,63 @@ namespace jogo {
                 checarInimigo_JogadoresColisao(*itInimigo);
             }
         }
+
+
+
+
         void GerenciadorColisao::incluirJogador(entidades::personagens::Jogador *jog) {
-            pJog1=jog;
+            listaJogadores.push_back(jog);
         }
         void GerenciadorColisao::incluirInimigo(entidades::personagens::inimigos::Inimigo *pInimigo) {
-            pListaInimigos.push_back(pInimigo);
-        }
-        entidades::personagens::Jogador* const GerenciadorColisao::getJogador() {
-            return pJog1;
+            listaInimigos.push_back(pInimigo);
         }
         void GerenciadorColisao::incluirObstaculo(entidades::obstaculos::Obstaculo *pObstaculo) {
-            pListaObstaculos.push_back(pObstaculo);
+            listaObstaculos.push_back(pObstaculo);
         }
 
 
 
+
+        void GerenciadorColisao::retirarJogador(entidades::personagens::Jogador *pJogador)
+        {
+            std::vector<entidades::personagens::Jogador*>::iterator itJogador;
+            for
+            (
+                itJogador = listaJogadores.begin();
+                itJogador != listaJogadores.end();
+                ++itJogador
+            )
+            {
+                if (!(*itJogador))
+                    continue;
+
+                if (*itJogador == pJogador)
+                {
+                    listaJogadores.erase(itJogador);
+                    break;
+                }
+            }
+        }
+        void GerenciadorColisao::retirarInimigo(entidades::personagens::inimigos::Inimigo *pInimigo)
+        {
+            std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
+            for
+            (
+                itInimigo = listaInimigos.begin();
+                itInimigo != listaInimigos.end();
+                ++itInimigo
+            )
+            {
+                if (!(*itInimigo))
+                    continue;
+
+                if (*itInimigo == pInimigo)
+                {
+                    listaInimigos.erase(itInimigo);
+                    break;
+                }
+            }
+        }
 
     }
 }

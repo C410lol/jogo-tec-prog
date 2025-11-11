@@ -145,6 +145,7 @@ namespace jogo {
 
 
 
+
         template<typename TL>
         typename Lista<TL>::Iterator Lista<TL>::begin()
         {

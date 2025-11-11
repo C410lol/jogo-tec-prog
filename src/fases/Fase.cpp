@@ -162,14 +162,20 @@ namespace jogo {
         void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
         {
             listaEntidades.retirar(pPersonagem);
-            if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem))
+            if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem)) {
                 gerenciadorColisao.retirarJogador(
                     dynamic_cast<entidades::personagens::Jogador*>(pPersonagem)
                 );
+
+                if (entidades::personagens::Jogador::instancias == 0)
+                    pGerenciadorGrafico->fecharJanela();
+            }
             else
                 gerenciadorColisao.retirarInimigo(
                     dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
                 );
+
+            //delete pPersonagem;
         }
 
 

@@ -37,7 +37,7 @@ namespace jogo {
             public:
                 Personagem(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade);
                 Personagem();
-                ~Personagem() override;
+                virtual ~Personagem();
 
                 void executar() override = 0;
 

@@ -21,6 +21,7 @@ namespace jogo {
             Personagem::Personagem() = default;
             Personagem::~Personagem() = default;
 
+
             void Personagem::executar()
             {
                 checarMorte();
@@ -103,9 +104,6 @@ namespace jogo {
             {
                 return olhandoDireita;
             }
-
-
-
 
 
 

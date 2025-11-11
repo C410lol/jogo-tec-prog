@@ -34,15 +34,10 @@ namespace jogo {
                 retangulo.setFillColor(sf::Color::Blue);
             }
             Jogador::Jogador(): deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0) {}
-            Jogador::~Jogador() = default;
+            Jogador::~Jogador() {
+                --instancias;
+            };
 
-
-
-
-            void Jogador::checarEstaMorto() const {
-                if (vidas <= 0)
-                    pGerenciadorGrafico->fecharJanela();
-            }
 
 
 
@@ -50,7 +45,6 @@ namespace jogo {
             {
                 Personagem::executar();
                 atualizarNaMeleca();
-                checarEstaMorto();
             }
 
 

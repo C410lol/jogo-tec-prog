@@ -33,7 +33,6 @@ namespace jogo {
                 void executar() override;
                 void deslocar() override;
                 void colidir(Entidade *pEntidade) override;
-                void checarEstaMorto() const;
 
                 void setNaMeleca(bool r_estaNaMeleca);
 

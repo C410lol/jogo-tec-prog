@@ -21,13 +21,15 @@ namespace jogo {
                     retangulo.setFillColor(sf::Color::Red);
                 }
                 Terrestre::Terrestre() = default;
-                Terrestre::~Terrestre() = default;
+                Terrestre::~Terrestre() {
+                    --instancias;
+                };
 
 
 
 
                 void Terrestre::executar() {
-                    Personagem::executar();
+                    Inimigo::executar();
                 }
 
 

@@ -14,7 +14,10 @@
 namespace jogo {
     namespace fases {
 
-        Fase::Fase() { setarProporcao(); }
+        Fase::Fase(int r_numJogadores): numJogadores(r_numJogadores) {
+            entidades::personagens::Personagem::setFase(this);
+            setarProporcao();
+        }
         Fase::~Fase() = default;
 
 
@@ -93,6 +96,12 @@ namespace jogo {
                             sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2)
                         );
                     break;
+                case '5':
+                    if (rand() % 2)
+                        criarPlataforma(
+                            sf::Vector2f(x, y), proporcao
+                        );
+                    break;
                 default:
                     break;
             }
@@ -104,10 +113,13 @@ namespace jogo {
 
         void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            jogador = new entidades::personagens::Jogador(posicao, tamanho);
-          
-            listaEntidades.incluir(jogador);
-            gerenciadorColisao.incluirJogador(jogador);
+            if (entidades::personagens::Jogador::instancias >= numJogadores)
+                return;
+
+            entidades::personagens::Jogador *pJogador =
+                new entidades::personagens::Jogador(posicao, tamanho);
+            listaEntidades.incluir(pJogador);
+            gerenciadorColisao.incluirJogador(pJogador);
         }
 
 
@@ -153,6 +165,29 @@ namespace jogo {
 
 
 
+        void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
+        {
+            listaEntidades.deletar(pPersonagem);
+            if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem))
+            {
+                gerenciadorColisao.retirarJogador(
+                    dynamic_cast<entidades::personagens::Jogador*>(pPersonagem)
+                );
+
+                --entidades::personagens::Jogador::instancias;
+                if (entidades::personagens::Jogador::instancias == 0)
+                    pGerenciadorGrafico->fecharJanela();
+            }
+            else
+                gerenciadorColisao.retirarInimigo(
+                    dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
+                );
+        }
+
+
+
+
+
         void Fase::inicializar()
         {
             criarFase();
@@ -161,7 +196,7 @@ namespace jogo {
         void Fase::executar()
         {
             gerenciadorColisao.checarColisoes();
-            listaEntidades.percorrer();
+            listaEntidades.executar();
         }
 
     }

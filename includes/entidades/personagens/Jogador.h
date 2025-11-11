@@ -12,6 +12,9 @@ namespace jogo {
             class Jogador: public Personagem
             {
             private:
+                static bool primeiroExiste;
+
+                bool ehPrimeiro;
                 float deslocamentoX;
                 bool naMeleca;
                 bool atacando;
@@ -21,6 +24,8 @@ namespace jogo {
                 void atualizarNaMeleca();
 
             public:
+                static int instancias;
+            public:
                 Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
                 Jogador();
                 ~Jogador() override;
@@ -28,7 +33,6 @@ namespace jogo {
                 void executar() override;
                 void deslocar() override;
                 void colidir(Entidade *pEntidade) override;
-                void checarEstaMorto() const;
 
                 void setNaMeleca(bool r_estaNaMeleca);
 

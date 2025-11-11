@@ -23,7 +23,9 @@ namespace jogo {
                     retangulo.setFillColor(sf::Color::Yellow);
                 }
                 Voador::Voador() = default;
-                Voador::~Voador() = default;
+                Voador::~Voador() {
+                    --instancias;
+                };
 
 
 

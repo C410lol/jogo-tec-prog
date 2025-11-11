@@ -8,7 +8,7 @@ namespace jogo
     Jogo::Jogo()
     {
         Ente::setGerenciadorGrafico(&gerenciadorGrafico);
-        pFase = new fases::PrimeiraFase();
+        pFase = new fases::PrimeiraFase(2);
         pFase->inicializar();
         exec();
     }

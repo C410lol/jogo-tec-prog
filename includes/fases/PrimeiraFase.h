@@ -21,7 +21,7 @@ namespace jogo {
             void criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho) override;
 
         public:
-            PrimeiraFase();
+            PrimeiraFase(int r_numJogadores);
             ~PrimeiraFase() override;
         };
 

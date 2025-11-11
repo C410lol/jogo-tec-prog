@@ -10,7 +10,7 @@
 namespace jogo {
     namespace fases {
 
-        PrimeiraFase::PrimeiraFase(): maxTerrestres(8), maxVoadores(5), maxEspinhos(20) {}
+        PrimeiraFase::PrimeiraFase(): maxTerrestres(8), maxVoadores(4), maxEspinhos(20) {}
         PrimeiraFase::~PrimeiraFase() = default;
 
 

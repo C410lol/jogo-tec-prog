@@ -38,16 +38,20 @@ namespace jogo {
                     if (pJogadorAlvo)
                     {
                         float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
+                        float disY = pJogadorAlvo->getPosicao().y - getPosicao().y;
 
                         //  Se desloca até o jogador até certo raio
                         //if (std::abs(disX) > TERRESTRE_RAIO_MAX)
                         //{
+                        if (abs(disY)<50)
+                        {
                             if (disX > 0) {
                                 mover(VELOCIDADE, 0.f);
                             }
                             if (disX < 0) {
                                 mover(-VELOCIDADE, 0.f);
                             }
+                        }
                         //}
                         olhandoDireita = disX >= 0;
                     }

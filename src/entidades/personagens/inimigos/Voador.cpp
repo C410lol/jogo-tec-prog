@@ -43,8 +43,8 @@ namespace jogo {
                             float dirY = disY / magnitude;
 
                             olhandoDireita = disX >= 0;
-
-                            mover(dirX * VELOCIDADE, dirY * VELOCIDADE);
+                            if (abs(disY)<65)
+                                mover(dirX * VELOCIDADE, dirY * VELOCIDADE);
                         }
                     }
                 }

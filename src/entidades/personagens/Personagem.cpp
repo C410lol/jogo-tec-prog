@@ -42,7 +42,8 @@ namespace jogo {
             void Personagem::atualizaVelocidadeX()
             {
                 if (noChao)
-                    setVelocidade(sf::Vector2f(0, getVelocidade().y));
+                    if (!dynamic_cast<Jogador*>(this))
+                        setVelocidade(sf::Vector2f(0, getVelocidade().y));
             }
             void Personagem::atualizaPosicao()
             {

@@ -51,17 +51,21 @@ namespace jogo {
             {
                 if (getKnokback())
                     return;
+                bool movimento=false;
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                    {
+                        olhandoDireita = false;
+                        movimento=true;
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                {
-                    olhandoDireita = false;
-                    mover(-deslocamentoX, 0);
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                {
-                    olhandoDireita = true;
-                    mover(deslocamentoX, 0);
-                }
+                        setVelocidade(sf::Vector2f(-deslocamentoX*30, getVelocidade().y));
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                    {
+                        olhandoDireita = true;
+                        movimento=true;
+                        setVelocidade(sf::Vector2f(deslocamentoX*30, getVelocidade().y));
+                    }
+
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                 {
                     pular();
@@ -76,7 +80,25 @@ namespace jogo {
                 else
                     atacando = false;
                 cooldown /= 2;
+
+                if(!movimento)
+                {
+                    if (velocidade.x>0)
+                    {
+                        velocidade.x-=deslocamentoX*10;
+                        if (velocidade.x<0)
+                            velocidade.x=0;
+                    }
+                    if (velocidade.x<0)
+                    {
+                        velocidade.x+=deslocamentoX*10;
+                        if (velocidade.x>0)
+                            velocidade.x=0;
+                    }
+                }
+                //std::cout<<velocidade.x<<std::endl;
             }
+
 
 
 

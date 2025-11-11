@@ -108,6 +108,7 @@ namespace jogo {
           
             listaEntidades.incluir(jogador);
             gerenciadorColisao.incluirJogador(jogador);
+            listaEntidades.setJogadoralvo(jogador);
         }
 
 

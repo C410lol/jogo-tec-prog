@@ -52,6 +52,13 @@ namespace jogo {
                 }
 
 
+
+
+                void Inimigo::setJogadoralvo(Jogador* pjog)
+                {
+                    pJogadorAlvo=pjog;
+                }
+
             }
         }
     }

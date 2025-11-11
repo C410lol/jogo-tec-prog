@@ -17,7 +17,7 @@ namespace jogo {
 
 
             void Obstaculo::executar() {
-                pGerenciadorGrafico->desenhar(this);
+                desenhar();
             }
 
 

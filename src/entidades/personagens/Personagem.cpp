@@ -25,9 +25,9 @@ namespace jogo {
                 atualizaKnokback();
                 atualizaVelocidadeX();
                 atualizaPosicao();
-                pGerenciadorGrafico->desenhar(this);
 
                 retangulo.setPosition(posicao);
+                desenhar();
             }
 
             void Personagem::cair()

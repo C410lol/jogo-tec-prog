@@ -29,6 +29,7 @@ namespace jogo {
                     virtual void deslocar() = 0;
 
                     void colidir(Entidade *pEntidade) override;
+                    void setJogadoralvo(Jogador* pjog);
                 };
 
             }

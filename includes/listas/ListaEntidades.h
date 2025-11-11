@@ -5,7 +5,10 @@
 #include "entidades/Entidade.h"
 
 
-
+namespace jogo::entidades::personagens
+{
+    class Jogador;
+}
 
 namespace jogo {
     namespace listas {

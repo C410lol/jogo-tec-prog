@@ -1,6 +1,6 @@
 #include "listas/ListaEntidades.h"
 
-
+#include "entidades/personagens/inimigos/Inimigo.h"
 
 
 namespace jogo {
@@ -14,6 +14,10 @@ namespace jogo {
         {
             listaEntidades.incluir(pEntidade);
         }
+
+
+
+
         void ListaEntidades::percorrer()
         {
             Lista<entidades::Entidade*>::Iterator it;

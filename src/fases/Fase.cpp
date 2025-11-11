@@ -1,6 +1,7 @@
 #include "fases/Fase.h"
 
 #include <cstdlib>
+#include <iostream>
 
 #include "entidades/obstaculos/Espinho.h"
 #include "entidades/obstaculos/Plataforma.h"

@@ -14,7 +14,10 @@
 namespace jogo {
     namespace fases {
 
-        Fase::Fase() { setarProporcao(); }
+        Fase::Fase(int r_numJogadores): numJogadores(r_numJogadores) {
+            entidades::personagens::Personagem::setFase(this);
+            setarProporcao();
+        }
         Fase::~Fase() = default;
 
 
@@ -104,10 +107,13 @@ namespace jogo {
 
         void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            jogador = new entidades::personagens::Jogador(posicao, tamanho);
-          
-            listaEntidades.incluir(jogador);
-            gerenciadorColisao.incluirJogador(jogador);
+            if (entidades::personagens::Jogador::instancias >= numJogadores)
+                return;
+
+            entidades::personagens::Jogador *pJogador =
+                new entidades::personagens::Jogador(posicao, tamanho);
+            listaEntidades.incluir(pJogador);
+            gerenciadorColisao.incluirJogador(pJogador);
         }
 
 
@@ -149,6 +155,23 @@ namespace jogo {
             listaEntidades.incluir(pEspinho);
             gerenciadorColisao.incluirObstaculo(pEspinho);
         }
+
+
+
+
+        void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
+        {
+            listaEntidades.retirar(pPersonagem);
+            if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem))
+                gerenciadorColisao.retirarJogador(
+                    dynamic_cast<entidades::personagens::Jogador*>(pPersonagem)
+                );
+            else
+                gerenciadorColisao.retirarInimigo(
+                    dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
+                );
+        }
+
 
 
 

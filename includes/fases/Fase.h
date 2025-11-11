@@ -16,6 +16,7 @@ namespace jogo {
         class Fase: public Ente
         {
         private:
+            int numJogadores;
             sf::Vector2f proporcao;
         private:
             void setarProporcao();
@@ -27,18 +28,19 @@ namespace jogo {
         protected:
             gerenciadores::GerenciadorColisao gerenciadorColisao;
             listas::ListaEntidades listaEntidades;
-            entidades::personagens::Jogador *jogador;
         protected:
             virtual void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho);
             virtual void criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho);
             virtual void criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho);
 
         public:
-            Fase();
+            Fase(int r_numJogadores = 1);
             virtual ~Fase();
 
             void inicializar();
             void executar() override;
+
+            void retirarPersonagem(entidades::personagens::Personagem *pPersonagem);
         };
 
     }

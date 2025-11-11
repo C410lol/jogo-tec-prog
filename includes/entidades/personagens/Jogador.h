@@ -12,6 +12,9 @@ namespace jogo {
             class Jogador: public Personagem
             {
             private:
+                static bool primeiroExiste;
+
+                bool ehPrimeiro;
                 float deslocamentoX;
                 bool naMeleca;
                 bool atacando;
@@ -20,6 +23,8 @@ namespace jogo {
             private:
                 void atualizarNaMeleca();
 
+            public:
+                static int instancias;
             public:
                 Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
                 Jogador();

@@ -14,9 +14,23 @@ namespace jogo {
 
 
 
+            int Jogador::instancias = 0;
+            bool Jogador::primeiroExiste = false;
+
+
+
+
             Jogador::Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-            Personagem(r_posicao, r_tamanho, 10, true), deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
+            Personagem(r_posicao, r_tamanho, 10, true), ehPrimeiro(false),
+            deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
             {
+                ++instancias;
+                if (!primeiroExiste)
+                {
+                    ehPrimeiro = true;
+                    primeiroExiste = true;
+                }
+
                 retangulo.setFillColor(sf::Color::Blue);
             }
             Jogador::Jogador(): deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0) {}
@@ -52,30 +66,60 @@ namespace jogo {
                 if (getKnokback())
                     return;
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                if (ehPrimeiro)
                 {
-                    olhandoDireita = false;
-                    mover(-deslocamentoX, 0);
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                {
-                    olhandoDireita = true;
-                    mover(deslocamentoX, 0);
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                {
-                    pular();
-                }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                    {
+                        olhandoDireita = false;
+                        mover(-deslocamentoX, 0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                    {
+                        olhandoDireita = true;
+                        mover(deslocamentoX, 0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                    {
+                        pular();
+                    }
 
-                //  Ataque do Jogador
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !cooldown)
-                {
-                    cooldown = std::pow(2, 15);
-                    atacando = true;
+                    //  Ataque do Jogador
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !cooldown)
+                    {
+                        cooldown = std::pow(2, 15);
+                        atacando = true;
+                    }
+                    else
+                        atacando = false;
+                    cooldown /= 2;
                 }
                 else
-                    atacando = false;
-                cooldown /= 2;
+                {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                    {
+                        olhandoDireita = false;
+                        mover(-deslocamentoX, 0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+                    {
+                        olhandoDireita = true;
+                        mover(deslocamentoX, 0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+                    {
+                        pular();
+                    }
+
+                    //  Ataque do Jogador
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !cooldown)
+                    {
+                        cooldown = std::pow(2, 15);
+                        atacando = true;
+                    }
+                    else
+                        atacando = false;
+                    cooldown /= 2;
+                }
             }
 
 

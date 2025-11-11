@@ -20,5 +20,5 @@ p-------4------t----4--------e----1-----pp
 p------ppppppppppppppppppppppppppppppppppp
 p----p-----------------------------------p
 p--p-------------------------------------p
-pp-------------4----4-----e----------j---p
+pp-------------4----4-----e-----j----j---p
 pppppppppppppppppppppppppppppppppppppppppp

@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "entidades/obstaculos/Meleca.h"
 #include "entidades/obstaculos/Espinho.h"
 #include "entidades/obstaculos/Plataforma.h"
 #include "entidades/personagens/inimigos/Voador.h"
@@ -66,12 +67,22 @@ namespace jogo {
         {
             switch (c)
             {
+                case 'c':
+                    criarPlataforma(sf::Vector2f(x, y), proporcao, true);
+                    break;
                 case 'p':   //  Plataforma
-                    criarPlataforma(sf::Vector2f(x, y), proporcao);
+                    criarPlataforma(sf::Vector2f(x, y), proporcao, false);
                     break;
                 case 'e':   //  Espinho
                     criarEspinho(
-                        sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2)
+                        sf::Vector2f(x, y + proporcao.y / 2),
+                        sf::Vector2f(proporcao.x, proporcao.y / 2)
+                    );
+                    break;
+                case 'm':
+                    criarMeleca(
+                        sf::Vector2f(x, y + proporcao.y / 1.15),
+                        sf::Vector2f(proporcao.x, proporcao.y / 6)
                     );
                     break;
                 case 't':   //  Terrestre
@@ -100,7 +111,7 @@ namespace jogo {
                 case '5':
                     if (rand() % 2)
                         criarPlataforma(
-                            sf::Vector2f(x, y), proporcao
+                            sf::Vector2f(x, y), proporcao, false
                         );
                     break;
                 default:
@@ -146,10 +157,10 @@ namespace jogo {
 
 
 
-        void Fase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho)
+        void Fase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao)
         {
             entidades::obstaculos::Plataforma *pPlataforma =
-                new entidades::obstaculos::Plataforma(posicao, tamanho, false, false);
+                new entidades::obstaculos::Plataforma(posicao, tamanho, false, ehChao);
 
             listaEntidades.incluir(pPlataforma);
             gerenciadorColisao.incluirObstaculo(pPlataforma);
@@ -162,6 +173,15 @@ namespace jogo {
             listaEntidades.incluir(pEspinho);
             gerenciadorColisao.incluirObstaculo(pEspinho);
         }
+        void Fase::criarMeleca(sf::Vector2f posicao, sf::Vector2f tamanho)
+        {
+            entidades::obstaculos::Meleca *pMeleca =
+                new entidades::obstaculos::Meleca(posicao, tamanho, false, 1);
+
+            listaEntidades.incluir(pMeleca);
+            gerenciadorColisao.incluirObstaculo(pMeleca);
+        }
+
 
 
 

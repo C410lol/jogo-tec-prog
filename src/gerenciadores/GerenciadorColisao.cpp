@@ -111,7 +111,7 @@ namespace jogo {
                     if (!pInimigo)
                         continue;
                     if (colidiu(pObstaculo,pInimigo))
-                        pObstaculo->colidir(pInimigo);
+                        pObstaculo->obstaculizar(pInimigo);
             }
         }
         void GerenciadorColisao::checarObstaculo_JogadoresColisao(
@@ -171,7 +171,7 @@ namespace jogo {
                 {
                     pInimigo->setJogadoralvo(*itJogadores);
                     if (colidiuHor(pInimigo, *itJogadores))
-                        pInimigo->colidir(*itJogadores);
+                        pInimigo->danificar(*itJogadores);
                     else if
                     (
                         colidiuHor(pInimigo, *itJogadores, 50)

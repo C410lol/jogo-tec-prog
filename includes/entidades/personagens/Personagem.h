@@ -56,7 +56,7 @@ namespace jogo {
 
                 bool getOlhandoDireita() const;
 
-                void operator--();
+                void tomarDano(int dano);
 
                 static void setFase(fases::Fase *r_pFase);
             };

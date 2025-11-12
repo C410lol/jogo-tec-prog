@@ -15,9 +15,10 @@ namespace jogo {
 
 
                 Terrestre::Terrestre(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-                Inimigo(r_posicao, r_tamanho, 1, true)
+                Inimigo(r_posicao, r_tamanho, 1, true, 1), atrito((rand() % 9) + 1)
                 {
                     ++instancias;
+                    deslocamento = atrito;
                     retangulo.setFillColor(sf::Color::Red);
                 }
                 Terrestre::Terrestre() = default;
@@ -44,12 +45,12 @@ namespace jogo {
                         if (disX > 0)
                         {
                             olhandoDireita = true;
-                            mover(VELOCIDADE, 0.f);
+                            mover(deslocamento, 0.f);
                         }
                         if (disX < 0)
                         {
                             olhandoDireita = false;
-                            mover(-VELOCIDADE, 0.f);
+                            mover(-deslocamento, 0.f);
                         }
                     }
                 }

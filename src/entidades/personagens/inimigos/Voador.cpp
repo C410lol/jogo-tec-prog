@@ -17,9 +17,11 @@ namespace jogo {
 
 
                 Voador::Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-                Inimigo(r_posicao, r_tamanho, 2, false)
+                Inimigo(r_posicao, r_tamanho, 2, false, 2),
+                energia((rand() % 9) + 1)
                 {
                     ++instancias;
+                    deslocamento = energia;
                     retangulo.setFillColor(sf::Color::Yellow);
                 }
                 Voador::Voador() = default;
@@ -45,7 +47,7 @@ namespace jogo {
                             float dirY = disY / magnitude;
 
                             olhandoDireita = disX >= 0;
-                            mover(dirX * VELOCIDADE, dirY * VELOCIDADE);
+                            mover(dirX * static_cast<float>(deslocamento), dirY * static_cast<float>(deslocamento));
                         }
                     }
                 }

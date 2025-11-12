@@ -53,10 +53,6 @@ namespace jogo {
                         }
                     }
                 }
-                void Voador::atacar()
-                {
-                    pFase->incluiprojetil(pFase->criaprojetil(this, 3.0f));
-                }
 
             }
         }

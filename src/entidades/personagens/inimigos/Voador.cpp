@@ -2,7 +2,7 @@
 #include "entidades/personagens/Jogador.h"
 
 #include <cmath>
-
+#include "fases/Fase.h"
 
 
 

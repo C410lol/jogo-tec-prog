@@ -49,11 +49,6 @@ namespace jogo {
             }
 
 
-            void Jogador::colidir(Entidade *pEntidade)
-            {
-
-            }
-
 
 
             void Jogador::deslocar()
@@ -161,7 +156,7 @@ namespace jogo {
                 pInimigo->setNoChao(false);
                 pInimigo->setKnokback(true);
                 pInimigo->setVelocidade(vetorVelocidade);
-                --(*pInimigo);
+                pInimigo->tomarDano(1);
             }
 
             void Jogador::pular() {

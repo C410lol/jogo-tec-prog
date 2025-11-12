@@ -108,10 +108,11 @@ namespace jogo {
 
 
 
-            void Personagem::operator--()
+            void Personagem::tomarDano(int dano)
             {
-                --vidas;
+                vidas -= dano;
             }
+
 
 
 

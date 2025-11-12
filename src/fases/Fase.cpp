@@ -141,7 +141,7 @@ namespace jogo {
 
         void Fase::inicializar()
         {
-            criarFase();
+            criarCenario();
         }
 
         void Fase::executar()

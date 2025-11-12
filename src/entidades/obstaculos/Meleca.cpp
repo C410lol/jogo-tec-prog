@@ -18,7 +18,9 @@ namespace jogo {
             tamMaximo(r_tamanho.x * 5), tamMinimo(r_tamanho.x), aumentando(true)
             {
                 ++instancias;
-                retangulo.setFillColor(sf::Color::Green);
+
+                setTexture("../assets/obstaculos/meleca.png");
+                fixTexture();
             }
             Meleca::Meleca(): viscosidade(0) {}
             Meleca::~Meleca() = default;
@@ -43,7 +45,7 @@ namespace jogo {
                         aumentando = true;
                 }
 
-                retangulo.setPosition(getPosicao());
+                pSprite->setPosition(getPosicao());
             }
 
 

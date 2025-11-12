@@ -30,9 +30,13 @@ namespace jogo {
                 {
                     ehPrimeiro = true;
                     primeiroExiste = true;
-                }
 
-                retangulo.setFillColor(sf::Color::Blue);
+                    setTexture("../assets/personagens/jogador1.png");
+                }
+                else
+                    setTexture("../assets/personagens/jogador2.png");
+
+                fixTexture();
             }
             Jogador::Jogador(): deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0) {}
             Jogador::~Jogador() {

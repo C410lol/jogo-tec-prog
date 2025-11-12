@@ -14,7 +14,6 @@ namespace jogo {
         {
         protected:
             sf::Vector2f posicao;
-            sf::RectangleShape retangulo;
             sf::Vector2f tamanho;
 
         public:
@@ -28,7 +27,8 @@ namespace jogo {
             void aumentar(float x, float y);
             void aumentar(sf::Vector2f aumento);
 
-            sf::RectangleShape getRetangulo() const;
+            void fixTexture();
+
             sf::Vector2f getPosicao() const;
             sf::Vector2f getTamanho() const;
 

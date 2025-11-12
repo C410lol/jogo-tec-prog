@@ -1,4 +1,6 @@
 #include "./entidades/Entidade.h"
+
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 
@@ -10,10 +12,9 @@ namespace jogo {
         Entidade::Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
         posicao(r_posicao), tamanho(r_tamanho)
         {
-            retangulo.setPosition(posicao);
-            retangulo.setSize(tamanho);
+            pSprite->setPosition(posicao);
         }
-        Entidade::Entidade() {}
+        Entidade::Entidade() = default;
         Entidade::~Entidade() {}
 
 
@@ -33,6 +34,17 @@ namespace jogo {
 
 
 
+        void Entidade::fixTexture()
+        {
+            sf::FloatRect originalSize = pSprite->getLocalBounds();
+            pSprite->setScale(tamanho.x / originalSize.width, tamanho.y / originalSize.height);
+            pSprite->setOrigin(originalSize.width / 2, originalSize.height / 2);
+        }
+
+
+
+
+
         void Entidade::aumentar(float x, float y)
         {
             setTamanho(sf::Vector2f(
@@ -47,12 +59,6 @@ namespace jogo {
 
 
 
-
-
-        sf::RectangleShape Entidade::getRetangulo() const
-        {
-            return retangulo;
-        }
         sf::Vector2f Entidade::getPosicao() const
         {
             return posicao;
@@ -72,7 +78,7 @@ namespace jogo {
         void Entidade::setTamanho(sf::Vector2f r_tamanho)
         {
             tamanho = r_tamanho;
-            retangulo.setSize(tamanho);
+            fixTexture();
         }
 
 

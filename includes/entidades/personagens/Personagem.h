@@ -20,6 +20,7 @@ namespace jogo {
             class Personagem: public Entidade
             {
             private:
+                void atualizaSprite();
                 void atualizaPosicao();
                 void atualizaVelocidadeX();
                 void atualizaKnokback();

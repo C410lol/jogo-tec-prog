@@ -9,9 +9,13 @@ namespace jogo {
     namespace entidades {
         namespace obstaculos {
 
+            int Plataforma::instancias = 0;
+
             Plataforma::Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_ehChao):
             Obstaculo(r_posicao, r_tamanho, r_danoso), ehChao(r_ehChao), invisivel(false)
             {
+                if (!ehChao)
+                    ++instancias;
                 retangulo.setFillColor(sf::Color::White);
             }
             Plataforma::Plataforma(): invisivel(false) {}

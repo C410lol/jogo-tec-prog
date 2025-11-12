@@ -1,5 +1,6 @@
 #include "fases/PrimeiraFase.h"
 
+#include "entidades/obstaculos/Plataforma.h"
 #include "entidades/obstaculos/Espinho.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "entidades/personagens/inimigos/Voador.h"
@@ -27,17 +28,84 @@ namespace jogo {
         {
             if (entidades::personagens::inimigos::Voador::instancias >= maxVoadores)
                 return;
-            Fase::criarVoador(posicao, tamanho);
+
+            entidades::personagens::inimigos::Voador *pVoador =
+                new entidades::personagens::inimigos::Voador(posicao, tamanho);
+
+            listaEntidades.incluir(pVoador);
+            gerenciadorColisao.incluirInimigo(pVoador);
         }
 
 
 
 
+        void PrimeiraFase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao)
+        {
+            if (entidades::obstaculos::Plataforma::instancias >= maxPlataformas)
+                return;
+            Fase::criarPlataforma(posicao, tamanho, ehChao);
+        }
         void PrimeiraFase::criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
             if (entidades::obstaculos::Espinho::instancias >= maxEspinhos)
                 return;
-            Fase::criarEspinho(posicao, tamanho);
+
+            entidades::obstaculos::Espinho *pEspinho =
+                new entidades::obstaculos::Espinho(posicao, tamanho, true, 1);
+
+            listaEntidades.incluir(pEspinho);
+            gerenciadorColisao.incluirObstaculo(pEspinho);
+        }
+
+
+
+
+        void PrimeiraFase::criarInimigos(char c, float x, float y)
+        {
+            switch (c)
+            {
+                case 't':
+                    criarTerrestre(sf::Vector2f(x, y), proporcao);
+                    break;
+                case '1':
+                    if (rand() % 2)
+                        criarTerrestre(sf::Vector2f(x, y), proporcao);
+                    break;
+                case 'v':
+                    criarVoador(sf::Vector2f(x, y), proporcao);
+                    break;
+                case '2':
+                    if (rand() % 2)
+                        criarVoador(sf::Vector2f(x, y), proporcao);
+                    break;
+                default:
+                    break;
+            }
+        }
+        void PrimeiraFase::criarObstaculos(char c, float x, float y)
+        {
+            switch (c)
+            {
+                case 'c':
+                    criarPlataforma(sf::Vector2f(x, y), proporcao, true);
+                    break;
+                case 'p':
+                    criarPlataforma(sf::Vector2f(x, y), proporcao, false);
+                    break;
+                case '4':
+                    if (rand() % 2)
+                        criarPlataforma(sf::Vector2f(x, y), proporcao, false);
+                    break;
+                case 'e':
+                    criarEspinho(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
+                    break;
+                case '5':
+                    if (rand() % 2)
+                        criarEspinho(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
+                    break;
+                default:
+                    break;
+            }
         }
 
     }

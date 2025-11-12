@@ -17,22 +17,21 @@ namespace jogo {
         {
         private:
             int numJogadores;
-            sf::Vector2f proporcao;
         private:
             void setarProporcao();
-            void criarFase();
+            void criarCenario();
             void criarEntidade(char c, float x, float y);
             void criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho);
-            void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao);
 
         protected:
             gerenciadores::GerenciadorColisao gerenciadorColisao;
             listas::ListaEntidades listaEntidades;
+            sf::Vector2f proporcao;
         protected:
             virtual void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho);
-            virtual void criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho);
-            virtual void criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho);
-            virtual void criarMeleca(sf::Vector2f posicao, sf::Vector2f tamanho);
+            virtual void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao);
+            virtual void criarInimigos(char c, float x, float y) = 0;
+            virtual void criarObstaculos(char c, float x, float y) = 0;
 
         public:
             Fase(int r_numJogadores = 1);

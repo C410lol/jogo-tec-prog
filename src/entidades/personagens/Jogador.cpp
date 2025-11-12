@@ -164,12 +164,12 @@ namespace jogo {
             }
 
             void Jogador::pular() {
-                if (noChao && !naMeleca) {
+                if (noChao && !naMeleca)
+                {
                     noChao = false;
-                    setVelocidade(sf::Vector2f(getVelocidade().x, -450));
+                    setVelocidade(sf::Vector2f(getVelocidade().x, -400));
                 }
             }
-
 
         }
     }

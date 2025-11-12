@@ -5,8 +5,19 @@
 
 namespace jogo {
 
-    Ente::Ente() = default;
-    Ente::~Ente() = default;
+    Ente::Ente()
+    {
+        pSprite = new sf::Sprite();
+    };
+    Ente::~Ente()
+    {
+        if (pTexture)
+            delete pTexture;
+        if (pSprite)
+            delete pSprite;
+    };
+
+
 
 
     gerenciadores::GerenciadorGrafico *Ente::pGerenciadorGrafico = nullptr;
@@ -18,5 +29,21 @@ namespace jogo {
     {
         pGerenciadorGrafico->desenhar(this);
     }
+
+
+
+
+    sf::Sprite* Ente::getSprite() const
+    {
+        return pSprite;
+    }
+
+    void Ente::setTexture(std::string path)
+    {
+        pTexture = new sf::Texture();
+        pTexture->loadFromFile(path);
+        pSprite->setTexture(*pTexture);
+    }
+
 
 }

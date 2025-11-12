@@ -15,12 +15,15 @@ namespace jogo {
 
 
 
+
             Espinho::Espinho(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_danosidade):
             Obstaculo(r_posicao, r_tamanho, r_danoso), danosidade(r_danosidade),
             disMax(r_posicao.x + r_tamanho.x), disMin(r_posicao.x - r_tamanho.x), deslocandoEsquerda(true)
             {
                 ++instancias;
-                retangulo.setFillColor(sf::Color::Magenta);
+
+                setTexture("../assets/obstaculos/espinho.png");
+                fixTexture();
             }
             Espinho::Espinho(): danosidade(0) {}
             Espinho::~Espinho() = default;
@@ -41,7 +44,7 @@ namespace jogo {
                     if (getPosicao().x >= disMax)
                         deslocandoEsquerda = true;
                 }
-                retangulo.setPosition(getPosicao());
+                pSprite->setPosition(getPosicao());
             }
 
 

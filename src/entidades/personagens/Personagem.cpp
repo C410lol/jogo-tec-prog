@@ -27,11 +27,12 @@ namespace jogo {
                 checarMorte();
                 deslocar();
                 cair();
+                atualizaSprite();
                 atualizaKnokback();
                 atualizaVelocidadeX();
                 atualizaPosicao();
 
-                retangulo.setPosition(posicao);
+                pSprite->setPosition(posicao);
                 desenhar();
             }
 
@@ -51,6 +52,13 @@ namespace jogo {
 
 
 
+            void Personagem::atualizaSprite()
+            {
+                if (olhandoDireita)
+                    pSprite->setScale(std::abs(pSprite->getScale().x), pSprite->getScale().y);
+                else
+                    pSprite->setScale(std::abs(pSprite->getScale().x) * -1, pSprite->getScale().y);
+            }
             void Personagem::atualizaVelocidadeX()
             {
                 if (noChao)

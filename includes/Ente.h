@@ -1,6 +1,8 @@
 #ifndef JOGO_ENTE_H
 #define JOGO_ENTE_H
 
+#include <SFML/Graphics.hpp>
+
 
 
 
@@ -13,6 +15,8 @@ namespace jogo {
     {
     protected:
         int id;
+        sf::Texture *pTexture;
+        sf::Sprite *pSprite;
         static gerenciadores::GerenciadorGrafico *pGerenciadorGrafico;
 
     public:
@@ -21,6 +25,9 @@ namespace jogo {
 
         virtual void executar() = 0;
         void desenhar();
+
+        sf::Sprite* getSprite() const;
+        void setTexture(std::string path);
 
         static void setGerenciadorGrafico(gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico);
     };

@@ -15,8 +15,14 @@ namespace jogo {
             Obstaculo(r_posicao, r_tamanho, r_danoso), ehChao(r_ehChao), invisivel(false)
             {
                 if (!ehChao)
+                {
+                    setTexture("../assets/obstaculos/plataformafase2.png");
                     ++instancias;
-                retangulo.setFillColor(sf::Color::White);
+                }
+                else
+                    setTexture("../assets/obstaculos/chaofase1.png");
+
+                fixTexture();
             }
             Plataforma::Plataforma(): invisivel(false) {}
             Plataforma::~Plataforma() = default;
@@ -48,9 +54,9 @@ namespace jogo {
                 cooldown /= 1.1;
 
                 if (invisivel)
-                    retangulo.setFillColor(sf::Color::Transparent);
+                    pSprite->setScale(0, 0);
                 else
-                    retangulo.setFillColor(sf::Color::White);
+                    fixTexture();
             }
 
 

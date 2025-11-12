@@ -97,11 +97,11 @@ namespace jogo {
                         criarPlataforma(sf::Vector2f(x, y), proporcao, false);
                     break;
                 case 'e':
-                    criarEspinho(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
+                    criarEspinho(sf::Vector2f(x, y + proporcao.y / 5), sf::Vector2f(proporcao.x, proporcao.y / 2));
                     break;
                 case '5':
                     if (rand() % 2)
-                        criarEspinho(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
+                        criarEspinho(sf::Vector2f(x, y + proporcao.y / 5), sf::Vector2f(proporcao.x, proporcao.y / 2));
                     break;
                 default:
                     break;

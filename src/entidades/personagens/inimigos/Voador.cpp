@@ -22,7 +22,7 @@ namespace jogo {
                 {
                     ++instancias;
                     deslocamento = energia;
-                    retangulo.setFillColor(sf::Color::Yellow);
+                    //retangulo.setFillColor(sf::Color::Yellow);
                 }
                 Voador::Voador() = default;
                 Voador::~Voador() {

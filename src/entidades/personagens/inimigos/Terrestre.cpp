@@ -19,7 +19,9 @@ namespace jogo {
                 {
                     ++instancias;
                     deslocamento = atrito;
-                    retangulo.setFillColor(sf::Color::Red);
+
+                    setTexture("../assets/personagens/terrestre.png");
+                    fixTexture();
                 }
                 Terrestre::Terrestre() = default;
                 Terrestre::~Terrestre() {

@@ -37,7 +37,7 @@ namespace jogo {
 
 
 
-        void Fase::criarFase()
+        void Fase::criarCenario()
         {
             try
             {
@@ -65,58 +65,12 @@ namespace jogo {
         }
         void Fase::criarEntidade(char c, float x, float y)
         {
-            switch (c)
-            {
-                case 'c':
-                    criarPlataforma(sf::Vector2f(x, y), proporcao, true);
-                    break;
-                case 'p':   //  Plataforma
-                    criarPlataforma(sf::Vector2f(x, y), proporcao, false);
-                    break;
-                case 'e':   //  Espinho
-                    criarEspinho(
-                        sf::Vector2f(x, y + proporcao.y / 2),
-                        sf::Vector2f(proporcao.x, proporcao.y / 2)
-                    );
-                    break;
-                case 'm':
-                    criarMeleca(
-                        sf::Vector2f(x, y + proporcao.y / 1.15),
-                        sf::Vector2f(proporcao.x, proporcao.y / 6)
-                    );
-                    break;
-                case 't':   //  Terrestre
-                    criarTerrestre(sf::Vector2f(x, y), proporcao);
-                    break;
-                case 'v':   //  Voador
-                    criarVoador(sf::Vector2f(x, y), proporcao);
-                    break;
-                case 'j':   //  Jogador
-                    criarJogador(sf::Vector2f(x, y), proporcao);
-                    break;
-                case '1':   //  Terrestre aleatório
-                    if (rand() % 2)
-                        criarTerrestre(sf::Vector2f(x, y), proporcao);
-                    break;
-                case '2':   //  Voador aleatório
-                    if (rand() % 2)
-                        criarVoador(sf::Vector2f(x, y), proporcao);
-                    break;
-                case '4':   //  Espinho aleatório
-                    if (rand() % 2)
-                        criarEspinho(
-                            sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2)
-                        );
-                    break;
-                case '5':
-                    if (rand() % 2)
-                        criarPlataforma(
-                            sf::Vector2f(x, y), proporcao, false
-                        );
-                    break;
-                default:
-                    break;
-            }
+            if (c == 't' || c == '1' || c == 'v' || c == '2' || c == 'b' || c == '3')
+                criarInimigos(c, x, y);
+            else if (c == 'c' || c == 'p' || c == '4' || c == 'e' || c == '5' || c == 'm' || c == '6')
+                criarObstaculos(c, x, y);
+            else if (c == 'j')
+                criarJogador(sf::Vector2f(x, y), proporcao);
         }
 
 
@@ -145,14 +99,6 @@ namespace jogo {
             listaEntidades.incluir(pTerrestre);
             gerenciadorColisao.incluirInimigo(pTerrestre);
         }
-        void Fase::criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho)
-        {
-            entidades::personagens::inimigos::Voador *pVoador =
-                new entidades::personagens::inimigos::Voador(posicao, tamanho);
-
-            listaEntidades.incluir(pVoador);
-            gerenciadorColisao.incluirInimigo(pVoador);
-        }
 
 
 
@@ -164,22 +110,6 @@ namespace jogo {
 
             listaEntidades.incluir(pPlataforma);
             gerenciadorColisao.incluirObstaculo(pPlataforma);
-        }
-        void Fase::criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho)
-        {
-            entidades::obstaculos::Espinho *pEspinho =
-                new entidades::obstaculos::Espinho(posicao, tamanho, true, 1);
-
-            listaEntidades.incluir(pEspinho);
-            gerenciadorColisao.incluirObstaculo(pEspinho);
-        }
-        void Fase::criarMeleca(sf::Vector2f posicao, sf::Vector2f tamanho)
-        {
-            entidades::obstaculos::Meleca *pMeleca =
-                new entidades::obstaculos::Meleca(posicao, tamanho, false, 1);
-
-            listaEntidades.incluir(pMeleca);
-            gerenciadorColisao.incluirObstaculo(pMeleca);
         }
 
 

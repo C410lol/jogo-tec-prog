@@ -22,7 +22,9 @@ namespace jogo {
                 {
                     ++instancias;
                     deslocamento = energia;
-                    //retangulo.setFillColor(sf::Color::Yellow);
+
+                    setTexture("../assets/personagens/voador.png");
+                    fixTexture();
                 }
                 Voador::Voador() = default;
                 Voador::~Voador() {

@@ -9,10 +9,13 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                Inimigo::Inimigo(
-                    sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade
+                Inimigo::Inimigo
+                (
+                    sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade,
+                    int r_nivelMaldade
                 ):
-                Personagem(r_posicao, r_tamanho, r_vidas, r_sofreGravidade), pJogadorAlvo(nullptr)
+                Personagem(r_posicao, r_tamanho, r_vidas, r_sofreGravidade), pJogadorAlvo(nullptr),
+                nivelMaldade(r_nivelMaldade)
                 {}
                 Inimigo::Inimigo() = default;
                 Inimigo::~Inimigo() = default;
@@ -28,17 +31,12 @@ namespace jogo {
 
 
 
-                void Inimigo::colidir(Entidade *pEntidade)
+                void Inimigo::danificar(Jogador *pJogador)
                 {
-                    if (!pEntidade)
-                        return;
-
-                    Jogador* pJogador = dynamic_cast<Jogador*>(pEntidade);
                     if (!pJogador)
                         return;
 
                     sf::Vector2f vetorVelocidade;
-
                     vetorVelocidade.y = -400;
                     if (this->getPosicao().x < pJogador->getPosicao().x)
                         vetorVelocidade.x = 300;
@@ -48,7 +46,7 @@ namespace jogo {
                     pJogador->setNoChao(false);
                     pJogador->setKnokback(true);
                     pJogador->setVelocidade(vetorVelocidade);
-                    --(*pJogador);
+                    pJogador->tomarDano(nivelMaldade);
                 }
 
 

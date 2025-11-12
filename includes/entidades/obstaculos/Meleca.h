@@ -11,6 +11,9 @@ namespace jogo {
             {
             private:
                 int viscosidade;
+                float tamMaximo;
+                float tamMinimo;
+                bool aumentando;
 
             public:
                 static int instancias;
@@ -19,6 +22,7 @@ namespace jogo {
                 Meleca();
                 ~Meleca();
 
+                void executar() override;
                 void obstaculizar(Entidade *entidade) override;
             };
 

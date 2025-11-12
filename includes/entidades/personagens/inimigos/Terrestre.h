@@ -11,12 +11,10 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                #define TERRESTRE_RAIO_MAX 200
-
                 class Terrestre: public Inimigo
                 {
                 private:
-
+                    int atrito;
                 public:
                     static int instancias;
                 public:

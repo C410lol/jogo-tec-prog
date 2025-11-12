@@ -14,14 +14,18 @@ namespace jogo {
             class Plataforma: public Obstaculo
             {
             private:
-                bool movel;
+                bool ehChao;
+                bool invisivel;
 
             public:
-                Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_movel);
+                Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_ehChao);
                 Plataforma();
                 ~Plataforma();
 
+                void executar() override;
                 void obstaculizar(Entidade *entidade) override;
+
+                void atualizarInvisibilidade();
             };
 
         }

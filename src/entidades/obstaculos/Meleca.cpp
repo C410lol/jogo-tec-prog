@@ -14,13 +14,37 @@ namespace jogo {
 
 
             Meleca::Meleca(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_viscosidade):
-            Obstaculo(r_posicao, r_tamanho, r_danoso), viscosidade(r_viscosidade)
+            Obstaculo(r_posicao, r_tamanho, r_danoso), viscosidade(r_viscosidade),
+            tamMaximo(r_tamanho.x * 5), tamMinimo(r_tamanho.x), aumentando(true)
             {
                 ++instancias;
                 retangulo.setFillColor(sf::Color::Green);
             }
             Meleca::Meleca(): viscosidade(0) {}
             Meleca::~Meleca() = default;
+
+
+
+
+            void Meleca::executar()
+            {
+                if (aumentando)
+                {
+                    aumentar(getTamanho().x / 50, 0);
+                    mover(getTamanho().x / -100, 0);
+                    if (getTamanho().x >= tamMaximo)
+                        aumentando = false;
+                }
+                else
+                {
+                    aumentar(getTamanho().x / -50, 0);
+                    mover(getTamanho().x / 100, 0);
+                    if (getTamanho().x <= tamMinimo)
+                        aumentando = true;
+                }
+
+                retangulo.setPosition(getPosicao());
+            }
 
 
 

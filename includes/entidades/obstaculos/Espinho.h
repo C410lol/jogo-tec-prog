@@ -11,6 +11,9 @@ namespace jogo {
             {
             private:
                 int danosidade;
+                float disMax;
+                float disMin;
+                bool deslocandoEsquerda;
 
             public:
                 static int instancias;
@@ -19,6 +22,7 @@ namespace jogo {
                 Espinho();
                 ~Espinho();
 
+                void executar() override;
                 void obstaculizar(Entidade *entidade) override;
             };
 

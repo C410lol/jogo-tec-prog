@@ -14,6 +14,7 @@ namespace jogo {
                 class Voador: public Inimigo
                 {
                 private:
+                    int energia;
 
                 public:
                     static int instancias;

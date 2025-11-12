@@ -16,6 +16,9 @@ namespace jogo {
         Entidade::Entidade() {}
         Entidade::~Entidade() {}
 
+
+
+
         void Entidade::mover(const float x, const float y)
         {
             setPosicao(sf::Vector2f(
@@ -26,6 +29,23 @@ namespace jogo {
         {
             setPosicao(getPosicao() + move);
         }
+
+
+
+
+        void Entidade::aumentar(float x, float y)
+        {
+            setTamanho(sf::Vector2f(
+                getTamanho().x + x, getTamanho().y + y
+            ));
+        }
+        void Entidade::aumentar(sf::Vector2f aumento)
+        {
+            setTamanho(getTamanho() + aumento);
+        }
+
+
+
 
 
 
@@ -42,10 +62,19 @@ namespace jogo {
             return tamanho;
         }
 
+
+
+
         void Entidade::setPosicao(sf::Vector2f r_posicao)
         {
             posicao = r_posicao;
         }
+        void Entidade::setTamanho(sf::Vector2f r_tamanho)
+        {
+            tamanho = r_tamanho;
+            retangulo.setSize(tamanho);
+        }
+
 
     }
 }

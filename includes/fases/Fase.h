@@ -23,7 +23,7 @@ namespace jogo {
             void criarFase();
             void criarEntidade(char c, float x, float y);
             void criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho);
-            void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho);
+            void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao);
 
         protected:
             gerenciadores::GerenciadorColisao gerenciadorColisao;
@@ -32,6 +32,7 @@ namespace jogo {
             virtual void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho);
             virtual void criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho);
             virtual void criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho);
+            virtual void criarMeleca(sf::Vector2f posicao, sf::Vector2f tamanho);
 
         public:
             Fase(int r_numJogadores = 1);

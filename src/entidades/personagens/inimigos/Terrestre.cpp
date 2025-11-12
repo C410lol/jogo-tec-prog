@@ -15,7 +15,7 @@ namespace jogo {
 
 
                 Terrestre::Terrestre(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-                Inimigo(r_posicao, r_tamanho, 1, true, 1), atrito((rand() % 9) + 1)
+                Inimigo(r_posicao, r_tamanho, 1, true, 1), atrito((rand() % 6) + 1)
                 {
                     ++instancias;
                     deslocamento = atrito;

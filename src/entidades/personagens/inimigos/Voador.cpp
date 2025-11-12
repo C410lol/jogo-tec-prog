@@ -18,7 +18,7 @@ namespace jogo {
 
                 Voador::Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
                 Inimigo(r_posicao, r_tamanho, 2, false, 2),
-                energia((rand() % 9) + 1)
+                energia((rand() % 6) + 1)
                 {
                     ++instancias;
                     deslocamento = energia;

@@ -34,6 +34,8 @@ namespace jogo {
 
                     void danificar(Jogador *pJogador);
                     void setJogadoralvo(Jogador* pjog);
+
+                    int getNivelMaldade() const;
                 };
 
             }

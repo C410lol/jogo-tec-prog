@@ -1,7 +1,7 @@
 #ifndef JOGO_CHEFAO_H
 #define JOGO_CHEFAO_H
 
-#include "entidades/personagens/Personagem.h"
+#include "entidades/personagens/inimigos/Inimigo.h"
 
 
 
@@ -11,10 +11,13 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                class Chefao: public Personagem
+                #define RAIO_MAX 100
+
+                class Chefao: public Inimigo
                 {
                 private:
-                    float cadencia;
+                    static int instancias;
+                    float rapidez;
 
                 public:
                     Chefao();
@@ -23,6 +26,12 @@ namespace jogo {
 
                     void executar() override;
                     void deslocar() override;
+
+                    void atirar();
+
+                    float getRapidez() const;
+
+                    static int getInstancias();
                 };
 
             }

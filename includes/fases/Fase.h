@@ -6,6 +6,8 @@
 #include "Ente.h"
 #include "gerenciadores/GerenciadorColisao.h"
 #include "listas/ListaEntidades.h"
+#include "entidades/personagens/inimigos/Chefao.h"
+#include "entidades/Projetil.h"
 
 
 
@@ -39,6 +41,9 @@ namespace jogo {
 
             void inicializar();
             void executar() override;
+
+            void criarProjetil(entidades::personagens::inimigos::Chefao *pChefao);
+            void retirarProjetil(entidades::Projetil *pProjetil);
 
             void retirarPersonagem(entidades::personagens::Personagem *pPersonagem);
         };

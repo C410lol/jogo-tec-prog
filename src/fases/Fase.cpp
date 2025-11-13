@@ -1,14 +1,11 @@
 #include "fases/Fase.h"
 
-#include <cstdlib>
 #include <iostream>
 
-#include "entidades/obstaculos/Meleca.h"
-#include "entidades/obstaculos/Espinho.h"
 #include "entidades/obstaculos/Plataforma.h"
-#include "entidades/personagens/inimigos/Voador.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "gerenciadores/GerenciadorGrafico.h"
+#include "entidades/personagens/inimigos/Chefao.h"
 
 
 
@@ -93,8 +90,8 @@ namespace jogo {
 
         void Fase::criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            entidades::personagens::inimigos::Terrestre *pTerrestre =
-                new entidades::personagens::inimigos::Terrestre(posicao, tamanho);
+            entidades::personagens::inimigos::Chefao *pTerrestre =
+                new entidades::personagens::inimigos::Chefao(posicao, tamanho);
 
             listaEntidades.incluir(pTerrestre);
             gerenciadorColisao.incluirInimigo(pTerrestre);
@@ -111,6 +108,23 @@ namespace jogo {
             listaEntidades.incluir(pPlataforma);
             gerenciadorColisao.incluirObstaculo(pPlataforma);
         }
+
+
+
+
+        void Fase::criarProjetil(entidades::personagens::inimigos::Chefao *pChefao)
+        {
+            entidades::Projetil *pProjetil =
+                new entidades::Projetil
+                (
+                    pChefao->getPosicao(), proporcao / 2.f, pChefao,
+                    pChefao->getRapidez(), pChefao->getNivelMaldade()
+                );
+
+            listaEntidades.incluir(pProjetil);
+            gerenciadorColisao.incluirProjetil(pProjetil);
+        }
+
 
 
 
@@ -134,6 +148,12 @@ namespace jogo {
                     dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
                 );
         }
+        void Fase::retirarProjetil(entidades::Projetil *pProjetil)
+        {
+            listaEntidades.deletar(pProjetil);
+            gerenciadorColisao.retirarProjetil(pProjetil);
+        }
+
 
 
 

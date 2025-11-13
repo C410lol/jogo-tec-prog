@@ -1,11 +1,10 @@
-//
-// Created by mvmko on 03/11/2025.
-//
-
 #ifndef JOGO_PROJETIL_H
 #define JOGO_PROJETIL_H
-#include "Entidade.h"
-#include "personagens/inimigos/Inimigo.h"
+
+#include "entidades/Entidade.h"
+#include "entidades/personagens/Jogador.h"
+
+
 
 
 namespace jogo {
@@ -13,14 +12,24 @@ namespace jogo {
 
             class Projetil:public Entidade
             {
-                protected:
+                private:
+                    int dano;
                     float vel;
                     personagens::Personagem* pDono;
+
                 public:
-                    Projetil(personagens::Personagem* r_pPersonagem, float vel);
+                    Projetil
+                    (
+                        sf::Vector2f r_posicao, sf::Vector2f r_tamanho,
+                        personagens::Personagem* r_pPersonagem, float vel, int r_dano
+                    );
+                    Projetil();
                     ~Projetil();
-                    void executar();
+
+                    void executar() override;
                     void deslocar();
+
+                    void acertar(personagens::Jogador *pJogador);
             };
         }
     }

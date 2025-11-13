@@ -209,15 +209,23 @@ namespace jogo {
 
 
 
-        void GerenciadorColisao::incluirJogador(entidades::personagens::Jogador *jog) {
+        void GerenciadorColisao::incluirJogador(entidades::personagens::Jogador *jog)
+        {
             listaJogadores.push_back(jog);
         }
-        void GerenciadorColisao::incluirInimigo(entidades::personagens::inimigos::Inimigo *pInimigo) {
+        void GerenciadorColisao::incluirInimigo(entidades::personagens::inimigos::Inimigo *pInimigo)
+        {
             listaInimigos.push_back(pInimigo);
         }
-        void GerenciadorColisao::incluirObstaculo(entidades::obstaculos::Obstaculo *pObstaculo) {
+        void GerenciadorColisao::incluirObstaculo(entidades::obstaculos::Obstaculo *pObstaculo)
+        {
             listaObstaculos.push_back(pObstaculo);
         }
+        void GerenciadorColisao::incluirProjetil(entidades::Projetil *pProjetil)
+        {
+            listaProjeteis.insert(pProjetil);
+        }
+
 
 
 
@@ -262,6 +270,27 @@ namespace jogo {
                 }
             }
         }
+        void GerenciadorColisao::retirarProjetil(entidades::Projetil *pProjetil)
+        {
+            std::set<entidades::Projetil*>::iterator itProjetil;
+            for
+            (
+                itProjetil = listaProjeteis.begin();
+                itProjetil != listaProjeteis.end();
+                ++itProjetil
+            )
+            {
+                if (!(*itProjetil))
+                    continue;
+
+                if (*itProjetil == pProjetil)
+                {
+                    listaProjeteis.erase(itProjetil);
+                    break;
+                }
+            }
+        }
+
 
     }
 }

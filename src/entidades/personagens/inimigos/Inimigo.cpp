@@ -57,6 +57,14 @@ namespace jogo {
                     pJogadorAlvo=pjog;
                 }
 
+
+
+
+                int Inimigo::getNivelMaldade() const
+                {
+                    return nivelMaldade;
+                }
+
             }
         }
     }

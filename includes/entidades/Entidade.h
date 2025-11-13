@@ -2,6 +2,7 @@
 #define JOGO_ENTITY_H
 
 #include "Ente.h"
+#include "fases/Fase.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -13,6 +14,7 @@ namespace jogo {
         class Entidade: public Ente
         {
         protected:
+            static fases::Fase *pFase;
             sf::Vector2f posicao;
             sf::Vector2f tamanho;
 
@@ -34,6 +36,8 @@ namespace jogo {
 
             void setPosicao(sf::Vector2f r_posicao);
             void setTamanho(sf::Vector2f r_tamanho);
+
+            static void setFase(fases::Fase *r_pFase);
         };
 
     }

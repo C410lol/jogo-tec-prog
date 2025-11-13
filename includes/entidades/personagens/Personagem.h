@@ -26,8 +26,6 @@ namespace jogo {
                 void atualizaKnokback();
 
             protected:
-                static fases::Fase *pFase;
-
                 int vidas;
                 sf::Vector2f velocidade;
                 bool sofreGravidade;
@@ -58,8 +56,6 @@ namespace jogo {
                 bool getOlhandoDireita() const;
 
                 void tomarDano(int dano);
-
-                static void setFase(fases::Fase *r_pFase);
             };
 
         }

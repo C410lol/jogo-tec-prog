@@ -9,6 +9,15 @@
 namespace jogo {
     namespace entidades {
 
+        fases::Fase *Entidade::pFase = nullptr;
+        void Entidade::setFase(fases::Fase *r_pFase)
+        {
+            pFase = r_pFase;
+        }
+
+
+
+
         Entidade::Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
         posicao(r_posicao), tamanho(r_tamanho)
         {

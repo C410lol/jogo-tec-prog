@@ -135,6 +135,7 @@ namespace jogo {
             anterior.getAtual()->setProx(atual->getProximo());
           }
 
+          delete atual->getInfo();
           delete atual;
           tamanho--;
         }

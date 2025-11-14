@@ -19,7 +19,7 @@ namespace jogo {
 
 
         Entidade::Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-        posicao(r_posicao), tamanho(r_tamanho)
+        ativo(true), posicao(r_posicao), tamanho(r_tamanho)
         {
             pSprite->setPosition(posicao);
         }
@@ -90,6 +90,17 @@ namespace jogo {
             fixTexture();
         }
 
+
+
+
+        bool Entidade::getAtivo() const
+        {
+            return ativo;
+        }
+        void Entidade::setAtivo(bool r_ativo)
+        {
+            ativo = r_ativo;
+        }
 
     }
 }

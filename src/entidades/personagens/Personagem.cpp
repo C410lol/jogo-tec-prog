@@ -52,10 +52,24 @@ namespace jogo {
 
             void Personagem::atualizaSprite()
             {
+                sf::IntRect rect = pSprite->getTextureRect();
                 if (olhandoDireita)
-                    pSprite->setScale(std::abs(pSprite->getScale().x), pSprite->getScale().y);
+                {
+                    if (rect.width < 0)
+                    {
+                        rect.left += rect.width;
+                        rect.width *= -1;
+                    }
+                }
                 else
-                    pSprite->setScale(std::abs(pSprite->getScale().x) * -1, pSprite->getScale().y);
+                {
+                    if (rect.width > 0)
+                    {
+                        rect.left += rect.width;
+                        rect.width *= -1;
+                    }
+                }
+                pSprite->setTextureRect(rect);
             }
             void Personagem::atualizaVelocidadeX()
             {
@@ -67,14 +81,16 @@ namespace jogo {
                 posicao.x += velocidade.x / 30.f;
                 posicao.y += velocidade.y / 30.f;
             }
+
+
+
+
             sf::Vector2f Personagem::getVelocidade() const {
                 return velocidade;
             }
             void Personagem::setVelocidade(const sf::Vector2f r_velocidade) {
                 velocidade = r_velocidade;
             }
-
-
 
 
 

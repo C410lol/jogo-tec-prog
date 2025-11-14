@@ -1,4 +1,8 @@
 #include "entidades/Projetil.h"
+#include "fases/Fase.h"
+
+
+
 
 namespace jogo {
     namespace entidades {
@@ -20,7 +24,6 @@ namespace jogo {
 
 
 
-
         void Projetil::executar() {
             deslocar();
         }
@@ -38,11 +41,11 @@ namespace jogo {
                 return;
 
             sf::Vector2f vetorVelocidade;
-            vetorVelocidade.y = -400;
+            vetorVelocidade.y = -200;
             if (this->getPosicao().x < pJogador->getPosicao().x)
-                vetorVelocidade.x = 300;
+                vetorVelocidade.x = 150;
             else
-                vetorVelocidade.x = -300;
+                vetorVelocidade.x = -150;
 
             pJogador->setNoChao(false);
             pJogador->setKnokback(true);
@@ -51,7 +54,10 @@ namespace jogo {
 
             pFase->retirarProjetil(this);
         }
-
+        void Projetil::destruir()
+        {
+            pFase->retirarProjetil(this);
+        }
 
     }
 }

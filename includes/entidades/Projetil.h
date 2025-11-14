@@ -30,6 +30,7 @@ namespace jogo {
                     void deslocar();
 
                     void acertar(personagens::Jogador *pJogador);
+                    void destruir();
             };
         }
     }

@@ -5,7 +5,6 @@
 #include "entidades/obstaculos/Plataforma.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "gerenciadores/GerenciadorGrafico.h"
-#include "entidades/personagens/inimigos/Chefao.h"
 
 
 
@@ -90,8 +89,8 @@ namespace jogo {
 
         void Fase::criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            entidades::personagens::inimigos::Chefao *pTerrestre =
-                new entidades::personagens::inimigos::Chefao(posicao, tamanho);
+            entidades::personagens::inimigos::Terrestre *pTerrestre =
+                new entidades::personagens::inimigos::Terrestre(posicao, tamanho);
 
             listaEntidades.incluir(pTerrestre);
             gerenciadorColisao.incluirInimigo(pTerrestre);

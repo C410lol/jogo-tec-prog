@@ -36,21 +36,24 @@ namespace jogo {
 
                 void Voador::deslocar()
                 {
-                    if (pJogadorAlvo)
+                    if (!pJogadorAlvo)
+                        return;
+
+                    if (!pJogadorAlvo->getAtivo())
+                        return;
+
+                    float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
+                    float disY = pJogadorAlvo->getPosicao().y - getPosicao().y;
+                    float magnitude = std::sqrt(disX * disX + disY * disY);
+
+                    if (magnitude != 0.f)
                     {
-                        float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
-                        float disY = pJogadorAlvo->getPosicao().y - getPosicao().y;
-                        float magnitude = std::sqrt(disX * disX + disY * disY);
+                        //  Normaliza o vetor direção
+                        float dirX = disX / magnitude;
+                        float dirY = disY / magnitude;
 
-                        if (magnitude != 0.f)
-                        {
-                            //  Normaliza o vetor direção
-                            float dirX = disX / magnitude;
-                            float dirY = disY / magnitude;
-
-                            olhandoDireita = disX >= 0;
-                            mover(dirX * static_cast<float>(deslocamento), dirY * static_cast<float>(deslocamento));
-                        }
+                        olhandoDireita = disX >= 0;
+                        mover(dirX * static_cast<float>(deslocamento), dirY * static_cast<float>(deslocamento));
                     }
                 }
 

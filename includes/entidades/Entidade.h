@@ -8,11 +8,19 @@
 
 
 namespace jogo {
+    namespace fases {
+        class Fase;
+    }
+
     namespace entidades {
 
         class Entidade: public Ente
         {
+        private:
+            bool ativo;
+
         protected:
+            static fases::Fase *pFase;
             sf::Vector2f posicao;
             sf::Vector2f tamanho;
 
@@ -34,6 +42,11 @@ namespace jogo {
 
             void setPosicao(sf::Vector2f r_posicao);
             void setTamanho(sf::Vector2f r_tamanho);
+
+            bool getAtivo() const;
+            void setAtivo(bool r_ativo);
+
+            static void setFase(fases::Fase *r_pFase);
         };
 
     }

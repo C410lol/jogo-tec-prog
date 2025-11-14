@@ -1,12 +1,8 @@
 #include "fases/Fase.h"
 
-#include <cstdlib>
 #include <iostream>
 
-#include "entidades/obstaculos/Meleca.h"
-#include "entidades/obstaculos/Espinho.h"
 #include "entidades/obstaculos/Plataforma.h"
-#include "entidades/personagens/inimigos/Voador.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "gerenciadores/GerenciadorGrafico.h"
 
@@ -115,10 +111,26 @@ namespace jogo {
 
 
 
+        void Fase::criarProjetil(entidades::personagens::inimigos::Chefao *pChefao, float velocidade)
+        {
+            entidades::Projetil *pProjetil =
+                new entidades::Projetil
+                (
+                    pChefao->getPosicao(), proporcao / 2.f, pChefao,
+                    velocidade, pChefao->getNivelMaldade()
+                );
+
+            listaEntidades.incluir(pProjetil);
+            gerenciadorColisao.incluirProjetil(pProjetil);
+        }
+
+
+
+
+
 
         void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
         {
-            listaEntidades.deletar(pPersonagem);
             if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem))
             {
                 gerenciadorColisao.retirarJogador(
@@ -126,14 +138,23 @@ namespace jogo {
                 );
 
                 --entidades::personagens::Jogador::instancias;
-                if (entidades::personagens::Jogador::instancias == 0)
+                if (entidades::personagens::Jogador::instancias <= 0)
                     pGerenciadorGrafico->fecharJanela();
             }
             else
                 gerenciadorColisao.retirarInimigo(
                     dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
                 );
+
+            pPersonagem->setAtivo(false);
         }
+        void Fase::retirarProjetil(entidades::Projetil *pProjetil)
+        {
+            gerenciadorColisao.retirarProjetil(pProjetil);
+
+            pProjetil->setAtivo(false);
+        }
+
 
 
 

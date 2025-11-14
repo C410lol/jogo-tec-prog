@@ -2,6 +2,8 @@
 #include "listas/Lista.h"
 #include "listas/ListaEntidades.h"
 
+#include <iostream>
+
 
 namespace jogo {
     namespace listas {
@@ -33,10 +35,17 @@ namespace jogo {
             entidades::Entidade *aux = nullptr;
             for (int i = 0; i < LEs.getSize(); i++) {
                 aux = LEs.operator[](i);
-                if (aux)
-                    aux->executar();
-                if (aux)
-                    aux->desenhar();
+                if (aux) {
+                    if (aux->getAtivo())
+                    {
+                        aux->executar();
+                        aux->desenhar();
+                    }
+                    else
+                    {
+                        deletar(aux);
+                    }
+                }
             }
         }
 

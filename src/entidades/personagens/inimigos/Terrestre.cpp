@@ -3,7 +3,7 @@
 
 
 
-#include "fases/Fase.h"
+
 namespace jogo {
     namespace entidades {
         namespace personagens {
@@ -40,20 +40,22 @@ namespace jogo {
 
                 void Terrestre::deslocar()
                 {
-                    if (pJogadorAlvo)
-                    {
-                        float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
+                    if (!pJogadorAlvo)
+                        return;
 
-                        if (disX > 0)
-                        {
-                            olhandoDireita = true;
-                            mover(deslocamento, 0.f);
-                        }
-                        if (disX < 0)
-                        {
-                            olhandoDireita = false;
-                            mover(-deslocamento, 0.f);
-                        }
+                    if (!pJogadorAlvo->getAtivo())
+                        return;
+
+                    float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
+                    if (disX > 0)
+                    {
+                        olhandoDireita = true;
+                        mover(deslocamento, 0.f);
+                    }
+                    if (disX < 0)
+                    {
+                        olhandoDireita = false;
+                        mover(-deslocamento, 0.f);
                     }
                 }
 

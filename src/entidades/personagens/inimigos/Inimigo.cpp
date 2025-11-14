@@ -37,11 +37,11 @@ namespace jogo {
                         return;
 
                     sf::Vector2f vetorVelocidade;
-                    vetorVelocidade.y = -400;
+                    vetorVelocidade.y = -200;
                     if (this->getPosicao().x < pJogador->getPosicao().x)
-                        vetorVelocidade.x = 300;
+                        vetorVelocidade.x = 150;
                     else
-                        vetorVelocidade.x = -300;
+                        vetorVelocidade.x = -150;
 
                     pJogador->setNoChao(false);
                     pJogador->setKnokback(true);
@@ -55,6 +55,14 @@ namespace jogo {
                 void Inimigo::setJogadoralvo(Jogador* pjog)
                 {
                     pJogadorAlvo=pjog;
+                }
+
+
+
+
+                int Inimigo::getNivelMaldade() const
+                {
+                    return nivelMaldade;
                 }
 
             }

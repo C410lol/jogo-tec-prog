@@ -1,7 +1,10 @@
 #pragma once
 
-#include "entidades/Entidade.h"
 #include "listas/Lista.h"
+#include "entidades/Entidade.h"
+
+
+
 
 namespace jogo {
     namespace listas {

@@ -1,6 +1,9 @@
 #include "gerenciadores/GerenciadorColisao.h"
+#include "entidades/obstaculos/Plataforma.h"
 
 #include <iostream>
+
+
 
 
 namespace jogo {
@@ -176,7 +179,9 @@ namespace jogo {
 
                 checarObstaculo_InimigosColisao(*itObstaculo);
                 checarObstaculo_JogadoresColisao(*itObstaculo);
-                checarObstaculo_ProjeteisColisao(*itObstaculo);
+
+                if (dynamic_cast<entidades::obstaculos::Plataforma*>(*itObstaculo))
+                    checarObstaculo_ProjeteisColisao(*itObstaculo);
             }
         }
 

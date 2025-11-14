@@ -43,7 +43,7 @@ namespace jogo {
                     atirar();
                     Inimigo::executar();
 
-                    cooldown /= 2;
+                    cooldown /= 1.1;
                 }
 
 
@@ -51,27 +51,32 @@ namespace jogo {
 
                 void Chefao::deslocar()
                 {
-                    if (pJogadorAlvo)
-                    {
-                        float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
+                    if (!pJogadorAlvo)
+                        return;
 
-                        if (disX > RAIO_MAX)
-                        {
-                            olhandoDireita = true;
-                            mover(deslocamento, 0.f);
-                        }
-                        else if (disX < -RAIO_MAX)
-                        {
-                            olhandoDireita = false;
-                            mover(-deslocamento, 0.f);
-                        }
+                    if (!pJogadorAlvo->getAtivo())
+                        return;
+
+                    if (gerenciadores::GerenciadorColisao::calcOverlap(this, pJogadorAlvo).y <= 0)
+                        return;
+
+                    float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
+                    if (disX > RAIO_MAX)
+                    {
+                        olhandoDireita = true;
+                        mover(deslocamento, 0.f);
+                    }
+                    else if (disX < -RAIO_MAX)
+                    {
+                        olhandoDireita = false;
+                        mover(-deslocamento, 0.f);
+                    }
+                    else
+                    {
+                        if (disX > 0)
+                            mover(-deslocamento, 0);
                         else
-                        {
-                            if (disX > 0)
-                                mover(-deslocamento / 2, 0);
-                            else
-                                mover(deslocamento / 2, 0);
-                        }
+                            mover(deslocamento, 0);
                     }
                 }
 
@@ -80,16 +85,16 @@ namespace jogo {
 
                 void Chefao::atirar()
                 {
-                    if (!pJogadorAlvo)
+                    if (!pJogadorAlvo || !pJogadorAlvo->getAtivo())
                         return;
 
                     if (gerenciadores::GerenciadorColisao::calcOverlap(this, pJogadorAlvo).y <= 0)
                         return;
 
-                    if (cooldown)
+                    if (cooldown > 0.1)
                         return;
 
-                    cooldown = std::pow(2, 30);
+                    cooldown = std::pow(1.1, 60);
 
                     float velocidadeProjetil;
                     if (pJogadorAlvo->getPosicao().x > getPosicao().x)

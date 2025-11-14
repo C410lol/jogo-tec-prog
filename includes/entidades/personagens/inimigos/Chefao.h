@@ -17,7 +17,7 @@ namespace jogo {
                 {
                 private:
                     static int instancias;
-                    int cooldown;
+                    float cooldown;
                     float rapidez;
 
                 public:

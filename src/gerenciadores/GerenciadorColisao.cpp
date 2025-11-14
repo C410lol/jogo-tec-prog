@@ -1,6 +1,6 @@
 #include "gerenciadores/GerenciadorColisao.h"
 
-
+#include <iostream>
 
 
 namespace jogo {
@@ -93,7 +93,10 @@ namespace jogo {
         {
             checarObstaculoColisoes();
             checarInimigoColisoes();
+            checarProjeteisColisoes();
         }
+
+
 
 
         void GerenciadorColisao::checarObstaculo_InimigosColisao(
@@ -102,6 +105,7 @@ namespace jogo {
         {
             if (!pObstaculo)
                 return;
+
             std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
             for (itInimigo=listaInimigos.begin();
                 itInimigo != listaInimigos.end();
@@ -118,6 +122,9 @@ namespace jogo {
             entidades::obstaculos::Obstaculo *pObstaculo
         )
         {
+            if (!pObstaculo)
+                return;
+
             std::vector<entidades::personagens::Jogador*>::iterator itJogador;
             for
             (
@@ -131,6 +138,27 @@ namespace jogo {
 
                 if (colidiu(pObstaculo, *itJogador))
                     pObstaculo->obstaculizar(*itJogador);
+            }
+        }
+        void GerenciadorColisao::checarObstaculo_ProjeteisColisao(entidades::obstaculos::Obstaculo *pObstaculo)
+        {
+            if (!pObstaculo)
+                return;
+
+            std::set<entidades::Projetil*>::iterator itProjetil;
+            for
+            (
+                itProjetil = listaProjeteis.begin();
+                itProjetil != listaProjeteis.end();
+                ++itProjetil
+            )
+            {
+                if (!(*itProjetil))
+                    continue;
+
+                if (colidiu(pObstaculo, *itProjetil)) {
+                    (*itProjetil)->destruir();
+                }
             }
         }
         void GerenciadorColisao::checarObstaculoColisoes()
@@ -148,8 +176,11 @@ namespace jogo {
 
                 checarObstaculo_InimigosColisao(*itObstaculo);
                 checarObstaculo_JogadoresColisao(*itObstaculo);
+                checarObstaculo_ProjeteisColisao(*itObstaculo);
             }
         }
+
+
 
 
         void GerenciadorColisao::checarInimigo_JogadoresColisao(
@@ -195,9 +226,11 @@ namespace jogo {
         {
 
             std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
-            for (itInimigo=listaInimigos.begin();
-               itInimigo != listaInimigos.end();
-               ++itInimigo)
+            for
+            (
+                itInimigo=listaInimigos.begin();
+                itInimigo != listaInimigos.end();
+                ++itInimigo)
             {
                 if (!(*itInimigo))
                     continue;
@@ -205,6 +238,44 @@ namespace jogo {
                 checarInimigo_JogadoresColisao(*itInimigo);
             }
         }
+
+
+
+
+        void GerenciadorColisao::checarProjeteis_JogadoresColisao(entidades::Projetil *pProjetil)
+        {
+            std::vector<entidades::personagens::Jogador*>::iterator itJogador;
+            for
+            (
+                itJogador = listaJogadores.begin();
+                itJogador != listaJogadores.end();
+                ++itJogador
+            )
+            {
+                if (!(*itJogador))
+                    continue;
+
+                if (colidiu(pProjetil, *itJogador))
+                    pProjetil->acertar(*itJogador);
+            }
+        }
+        void GerenciadorColisao::checarProjeteisColisoes()
+        {
+            std::set<entidades::Projetil*>::iterator itProjetil;
+            for
+            (
+                itProjetil = listaProjeteis.begin();
+                itProjetil != listaProjeteis.end();
+                ++itProjetil
+            )
+            {
+                if (!(*itProjetil))
+                    continue;
+
+                checarProjeteis_JogadoresColisao(*itProjetil);
+            }
+        }
+
 
 
 
@@ -225,7 +296,6 @@ namespace jogo {
         {
             listaProjeteis.insert(pProjetil);
         }
-
 
 
 
@@ -290,7 +360,6 @@ namespace jogo {
                 }
             }
         }
-
 
     }
 }

@@ -35,8 +35,11 @@ namespace jogo {
 
             void checarObstaculo_InimigosColisao(entidades::obstaculos::Obstaculo *pObstaculo);
             void checarObstaculo_JogadoresColisao(entidades::obstaculos::Obstaculo *pObstaculo);
+            void checarObstaculo_ProjeteisColisao(entidades::obstaculos::Obstaculo *pObstaculo);
 
             void checarInimigo_JogadoresColisao(entidades::personagens::inimigos::Inimigo *pInimigo);
+
+            void checarProjeteis_JogadoresColisao(entidades::Projetil *pProjetil);
 
         public:
             GerenciadorColisao(
@@ -49,6 +52,7 @@ namespace jogo {
 
             void checarObstaculoColisoes();
             void checarInimigoColisoes();
+            void checarProjeteisColisoes();
 
             void incluirJogador(entidades::personagens::Jogador* jog);
             void incluirInimigo(entidades::personagens::inimigos::Inimigo* pInimigo);

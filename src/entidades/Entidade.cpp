@@ -1,6 +1,9 @@
 #include "./entidades/Entidade.h"
 
 #include <iostream>
+
+#include "entidades/personagens/Personagem.h"
+
 #include <SFML/Graphics.hpp>
 
 
@@ -38,7 +41,6 @@ namespace jogo {
         {
             sf::FloatRect originalSize = pSprite->getLocalBounds();
             pSprite->setScale(tamanho.x / originalSize.width, tamanho.y / originalSize.height);
-            pSprite->setOrigin(originalSize.width / 2, originalSize.height / 2);
         }
 
 

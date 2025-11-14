@@ -7,14 +7,9 @@
 
 
 namespace jogo {
-    namespace fases {
-        class Fase;
-    }
-
     namespace entidades {
         namespace personagens {
 
-            #define JOGADOR_VIDAS 3
             #define GRAVIDADE 50
 
             class Personagem: public Entidade
@@ -38,9 +33,9 @@ namespace jogo {
                 Personagem();
                 virtual ~Personagem();
 
-                void executar() override = 0;
-
+                virtual void executar() = 0;
                 virtual void deslocar() = 0;
+
                 virtual void cair();
                 void checarMorte();
 

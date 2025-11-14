@@ -42,7 +42,7 @@ namespace jogo {
             void inicializar();
             void executar() override;
 
-            void criarProjetil(entidades::personagens::inimigos::Chefao *pChefao);
+            void criarProjetil(entidades::personagens::inimigos::Chefao *pChefao, float velocidade);
             void retirarProjetil(entidades::Projetil *pProjetil);
 
             void retirarPersonagem(entidades::personagens::Personagem *pPersonagem);

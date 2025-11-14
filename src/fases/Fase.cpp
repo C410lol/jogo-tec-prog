@@ -112,13 +112,13 @@ namespace jogo {
 
 
 
-        void Fase::criarProjetil(entidades::personagens::inimigos::Chefao *pChefao)
+        void Fase::criarProjetil(entidades::personagens::inimigos::Chefao *pChefao, float velocidade)
         {
             entidades::Projetil *pProjetil =
                 new entidades::Projetil
                 (
                     pChefao->getPosicao(), proporcao / 2.f, pChefao,
-                    pChefao->getRapidez(), pChefao->getNivelMaldade()
+                    velocidade, pChefao->getNivelMaldade()
                 );
 
             listaEntidades.incluir(pProjetil);
@@ -132,7 +132,6 @@ namespace jogo {
 
         void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
         {
-            listaEntidades.deletar(pPersonagem);
             if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem))
             {
                 gerenciadorColisao.retirarJogador(
@@ -140,18 +139,21 @@ namespace jogo {
                 );
 
                 --entidades::personagens::Jogador::instancias;
-                if (entidades::personagens::Jogador::instancias == 0)
+                if (entidades::personagens::Jogador::instancias <= 0)
                     pGerenciadorGrafico->fecharJanela();
             }
             else
                 gerenciadorColisao.retirarInimigo(
                     dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
                 );
+
+            pPersonagem->setAtivo(false);
         }
         void Fase::retirarProjetil(entidades::Projetil *pProjetil)
         {
-            listaEntidades.deletar(pProjetil);
             gerenciadorColisao.retirarProjetil(pProjetil);
+
+            pProjetil->setAtivo(false);
         }
 
 

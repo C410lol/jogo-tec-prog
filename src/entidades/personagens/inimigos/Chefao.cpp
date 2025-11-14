@@ -1,5 +1,6 @@
 #include "entidades/personagens/inimigos/Chefao.h"
 
+#include <cmath>
 #include <iostream>
 
 #include "entidades/personagens/Jogador.h"
@@ -22,11 +23,11 @@ namespace jogo {
 
 
                 Chefao::Chefao(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-                Inimigo(r_posicao, r_tamanho, 5, true, 3),
-                rapidez(rand() % 3 + 1)
+                Inimigo(r_posicao, r_tamanho, 5, true, 1),
+                cooldown(0), rapidez(rand() % 5 + 3)
                 {
                     ++instancias;
-                    deslocamento = 3;
+                    deslocamento = 2;
 
                     setTexture("../assets/personagens/mago.png");
                     fixTexture();
@@ -41,6 +42,8 @@ namespace jogo {
                 {
                     atirar();
                     Inimigo::executar();
+
+                    cooldown /= 2;
                 }
 
 
@@ -57,10 +60,17 @@ namespace jogo {
                             olhandoDireita = true;
                             mover(deslocamento, 0.f);
                         }
-                        if (disX < -RAIO_MAX)
+                        else if (disX < -RAIO_MAX)
                         {
                             olhandoDireita = false;
                             mover(-deslocamento, 0.f);
+                        }
+                        else
+                        {
+                            if (disX > 0)
+                                mover(-deslocamento / 2, 0);
+                            else
+                                mover(deslocamento / 2, 0);
                         }
                     }
                 }
@@ -76,7 +86,18 @@ namespace jogo {
                     if (gerenciadores::GerenciadorColisao::calcOverlap(this, pJogadorAlvo).y <= 0)
                         return;
 
-                    pFase->criarProjetil(this);
+                    if (cooldown)
+                        return;
+
+                    cooldown = std::pow(2, 30);
+
+                    float velocidadeProjetil;
+                    if (pJogadorAlvo->getPosicao().x > getPosicao().x)
+                        velocidadeProjetil = rapidez;
+                    else
+                        velocidadeProjetil = -rapidez;
+
+                    pFase->criarProjetil(this, velocidadeProjetil);
                 }
 
 

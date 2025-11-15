@@ -31,14 +31,20 @@ namespace jogo {
                 ~Jogador() override;
 
                 void executar() override;
-                void deslocar() override;
 
                 void setNaMeleca(bool r_estaNaMeleca);
+                void setAtacando(bool r_atacando);
 
                 bool getAtacando() const;
 
+                bool getEhPrimeiro() const;
+
                 void atacar(inimigos::Inimigo *pInimigo);
+
                 void pular();
+                void moverEsquerda();
+                void moverDireita();
+                void ataque();
             };
 
         }

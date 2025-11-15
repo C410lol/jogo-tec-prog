@@ -25,6 +25,7 @@ namespace jogo {
 
                 void Inimigo::executar()
                 {
+                    deslocar();
                     Personagem::executar();
                 }
 
@@ -37,11 +38,11 @@ namespace jogo {
                         return;
 
                     sf::Vector2f vetorVelocidade;
-                    vetorVelocidade.y = -200;
+                    vetorVelocidade.y = -275;
                     if (this->getPosicao().x < pJogador->getPosicao().x)
-                        vetorVelocidade.x = 150;
+                        vetorVelocidade.x = 200;
                     else
-                        vetorVelocidade.x = -150;
+                        vetorVelocidade.x = -200;
 
                     pJogador->setNoChao(false);
                     pJogador->setKnokback(true);

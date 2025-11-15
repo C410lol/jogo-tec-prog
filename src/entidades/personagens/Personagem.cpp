@@ -23,7 +23,6 @@ namespace jogo {
             void Personagem::executar()
             {
                 checarMorte();
-                deslocar();
                 cair();
                 atualizaSprite();
                 atualizaKnokback();
@@ -85,20 +84,24 @@ namespace jogo {
 
 
 
-            sf::Vector2f Personagem::getVelocidade() const {
+            sf::Vector2f Personagem::getVelocidade() const
+            {
                 return velocidade;
             }
-            void Personagem::setVelocidade(const sf::Vector2f r_velocidade) {
+            void Personagem::setVelocidade(const sf::Vector2f r_velocidade)
+            {
                 velocidade = r_velocidade;
             }
 
 
 
 
-            bool Personagem::getNoChao() const {
+            bool Personagem::getNoChao() const
+            {
                 return noChao;
             }
-            void Personagem::setNoChao(const bool r_noChao) {
+            void Personagem::setNoChao(const bool r_noChao)
+            {
                 noChao = r_noChao;
             }
 

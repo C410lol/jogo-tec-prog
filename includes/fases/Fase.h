@@ -1,13 +1,14 @@
 #ifndef JOGO_FASE_H
 #define JOGO_FASE_H
 
-#include <fstream>
+#include <vector>
 
 #include "Ente.h"
 #include "gerenciadores/GerenciadorColisao.h"
 #include "listas/ListaEntidades.h"
 #include "entidades/personagens/inimigos/Chefao.h"
 #include "entidades/Projetil.h"
+#include "observer-pattern/input/JogadorObserver.h"
 
 
 
@@ -24,10 +25,12 @@ namespace jogo {
             void criarCenario();
             void criarEntidade(char c, float x, float y);
             void criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho);
+            void retirarJogadorObserver(entidades::personagens::Jogador *pJogador);
 
         protected:
             gerenciadores::GerenciadorColisao gerenciadorColisao;
             listas::ListaEntidades listaEntidades;
+            std::vector<observers::JogadorObserver*> jogadorObservers;
             sf::Vector2f proporcao;
         protected:
             virtual void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho);

@@ -5,6 +5,7 @@
 
 #include "entidades/obstaculos/Plataforma.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
+#include "fases/PrimeiraFase.h"
 #include "gerenciadores/GerenciadorGrafico.h"
 #include "observer-pattern/input/InputSubject.h"
 
@@ -39,7 +40,12 @@ namespace jogo {
         {
             try
             {
-                std::ifstream faseTemplate("../fases-template/primeira-fase.txt");
+                std::ifstream faseTemplate;
+                if (dynamic_cast<fases::PrimeiraFase*>(this))
+                    faseTemplate.open("../fases-template/primeira-fase.txt");
+                else
+                    faseTemplate.open("../fases-template/segunda-fase.txt");
+
                 std::string linha;
 
                 float x = 0.f;

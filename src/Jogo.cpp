@@ -1,7 +1,6 @@
 #include "Jogo.h"
 #include "fases/PrimeiraFase.h"
-
-
+#include "fases/SegundaFase.h"
 
 
 namespace jogo
@@ -10,9 +9,7 @@ namespace jogo
     inputSubject(observers::InputSubject::getInstancia())
     {
         Ente::setGerenciadorGrafico(&gerenciadorGrafico);
-        pFase = new fases::PrimeiraFase(2);
-        pFase->inicializar();
-        exec();
+        pMenu= new Menu(this);
     }
     Jogo::~Jogo() = default;
 
@@ -34,5 +31,17 @@ namespace jogo
             pFase->executar();
             gerenciadorGrafico.mostrar();
         }
+    }
+    void Jogo::startF1()
+    {
+        pFase= new fases::PrimeiraFase(2);
+        pFase->inicializar();
+        exec();
+    }
+    void Jogo::startF2()
+    {
+        pFase = new fases::SegundaFase(2);
+        pFase->inicializar();
+        exec();
     }
 }

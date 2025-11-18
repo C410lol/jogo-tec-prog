@@ -1,4 +1,15 @@
+/*
+ Código adaptado da lista do Professor Doutor Jean Marcelo Simão,
+ diponível em:
+ https://pessoal.dainf.ct.utfpr.edu.br/jeansimao/Fundamentos2/LinguagemC++UML/Fundamentos2-SlidesC++10B-2020-07-20.pdf
+*/
+
+
+
+
 #pragma once
+
+
 
 
 namespace jogo {

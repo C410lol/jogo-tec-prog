@@ -10,13 +10,13 @@ namespace jogo {
             class Meleca: public Obstaculo
             {
             private:
+                static int instancias;
+
                 int viscosidade;
                 float tamMaximo;
                 float tamMinimo;
                 bool aumentando;
 
-            public:
-                static int instancias;
             public:
                 Meleca(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_viscosidade);
                 Meleca();
@@ -24,6 +24,8 @@ namespace jogo {
 
                 void executar() override;
                 void obstaculizar(Entidade *entidade) override;
+
+                static int getInstancias();
             };
 
         }

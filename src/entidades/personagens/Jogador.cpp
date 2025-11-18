@@ -50,70 +50,8 @@ namespace jogo {
             {
                 Personagem::executar();
                 atualizarNaMeleca();
-            }
 
-
-
-
-            void Jogador::deslocar()
-            {
-                if (getKnokback())
-                    return;
-
-                if (ehPrimeiro)
-                {
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                    {
-                        olhandoDireita = false;
-                        mover(-deslocamentoX, 0);
-                    }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                    {
-                        olhandoDireita = true;
-                        mover(deslocamentoX, 0);
-                    }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                    {
-                        pular();
-                    }
-
-                    //  Ataque do Jogador
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !cooldown)
-                    {
-                        cooldown = std::pow(2, 15);
-                        atacando = true;
-                    }
-                    else
-                        atacando = false;
-                    cooldown /= 2;
-                }
-                else
-                {
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                    {
-                        olhandoDireita = false;
-                        mover(-deslocamentoX, 0);
-                    }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                    {
-                        olhandoDireita = true;
-                        mover(deslocamentoX, 0);
-                    }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-                    {
-                        pular();
-                    }
-
-                    //  Ataque do Jogador
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !cooldown)
-                    {
-                        cooldown = std::pow(2, 15);
-                        atacando = true;
-                    }
-                    else
-                        atacando = false;
-                    cooldown /= 2;
-                }
+                cooldown /= 2;
             }
 
 
@@ -123,7 +61,10 @@ namespace jogo {
             {
                 return atacando;
             }
-
+            bool Jogador::getEhPrimeiro() const
+            {
+                return ehPrimeiro;
+            }
 
 
 
@@ -131,6 +72,10 @@ namespace jogo {
             void Jogador::setNaMeleca(bool r_estaNaMeleca)
             {
                 naMeleca = r_estaNaMeleca;
+            }
+            void Jogador::setAtacando(bool r_atacando)
+            {
+                atacando = r_atacando;
             }
             void Jogador::atualizarNaMeleca()
             {
@@ -151,11 +96,11 @@ namespace jogo {
                     return;
 
                 sf::Vector2f vetorVelocidade;
-                vetorVelocidade.y = -400;
+                vetorVelocidade.y = -275;
                 if (this->getPosicao().x < pInimigo->getPosicao().x)
-                    vetorVelocidade.x = 300;
+                    vetorVelocidade.x = 200;
                 else
-                    vetorVelocidade.x = -300;
+                    vetorVelocidade.x = -200;
 
                 pInimigo->setNoChao(false);
                 pInimigo->setKnokback(true);
@@ -163,12 +108,34 @@ namespace jogo {
                 pInimigo->tomarDano(1);
             }
 
-            void Jogador::pular() {
+
+
+
+            void Jogador::pular()
+            {
                 if (noChao && !naMeleca)
                 {
                     noChao = false;
                     setVelocidade(sf::Vector2f(getVelocidade().x, -400));
                 }
+            }
+            void Jogador::moverEsquerda()
+            {
+                olhandoDireita = false;
+                mover(-deslocamentoX, 0);
+            }
+            void Jogador::moverDireita()
+            {
+                olhandoDireita = true;
+                mover(deslocamentoX, 0);
+            }
+            void Jogador::ataque()
+            {
+                if (cooldown)
+                    return;
+
+                cooldown = std::pow(2, 15);
+                atacando = true;
             }
 
         }

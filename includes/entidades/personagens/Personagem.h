@@ -34,7 +34,6 @@ namespace jogo {
                 virtual ~Personagem();
 
                 virtual void executar() = 0;
-                virtual void deslocar() = 0;
 
                 virtual void cair();
                 void checarMorte();

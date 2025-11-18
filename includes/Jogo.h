@@ -1,8 +1,8 @@
 #ifndef JOGO_JOGO_H
 #define JOGO_JOGO_H
 
-#include "fases/PrimeiraFase.h"
 #include "gerenciadores/GerenciadorGrafico.h"
+#include "observer-pattern/input/InputSubject.h"
 
 
 
@@ -11,8 +11,10 @@ namespace jogo {
 
     class Jogo
     {
+    private:
         fases::Fase *pFase;
         gerenciadores::GerenciadorGrafico gerenciadorGrafico;
+        observers::InputSubject *inputSubject;
 
     public:
         Jogo();

@@ -1,10 +1,12 @@
 #include "fases/Fase.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "entidades/obstaculos/Plataforma.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "gerenciadores/GerenciadorGrafico.h"
+#include "observer-pattern/input/InputSubject.h"
 
 
 
@@ -72,7 +74,6 @@ namespace jogo {
 
 
 
-
         void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
             if (entidades::personagens::Jogador::instancias >= numJogadores)
@@ -80,8 +81,14 @@ namespace jogo {
 
             entidades::personagens::Jogador *pJogador =
                 new entidades::personagens::Jogador(posicao, tamanho);
+            observers::JogadorObserver *pJogadorObserver =
+                new observers::JogadorObserver(pJogador);
+
             listaEntidades.incluir(pJogador);
             gerenciadorColisao.incluirJogador(pJogador);
+
+            observers::InputSubject::getInstancia()->attach(pJogadorObserver);
+            jogadorObservers.push_back(pJogadorObserver);
         }
 
 
@@ -127,15 +134,14 @@ namespace jogo {
 
 
 
-
-
         void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
         {
-            if (dynamic_cast<entidades::personagens::Jogador*>(pPersonagem))
+            entidades::personagens::Jogador *pJogador =
+                dynamic_cast<entidades::personagens::Jogador*>(pPersonagem);
+            if (pJogador)
             {
-                gerenciadorColisao.retirarJogador(
-                    dynamic_cast<entidades::personagens::Jogador*>(pPersonagem)
-                );
+                gerenciadorColisao.retirarJogador(pJogador);
+                retirarJogadorObserver(pJogador);
 
                 --entidades::personagens::Jogador::instancias;
                 if (entidades::personagens::Jogador::instancias <= 0)
@@ -148,6 +154,28 @@ namespace jogo {
 
             pPersonagem->setAtivo(false);
         }
+        void Fase::retirarJogadorObserver(entidades::personagens::Jogador *pJogador)
+        {
+            std::vector<observers::JogadorObserver*>::iterator itJogadorObserver;
+            for
+            (
+                itJogadorObserver = jogadorObservers.begin();
+                itJogadorObserver != jogadorObservers.end();
+                ++itJogadorObserver
+            )
+            {
+                if (*itJogadorObserver)
+                {
+                    if ((*itJogadorObserver)->getJogador() == pJogador)
+                    {
+                        observers::InputSubject::getInstancia()->detach(*itJogadorObserver);
+                        delete *itJogadorObserver;
+                        jogadorObservers.erase(itJogadorObserver);
+                        break;
+                    }
+                }
+            }
+        }
         void Fase::retirarProjetil(entidades::Projetil *pProjetil)
         {
             gerenciadorColisao.retirarProjetil(pProjetil);
@@ -158,17 +186,14 @@ namespace jogo {
 
 
 
-
-
         void Fase::inicializar()
         {
             criarCenario();
         }
-
         void Fase::executar()
         {
-            gerenciadorColisao.checarColisoes();
             listaEntidades.executar();
+            gerenciadorColisao.checarColisoes();
         }
 
     }

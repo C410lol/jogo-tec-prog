@@ -1,11 +1,13 @@
 #include "Jogo.h"
+#include "fases/PrimeiraFase.h"
 
 
 
 
 namespace jogo
 {
-    Jogo::Jogo()
+    Jogo::Jogo():
+    inputSubject(observers::InputSubject::getInstancia())
     {
         Ente::setGerenciadorGrafico(&gerenciadorGrafico);
         pFase = new fases::PrimeiraFase(2);
@@ -28,6 +30,7 @@ namespace jogo
                 }
             }
             gerenciadorGrafico.limpar();
+            inputSubject->execute();
             pFase->executar();
             gerenciadorGrafico.mostrar();
         }

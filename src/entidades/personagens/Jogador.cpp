@@ -17,6 +17,7 @@ namespace jogo {
 
             int Jogador::instancias = 0;
             bool Jogador::primeiroExiste = false;
+            int Jogador::getInstancias() { return instancias; }
 
 
 

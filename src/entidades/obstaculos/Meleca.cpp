@@ -9,6 +9,7 @@ namespace jogo {
         namespace obstaculos {
 
             int Meleca::instancias = 0;
+            int Meleca::getInstancias() { return instancias; }
 
 
 

@@ -12,6 +12,7 @@ namespace jogo {
             namespace inimigos {
 
                 int Voador::instancias = 0;
+                int Voador::getInstancias() { return instancias; }
 
 
 

@@ -14,9 +14,10 @@ namespace jogo {
                 class Terrestre: public Inimigo
                 {
                 private:
-                    int atrito;
-                public:
                     static int instancias;
+
+                    int atrito;
+
                 public:
                     Terrestre(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
                     Terrestre();
@@ -24,6 +25,8 @@ namespace jogo {
 
                     void executar() override;
                     void deslocar() override;
+
+                    static int getInstancias();
                 };
 
             }

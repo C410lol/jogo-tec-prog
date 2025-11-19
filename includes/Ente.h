@@ -2,6 +2,7 @@
 #define JOGO_ENTE_H
 
 #include <SFML/Graphics.hpp>
+#include "IDs.h"
 
 
 
@@ -14,7 +15,7 @@ namespace jogo {
     class Ente
     {
     protected:
-        int id;
+        IDs Id;
         sf::Texture *pTexture;
         sf::Sprite *pSprite;
         static gerenciadores::GerenciadorGrafico *pGerenciadorGrafico;
@@ -30,6 +31,7 @@ namespace jogo {
         void setTexture(std::string path);
 
         static void setGerenciadorGrafico(gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico);
+        IDs getId();
     };
 
 }

@@ -1,17 +1,24 @@
 #include "Jogo.h"
+
+#include <iostream>
+
+#include "estados/EstadoJogo.h"
+#include "estados/EstadoMenu.h"
 #include "fases/PrimeiraFase.h"
-
-
+#include "fases/SegundaFase.h"
+#include "gerenciadores/GerenciadorEstado.h"
+#include "menus/Botao.h"
+#include "menus/MenuPrincipal.h"
 
 
 namespace jogo
 {
     Jogo::Jogo():
-    inputSubject(observers::InputSubject::getInstancia())
+    inputSubject(observers::InputSubject::getInstancia()),
+    pge(gerenciadores::GerenciadorEstado::getGerenEstado())
     {
         Ente::setGerenciadorGrafico(&gerenciadorGrafico);
-        pFase = new fases::PrimeiraFase(2);
-        pFase->inicializar();
+        pge->adicionarEstado(IDs::menu_principal);
         exec();
     }
     Jogo::~Jogo() = default;
@@ -31,8 +38,24 @@ namespace jogo
             }
             gerenciadorGrafico.limpar();
             inputSubject->execute();
-            pFase->executar();
+            pge->executar();
+            if (pge->getEstadoAtual()->getvoltaMenu()) {
+                pge->adicionarEstado(IDs::menu_pausa);
+            }
             gerenciadorGrafico.mostrar();
         }
     }
+
+
+
+
+    void Jogo::startF1()
+    {
+
+    }
+    void Jogo::startF2()
+    {
+
+    }
+
 }

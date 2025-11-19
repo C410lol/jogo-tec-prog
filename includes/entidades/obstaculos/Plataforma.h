@@ -18,9 +18,9 @@ namespace jogo {
 
                 bool ehChao;
                 bool invisivel;
-
+                
             public:
-                Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_ehChao);
+                Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_ehChao, IDs id);
                 Plataforma();
                 ~Plataforma();
 

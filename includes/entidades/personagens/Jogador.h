@@ -44,6 +44,8 @@ namespace jogo {
                 void moverEsquerda();
                 void moverDireita();
                 void ataque();
+                
+                static void setJogadorExiste(bool est);
 
                 static int getInstancias();
             };

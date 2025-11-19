@@ -33,6 +33,7 @@ namespace jogo {
                     float getRapidez() const;
 
                     static int getInstancias();
+                    static void setInstancias(int n);
                 };
 
             }

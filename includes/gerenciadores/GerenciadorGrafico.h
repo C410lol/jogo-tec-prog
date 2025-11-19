@@ -27,6 +27,9 @@ namespace jogo {
 
             void limpar() const;
             void desenhar(Ente *pEnte) const;
+            void desenhar(sf::Sprite pSrite);
+            void desenhar(sf::Text &fonte);
+            void desenhar(sf::RectangleShape pshape);
             void mostrar() const;
             void fecharJanela() const;
 

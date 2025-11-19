@@ -34,7 +34,7 @@ namespace jogo {
             sf::Vector2f proporcao;
         protected:
             virtual void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho);
-            virtual void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao);
+            virtual void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao, IDs id);
             virtual void criarInimigos(char c, float x, float y) = 0;
             virtual void criarObstaculos(char c, float x, float y) = 0;
 

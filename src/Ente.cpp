@@ -44,6 +44,8 @@ namespace jogo {
         pTexture->loadFromFile(path);
         pSprite->setTexture(*pTexture);
     }
-
+    IDs Ente::getId() {
+        return Id;
+    }
 
 }

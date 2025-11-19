@@ -17,8 +17,9 @@ namespace jogo {
         class EstadoMenu : public Estado {
         private:
             Menu* menu;
+            IDs fase;
         public:
-            EstadoMenu(IDs id);
+            EstadoMenu(IDs id, IDs r_fase = IDs::primeira_fase);
             ~EstadoMenu() override;
 
             void executar() override;

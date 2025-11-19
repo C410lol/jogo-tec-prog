@@ -14,10 +14,10 @@ namespace jogo {
         private:
             fases::Fase *fase;
             public:
-            EstadoJogo(IDs id);
+            EstadoJogo(IDs id, int numJogadores = 1);
             ~EstadoJogo();
             void executar();
-            void criarFase(IDs idfase);
+            void criarFase(IDs idFase, int numJogadores = 1);
 
         };
     }

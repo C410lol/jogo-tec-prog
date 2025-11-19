@@ -10,8 +10,8 @@
 
 namespace jogo {
     namespace estados {
-        EstadoJogo::EstadoJogo(IDs id):Estado(id) {
-            criarFase(id);
+        EstadoJogo::EstadoJogo(IDs id, int numJogadores):Estado(id) {
+            criarFase(id, numJogadores);
         }
         EstadoJogo::~EstadoJogo() {
             if (fase) {
@@ -27,11 +27,11 @@ namespace jogo {
             }
 
         }
-        void EstadoJogo::criarFase(IDs idfase) {
-            if (idfase == IDs::primeira_fase)
-                fase = static_cast<fases::Fase*>(new fases::PrimeiraFase(2, IDs::primeira_fase));
+        void EstadoJogo::criarFase(IDs idFase, int numJogadores) {
+            if (idFase == IDs::primeira_fase)
+                fase = static_cast<fases::Fase*>(new fases::PrimeiraFase(numJogadores, IDs::primeira_fase));
             else {
-                fase = static_cast<fases::Fase*>(new fases::SegundaFase(2, IDs::segunda_fase));
+                fase = static_cast<fases::Fase*>(new fases::SegundaFase(numJogadores, IDs::segunda_fase));
             }
         }
 

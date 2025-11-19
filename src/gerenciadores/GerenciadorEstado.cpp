@@ -25,13 +25,17 @@ namespace jogo {
                 removerEstado();
             }
         }
-        void GerenciadorEstado::adicionarEstado(IDs id) {
+        void GerenciadorEstado::adicionarEstado(IDs id, int numJogadores, IDs r_fase) {
             estados::Estado* estado = nullptr;
             if (id == IDs::primeira_fase || id == IDs::segunda_fase) {
-                estado = (new estados::EstadoJogo(id));
+                estado = (new estados::EstadoJogo(id, numJogadores));
             }
             else if (id == IDs::menu_principal || id == IDs::menu_pausa) {
                 estado = new estados::EstadoMenu(id);
+            }
+            else if (id == IDs::menu_jogadores)
+            {
+                estado = new estados::EstadoMenu(id, r_fase);
             }
             pilhaEstados.push(estado);
         }
@@ -48,7 +52,9 @@ namespace jogo {
             if (!pilhaEstados.empty()) {
                 return pilhaEstados.top();
             }
+            return nullptr;
         }
+
         void GerenciadorEstado::executar() {
             if (!pilhaEstados.empty()) {
                 pilhaEstados.top()->executar();
@@ -58,9 +64,7 @@ namespace jogo {
             while (!pilhaEstados.empty()) {
                 pilhaEstados.pop();
             }
-
-
-
         }
+
     }
 }

@@ -11,8 +11,9 @@
 namespace jogo {
     namespace menus {
         MenuPausa::MenuPausa(fases::Fase* r_fase) : fundoPainel(), fase(r_fase){
-            botoes.push_back(new Botao("Sair",{500.f, 175.f}, {200.f, 50.f}));
-            botoes.push_back(new Botao("Continuar",{500.f, 300.f}, {200.f, 50.f}));
+            float posX = sf::VideoMode::getDesktopMode().width / 2.75;
+            botoes.push_back(new Botao("Sair", {posX, 175.f}, {200.f, 50.f}));
+            botoes.push_back(new Botao("Continuar",{posX, 300.f}, {200.f, 50.f}));
 
             fundoPainel.setSize(sf::Vector2f(400.f, 300.f));   // largura e altura
             fundoPainel.setFillColor(sf::Color(0, 0, 0, 150)); // preto semi-transparente

@@ -5,14 +5,18 @@
 #include "gerenciadores/GerenciadorEstado.h"
 #include "gerenciadores/GerenciadorGrafico.h"
 
+
+
+
 namespace jogo {
     namespace menus {
 
         MenuPrincipal::MenuPrincipal() {
-            botoes.push_back( new Botao("Fase 1", {500.f, 300.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Fase 2", {500.f, 400.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Sair",   {500.f, 500.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("JOGO++",   {450.f, 100.f}, {300.f, 100.f}));
+            float posX = sf::VideoMode::getDesktopMode().width / 2.75;
+            botoes.push_back( new Botao("Fase 1", {posX + 50, 300.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Fase 2", {posX + 50, 400.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Sair", {posX + 50, 500.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("JOGO++", {posX, 100.f}, {300.f, 100.f}));
 
             setTexture("../assets/Menu.png");
             pSprite->setTexture(*pTexture);
@@ -23,7 +27,6 @@ namespace jogo {
                 static_cast<float>(windowSize.x) / textureSize.x,
                 static_cast<float>(windowSize.y) / textureSize.y
             );
-
         }
 
         MenuPrincipal::~MenuPrincipal() {
@@ -39,10 +42,10 @@ namespace jogo {
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 if (botoes[0]->contem(mousePos)) {
-                    pge->adicionarEstado(IDs::primeira_fase);
+                    pge->adicionarEstado(IDs::menu_jogadores, 0, IDs::primeira_fase);
                 }
                 else if (botoes[1]->contem(mousePos)) {
-                    pge->adicionarEstado(IDs::segunda_fase);
+                    pge->adicionarEstado(IDs::menu_jogadores, 0, IDs::segunda_fase);
                 }
                 else if (botoes[2]->contem(mousePos)) {
                     pGerenciadorGrafico->fecharJanela(); // sair
@@ -56,6 +59,6 @@ namespace jogo {
                 botoes[i]->desenhar();
             }
         }
-        }
 
     }
+}

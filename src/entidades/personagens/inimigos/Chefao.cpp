@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 
+#include "entidades/obstaculos/Plataforma.h"
 #include "entidades/personagens/Jogador.h"
 #include "entidades/personagens/inimigos/Inimigo.h"
 #include "fases/Fase.h"
@@ -18,6 +19,9 @@ namespace jogo {
 
                 int Chefao::instancias = 0;
                 int Chefao::getInstancias() { return instancias; }
+                void Chefao::setInstancias(int n) {
+                    instancias = n;
+                }
 
 
 

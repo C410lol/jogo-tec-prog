@@ -11,6 +11,7 @@ namespace jogo {
         primeira_fase,
         segunda_fase,
         menu_principal,
+        menu_jogadores,
         botao,
         plataforma_fase1,
         plataforma_fase2,

@@ -5,11 +5,23 @@
 
 #include "entidades/obstaculos/Meleca.h"
 #include "entidades/obstaculos/Plataforma.h"
+#include "gerenciadores/GerenciadorGrafico.h"
 
 namespace jogo{
     namespace fases{
-        SegundaFase::SegundaFase(int r_numJogadores):Fase(r_numJogadores), maxTerrestres(8), maxChefoes(4), maxPlataformas(325), maxMelecas(15)
-        {}
+        SegundaFase::SegundaFase(int r_numJogadores, IDs id):Fase(r_numJogadores), maxTerrestres(8), maxChefoes(4), maxPlataformas(325), maxMelecas(15) {
+            Id=id;
+            setTexture("../assets/fundos/caverna.png");
+            pSprite->setTexture(*pTexture);
+
+            sf::Vector2u windowSize = pGerenciadorGrafico->getJanela()->getSize();
+            sf::Vector2u textureSize = pTexture->getSize();
+            pSprite->setScale(
+                static_cast<float>(windowSize.x) / textureSize.x,
+                static_cast<float>(windowSize.y) / textureSize.y
+            );
+            inicializar();
+        }
         SegundaFase::~SegundaFase() = default;
 
         void SegundaFase::criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho)
@@ -31,7 +43,7 @@ namespace jogo{
         {
             if (entidades::obstaculos::Plataforma::instancias >= maxPlataformas)
                 return;
-            Fase::criarPlataforma(posicao, tamanho, ehChao);
+            Fase::criarPlataforma(posicao, tamanho, ehChao, IDs::plataforma_fase2);
         }
         void SegundaFase::criarMelecas(sf::Vector2f r_posicao, sf::Vector2f r_tamanho)
         {

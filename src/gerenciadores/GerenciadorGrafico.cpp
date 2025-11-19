@@ -21,7 +21,7 @@ namespace jogo {
 
         void GerenciadorGrafico::criarJanela()
         {
-            pJanela = new sf::RenderWindow(sf::VideoMode({1280, 720}), "Game");
+            pJanela = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Game", sf::Style::Fullscreen);
             pJanela->setFramerateLimit(30);
         }
         void GerenciadorGrafico::fecharJanela() const {

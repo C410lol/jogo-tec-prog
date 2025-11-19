@@ -91,22 +91,16 @@ namespace jogo{
                     criarPlataforma(sf::Vector2f(x, y), proporcao, false);
                 break;
             case 'e':
-                criarMelecas(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
+                criarMelecas(sf::Vector2f(x, y + proporcao.y / 1.25), sf::Vector2f(proporcao.x, proporcao.y / 6));
                 break;
             case '5':
                 if (rand() % 2)
-                    criarMelecas(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
+                    criarMelecas(sf::Vector2f(x, y + proporcao.y / 1.25), sf::Vector2f(proporcao.x, proporcao.y / 6));
                 break;
             default:
                 break;
             }
         }
-
-
-
-
-
-
 
     }
 }

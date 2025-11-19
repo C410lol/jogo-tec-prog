@@ -1,3 +1,4 @@
+/*
 #include "Menu.h"
 
 #include <iostream>
@@ -10,7 +11,8 @@ namespace jogo{
             pjogo=r_pjogo;
             executar();
     }
-    Menu::~Menu(){}
+    Menu::Menu() = default;
+    Menu::~Menu() = default;
 
     void Menu::executar()
     {
@@ -33,3 +35,4 @@ namespace jogo{
 
 
 }
+*/

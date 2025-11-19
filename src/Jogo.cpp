@@ -45,4 +45,17 @@ namespace jogo
             gerenciadorGrafico.mostrar();
         }
     }
+
+
+
+
+    void Jogo::startF1()
+    {
+
+    }
+    void Jogo::startF2()
+    {
+
+    }
+
 }

@@ -9,6 +9,9 @@
 
 
 namespace jogo {
+    namespace gerenciadores {
+        class GerenciadorEstado;
+    }
 
     class Jogo
     {

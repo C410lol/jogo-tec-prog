@@ -9,7 +9,7 @@
 
 namespace jogo{
     namespace fases{
-        SegundaFase::SegundaFase(int r_numJogadores, IDs id):Fase(r_numJogadores), maxTerrestres(8), maxChefoes(4), maxPlataformas(325), maxMelecas(15) {
+        SegundaFase::SegundaFase(int r_numJogadores, IDs id):Fase(r_numJogadores), maxTerrestres(8), maxChefoes(7), maxPlataformas(325), maxMelecas(15) {
             Id=id;
             setTexture("../assets/fundos/caverna.png");
             pSprite->setTexture(*pTexture);

@@ -19,13 +19,13 @@ namespace jogo {
         private:
             void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho) override;
             void criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho);
-            void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao) override;
+            void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao);
             void criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho);
             void criarInimigos(char c, float x, float y) override;
             void criarObstaculos(char c, float x, float y) override;
 
         public:
-            PrimeiraFase(int r_numJogadores);
+            PrimeiraFase(int r_numJogadores, IDs id);
             ~PrimeiraFase() override;
         };
 

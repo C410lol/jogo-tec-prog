@@ -1,19 +1,26 @@
 #include "fases/PrimeiraFase.h"
 
+#include <iostream>
+
 #include "entidades/obstaculos/Plataforma.h"
 #include "entidades/obstaculos/Espinho.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "entidades/personagens/inimigos/Voador.h"
-
-
+#include "gerenciadores/GerenciadorGrafico.h"
 
 
 namespace jogo {
     namespace fases {
 
-        PrimeiraFase::PrimeiraFase(int r_numJogadores):
-        Fase(r_numJogadores), maxTerrestres(8), maxVoadores(4), maxPlataformas(315), maxEspinhos(20) {}
-        PrimeiraFase::~PrimeiraFase() = default;
+        PrimeiraFase::PrimeiraFase(int r_numJogadores, IDs id):
+        Fase(r_numJogadores), maxTerrestres(8), maxVoadores(4), maxPlataformas(315), maxEspinhos(20) {
+            Id = id;
+            inicializar();
+
+        }
+        PrimeiraFase::~PrimeiraFase() {
+
+        }
 
 
 
@@ -43,7 +50,7 @@ namespace jogo {
         {
             if (entidades::obstaculos::Plataforma::instancias >= maxPlataformas)
                 return;
-            Fase::criarPlataforma(posicao, tamanho, ehChao);
+            Fase::criarPlataforma(posicao, tamanho, ehChao, IDs::plataforma_fase1);
         }
         void PrimeiraFase::criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho)
         {

@@ -26,7 +26,7 @@ namespace jogo{
 
         void SegundaFase::criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            if (entidades::personagens::inimigos::Terrestre::instancias >= maxTerrestres)
+            if (entidades::personagens::inimigos::Terrestre::getInstancias() >= maxTerrestres)
                 return;
             Fase::criarTerrestre(posicao, tamanho);
         }
@@ -41,13 +41,13 @@ namespace jogo{
         }
         void SegundaFase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao)
         {
-            if (entidades::obstaculos::Plataforma::instancias >= maxPlataformas)
+            if (entidades::obstaculos::Plataforma::getInstancias() >= maxPlataformas)
                 return;
             Fase::criarPlataforma(posicao, tamanho, ehChao, IDs::plataforma_fase2);
         }
         void SegundaFase::criarMelecas(sf::Vector2f r_posicao, sf::Vector2f r_tamanho)
         {
-            if (entidades::obstaculos::Meleca::instancias>= maxMelecas)
+            if (entidades::obstaculos::Meleca::getInstancias() >= maxMelecas)
                 return;
             entidades::obstaculos::Meleca *pMeleca =
                 new entidades::obstaculos::Meleca(r_posicao, r_tamanho, false, 1);

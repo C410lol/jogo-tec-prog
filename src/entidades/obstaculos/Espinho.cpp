@@ -12,6 +12,8 @@ namespace jogo {
 
             int Espinho::instancias = 0;
             int Espinho::getInstancias() { return instancias; }
+            void Espinho::setInstancias(int r_instancias) { instancias = r_instancias; }
+
 
 
 

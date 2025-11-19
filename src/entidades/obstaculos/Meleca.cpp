@@ -10,6 +10,7 @@ namespace jogo {
 
             int Meleca::instancias = 0;
             int Meleca::getInstancias() { return instancias; }
+            void Meleca::setInstancias(int r_instancias) { instancias = r_instancias; }
 
 
 

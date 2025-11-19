@@ -30,6 +30,7 @@ namespace jogo {
                 void atualizarInvisibilidade();
 
                 static int getInstancias();
+                static void setInstancias(int instancias);
             };
 
         }

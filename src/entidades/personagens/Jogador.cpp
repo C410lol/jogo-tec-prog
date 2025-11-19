@@ -21,6 +21,7 @@ namespace jogo {
                 primeiroExiste = est;
             }
             int Jogador::getInstancias() { return instancias; }
+            void Jogador::setInstancias(int r_instancias) { instancias = r_instancias; }
 
 
 

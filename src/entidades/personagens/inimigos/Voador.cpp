@@ -13,6 +13,7 @@ namespace jogo {
 
                 int Voador::instancias = 0;
                 int Voador::getInstancias() { return instancias; }
+                void Voador::setInstancias(int r_instancias) { instancias = r_instancias; }
 
 
 

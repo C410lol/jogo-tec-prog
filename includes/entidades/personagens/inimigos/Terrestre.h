@@ -27,6 +27,7 @@ namespace jogo {
                     void deslocar() override;
 
                     static int getInstancias();
+                    static void setInstancias(int instancias);
                 };
 
             }

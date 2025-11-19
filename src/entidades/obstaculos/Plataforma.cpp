@@ -11,6 +11,7 @@ namespace jogo {
 
             int Plataforma::instancias = 0;
             int Plataforma::getInstancias() { return instancias; }
+            void Plataforma::setInstancias(int r_instancias) { instancias = r_instancias; }
 
 
 

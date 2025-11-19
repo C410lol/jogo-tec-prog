@@ -19,13 +19,13 @@ namespace jogo {
     namespace fases {
 
         Fase::Fase(int r_numJogadores): numJogadores(r_numJogadores) {
-            jogo::entidades::personagens::inimigos::Terrestre::instancias = 0;
-            jogo::entidades::personagens::inimigos::Voador::instancias = 0;
-            jogo::entidades::personagens::inimigos::Chefao::setInstancias(0);
-            entidades::personagens::Jogador::instancias = 0;
-            entidades::obstaculos::Plataforma::instancias = 0;
-            entidades::obstaculos::Meleca::instancias = 0;
-            entidades::obstaculos::Espinho::instancias = 0;
+            entidades::personagens::inimigos::Terrestre::setInstancias(0);
+            entidades::personagens::inimigos::Voador::setInstancias(0);
+            entidades::personagens::inimigos::Chefao::setInstancias(0);
+            entidades::personagens::Jogador::setInstancias(0);
+            entidades::obstaculos::Plataforma::setInstancias(0);
+            entidades::obstaculos::Meleca::setInstancias(0);
+            entidades::obstaculos::Espinho::setInstancias(0);
             entidades::personagens::Jogador::setJogadorExiste(false);
 
 

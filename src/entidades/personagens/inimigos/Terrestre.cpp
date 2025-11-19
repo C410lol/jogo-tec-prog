@@ -11,6 +11,7 @@ namespace jogo {
 
                 int Terrestre::instancias = 0;
                 int Terrestre::getInstancias() { return instancias; }
+                void Terrestre::setInstancias(int r_instancias) { instancias = r_instancias; }
 
 
 

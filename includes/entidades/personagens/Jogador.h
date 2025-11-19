@@ -48,6 +48,7 @@ namespace jogo {
                 static void setJogadorExiste(bool est);
 
                 static int getInstancias();
+                static void setInstancias(int instancias);
             };
 
         }

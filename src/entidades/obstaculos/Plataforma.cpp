@@ -11,16 +11,22 @@ namespace jogo {
 
             int Plataforma::instancias = 0;
 
-            Plataforma::Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_ehChao):
+            Plataforma::Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_ehChao, IDs id):
             Obstaculo(r_posicao, r_tamanho, r_danoso), ehChao(r_ehChao), invisivel(false)
             {
-                if (!ehChao)
+                if (!ehChao && id == IDs::plataforma_fase1)
                 {
-                    setTexture("../assets/obstaculos/plataformafase2.png");
+                    setTexture("../assets/obstaculos/plataformaFase2.png");
+                    ++instancias;
+                }
+                else if (ehChao && id == IDs::plataforma_fase1)
+                    setTexture("../assets/obstaculos/chaofase1.png");
+                else if (!ehChao && id == IDs::plataforma_fase2) {
+                    setTexture("../assets/obstaculos/plataformaFase2.png");
                     ++instancias;
                 }
                 else
-                    setTexture("../assets/obstaculos/chaofase1.png");
+                    setTexture("../assets/obstaculos/chaofase2.png");
 
                 fixTexture();
             }

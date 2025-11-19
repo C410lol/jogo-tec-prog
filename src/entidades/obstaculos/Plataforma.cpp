@@ -16,7 +16,7 @@ namespace jogo {
             {
                 if (!ehChao && id == IDs::plataforma_fase1)
                 {
-                    setTexture("../assets/obstaculos/plataformaFase2.png");
+                    setTexture("../assets/obstaculos/plataformaFase1.png");
                     ++instancias;
                 }
                 else if (ehChao && id == IDs::plataforma_fase1)

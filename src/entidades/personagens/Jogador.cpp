@@ -20,6 +20,7 @@ namespace jogo {
             void Jogador::setJogadorExiste(bool est) {
                 primeiroExiste = est;
             }
+            int Jogador::getInstancias() { return instancias; }
 
 
 

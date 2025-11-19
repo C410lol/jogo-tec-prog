@@ -10,13 +10,13 @@ namespace jogo {
             class Espinho: public Obstaculo
             {
             private:
+                static int instancias;
+
                 int danosidade;
                 float disMax;
                 float disMin;
                 bool deslocandoEsquerda;
 
-            public:
-                static int instancias;
             public:
                 Espinho(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_danosidade);
                 Espinho();
@@ -24,6 +24,8 @@ namespace jogo {
 
                 void executar() override;
                 void obstaculizar(Entidade *entidade) override;
+
+                static int getInstancias();
             };
 
         }

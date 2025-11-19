@@ -10,6 +10,7 @@ namespace jogo {
             namespace inimigos {
 
                 int Terrestre::instancias = 0;
+                int Terrestre::getInstancias() { return instancias; }
 
 
 

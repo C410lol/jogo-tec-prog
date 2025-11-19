@@ -14,16 +14,18 @@ namespace jogo {
                 class Voador: public Inimigo
                 {
                 private:
+                    static int instancias;
+
                     int energia;
 
-                public:
-                    static int instancias;
                 public:
                     Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
                     Voador();
                     ~Voador();
 
                     void deslocar() override;
+
+                    static int getInstancias();
                 };
 
             }

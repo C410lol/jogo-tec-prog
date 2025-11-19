@@ -35,13 +35,13 @@ namespace jogo {
 
         void PrimeiraFase::criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            if (entidades::personagens::inimigos::Terrestre::instancias >= maxTerrestres)
+            if (entidades::personagens::inimigos::Terrestre::getInstancias() >= maxTerrestres)
                 return;
             Fase::criarTerrestre(posicao, tamanho);
         }
         void PrimeiraFase::criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            if (entidades::personagens::inimigos::Voador::instancias >= maxVoadores)
+            if (entidades::personagens::inimigos::Voador::getInstancias() >= maxVoadores)
                 return;
 
             entidades::personagens::inimigos::Voador *pVoador =
@@ -56,13 +56,13 @@ namespace jogo {
 
         void PrimeiraFase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao)
         {
-            if (entidades::obstaculos::Plataforma::instancias >= maxPlataformas)
+            if (entidades::obstaculos::Plataforma::getInstancias() >= maxPlataformas)
                 return;
             Fase::criarPlataforma(posicao, tamanho, ehChao, IDs::plataforma_fase1);
         }
         void PrimeiraFase::criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            if (entidades::obstaculos::Espinho::instancias >= maxEspinhos)
+            if (entidades::obstaculos::Espinho::getInstancias() >= maxEspinhos)
                 return;
 
             entidades::obstaculos::Espinho *pEspinho =

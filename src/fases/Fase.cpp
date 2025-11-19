@@ -100,7 +100,7 @@ namespace jogo {
 
         void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            if (entidades::personagens::Jogador::instancias >= numJogadores)
+            if (entidades::personagens::Jogador::getInstancias() >= numJogadores)
                 return;
 
             entidades::personagens::Jogador *pJogador =
@@ -167,8 +167,7 @@ namespace jogo {
                 gerenciadorColisao.retirarJogador(pJogador);
                 retirarJogadorObserver(pJogador);
 
-                --entidades::personagens::Jogador::instancias;
-                if (entidades::personagens::Jogador::instancias <= 0)
+                if (entidades::personagens::Jogador::getInstancias() - 1 <= 0)
                     pGerenciadorGrafico->fecharJanela();
             }
             else

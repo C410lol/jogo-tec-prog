@@ -11,6 +11,8 @@ namespace jogo {
         namespace obstaculos {
 
             int Espinho::instancias = 0;
+            int Espinho::getInstancias() { return instancias; }
+
 
 
 

@@ -17,6 +17,9 @@ namespace jogo {
 
             int Jogador::instancias = 0;
             bool Jogador::primeiroExiste = false;
+            void Jogador::setJogadorExiste(bool est) {
+                primeiroExiste = est;
+            }
 
 
 

@@ -14,9 +14,17 @@ namespace jogo {
 
         PrimeiraFase::PrimeiraFase(int r_numJogadores, IDs id):
         Fase(r_numJogadores), maxTerrestres(8), maxVoadores(4), maxPlataformas(315), maxEspinhos(20) {
-            Id = id;
-            inicializar();
+            Id=id;
+            setTexture("../assets/fundos/planicie.png");
+            pSprite->setTexture(*pTexture);
 
+            sf::Vector2u windowSize = pGerenciadorGrafico->getJanela()->getSize();
+            sf::Vector2u textureSize = pTexture->getSize();
+            pSprite->setScale(
+                static_cast<float>(windowSize.x) / textureSize.x,
+                static_cast<float>(windowSize.y) / textureSize.y
+            );
+            inicializar();
         }
         PrimeiraFase::~PrimeiraFase() {
 

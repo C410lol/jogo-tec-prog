@@ -1,4 +1,7 @@
 #include "gerenciadores/GerenciadorGrafico.h"
+
+#include <iostream>
+
 #include "entidades/Entidade.h"
 
 
@@ -47,6 +50,19 @@ namespace jogo {
             if (pJanela && pEnte)
                 pJanela->draw(*pEnte->getSprite());
         }
+        void GerenciadorGrafico::desenhar(sf::Sprite psprite) {
+            if (pJanela)
+                pJanela->draw(psprite);
+        }
+        void GerenciadorGrafico::desenhar(sf::Text& fonte){
+            if (pJanela)
+                pJanela->draw(fonte);
+        }
+        void GerenciadorGrafico::desenhar(sf::RectangleShape pshape) {
+            if (pJanela)
+                pJanela->draw(pshape);
+        }
+
         void GerenciadorGrafico::mostrar() const
         {
             if (pJanela)

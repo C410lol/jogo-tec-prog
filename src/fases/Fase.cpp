@@ -3,8 +3,11 @@
 #include <iostream>
 #include <fstream>
 
+#include "entidades/obstaculos/Espinho.h"
+#include "entidades/obstaculos/Meleca.h"
 #include "entidades/obstaculos/Plataforma.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
+#include "entidades/personagens/inimigos/Voador.h"
 #include "fases/PrimeiraFase.h"
 #include "gerenciadores/GerenciadorGrafico.h"
 #include "observer-pattern/input/InputSubject.h"
@@ -16,10 +19,25 @@ namespace jogo {
     namespace fases {
 
         Fase::Fase(int r_numJogadores): numJogadores(r_numJogadores) {
+            jogo::entidades::personagens::inimigos::Terrestre::instancias = 0;
+            jogo::entidades::personagens::inimigos::Voador::instancias = 0;
+            jogo::entidades::personagens::inimigos::Chefao::setInstancias(0);
+            entidades::personagens::Jogador::instancias = 0;
+            entidades::obstaculos::Plataforma::instancias = 0;
+            entidades::obstaculos::Meleca::instancias = 0;
+            entidades::obstaculos::Espinho::instancias = 0;
+            entidades::personagens::Jogador::setJogadorExiste(false);
+
+
             entidades::personagens::Personagem::setFase(this);
             setarProporcao();
         }
-        Fase::~Fase() = default;
+        Fase::~Fase() {
+            for (auto it = listaEntidades.begin(); it != listaEntidades.end(); ++it) {
+                delete *it;
+            }
+            listaEntidades.limpar();
+        }
 
 
 
@@ -112,10 +130,10 @@ namespace jogo {
 
 
 
-        void Fase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao)
+        void Fase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao, IDs id)
         {
             entidades::obstaculos::Plataforma *pPlataforma =
-                new entidades::obstaculos::Plataforma(posicao, tamanho, false, ehChao);
+                new entidades::obstaculos::Plataforma(posicao, tamanho, false, ehChao, id);
 
             listaEntidades.incluir(pPlataforma);
             gerenciadorColisao.incluirObstaculo(pPlataforma);
@@ -198,6 +216,7 @@ namespace jogo {
         }
         void Fase::executar()
         {
+            pGerenciadorGrafico->desenhar(*pSprite);
             listaEntidades.executar();
             gerenciadorColisao.checarColisoes();
         }

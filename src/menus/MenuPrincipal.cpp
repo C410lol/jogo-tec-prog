@@ -16,7 +16,7 @@ namespace jogo {
             botoes.push_back( new Botao("Fase 1", {posX + 50, 300.f}, {200.f, 50.f}));
             botoes.push_back( new Botao("Fase 2", {posX + 50, 400.f}, {200.f, 50.f}));
             botoes.push_back( new Botao("Sair", {posX + 50, 500.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("JOGO++", {posX, 100.f}, {300.f, 100.f}));
+            botoes.push_back( new Botao("JOGO", {posX, 100.f}, {300.f, 100.f}));
 
             setTexture("../assets/Menu.png");
             pSprite->setTexture(*pTexture);

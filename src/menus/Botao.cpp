@@ -24,7 +24,7 @@ namespace jogo {
                 tam.y / pTexture->getSize().y
             );
 
-            if (!fonte.loadFromFile("../assets/fonts/SuperPixel-m2L8j.ttf"))
+            if (!fonte.loadFromFile("../assets/fonts/Pixlpowr.ttf"))
                 std::cout<< "Fonte.loadFromFile() failed" << std::endl;
             texto.setFont(fonte);
             texto.setString(str);

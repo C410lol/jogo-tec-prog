@@ -27,6 +27,8 @@ namespace jogo {
                 void executar() override;
                 void obstaculizar(Entidade *entidade) override;
 
+                void salvar() override;
+
                 void atualizarInvisibilidade();
 
                 static int getInstancias();

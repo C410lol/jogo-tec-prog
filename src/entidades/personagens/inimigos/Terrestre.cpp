@@ -40,6 +40,16 @@ namespace jogo {
 
 
 
+                void Terrestre::salvar()
+                {
+                    buffer << static_cast<int>(IDs::terrestre) << " ";
+                    Inimigo::salvar();
+                    buffer << atrito;
+                }
+
+
+
+
                 void Terrestre::deslocar()
                 {
                     if (!pJogadorAlvo)

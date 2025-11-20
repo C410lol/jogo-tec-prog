@@ -103,6 +103,15 @@ namespace jogo {
             }
 
 
+
+
+            void Plataforma::salvar()
+            {
+                buffer << static_cast<int>(IDs::plataforma) << " ";
+                Obstaculo::salvar();
+                buffer << ehChao << " " << invisivel;
+            }
+
         }
     }
 }

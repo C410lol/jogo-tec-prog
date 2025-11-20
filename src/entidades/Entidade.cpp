@@ -26,6 +26,7 @@ namespace jogo {
         {
             pSprite->setPosition(posicao);
         }
+
         Entidade::Entidade() = default;
         Entidade::~Entidade() {}
 
@@ -41,6 +42,18 @@ namespace jogo {
         void Entidade::mover(const sf::Vector2f move)
         {
             setPosicao(getPosicao() + move);
+        }
+
+
+
+
+        void Entidade::salvar()
+        {
+            buffer << ativo << " " << posicao.x << " " << posicao.y << " " << tamanho.x << " " << tamanho.y << " ";
+        }
+        std::string Entidade::getBufferString() const
+        {
+            return buffer.str();
         }
 
 

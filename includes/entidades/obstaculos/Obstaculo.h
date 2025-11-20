@@ -23,6 +23,8 @@ namespace jogo {
 
                 virtual void executar() = 0;
                 virtual void obstaculizar(Entidade *entidade) = 0;
+
+                virtual void salvar();
             };
 
         }

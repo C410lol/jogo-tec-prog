@@ -36,6 +36,16 @@ namespace jogo {
 
 
 
+                void Voador::salvar()
+                {
+                    buffer << static_cast<int>(IDs::voador) << " ";
+                    Inimigo::salvar();
+                    buffer << energia;
+                }
+
+
+
+
                 void Voador::deslocar()
                 {
                     if (!pJogadorAlvo)

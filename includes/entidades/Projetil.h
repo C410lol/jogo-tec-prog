@@ -29,6 +29,8 @@ namespace jogo {
                     void executar() override;
                     void deslocar();
 
+                    void salvar() override;
+
                     void acertar(personagens::Jogador *pJogador);
                     void destruir();
             };

@@ -2,6 +2,7 @@
 #include "listas/Lista.h"
 #include "listas/ListaEntidades.h"
 
+#include <fstream>
 #include <iostream>
 
 
@@ -48,6 +49,37 @@ namespace jogo {
                 }
             }
         }
+
+
+
+
+        void ListaEntidades::salvarEntidades()
+        {
+            std::ofstream file("../salvamentos/salvamento.txt");
+
+            std::cout << LEs.getSize() << std::endl;
+
+            std::cout << "asdasdasd" << std::endl;
+
+            entidades::Entidade* entidade = nullptr;
+            for (int i = 0; i < LEs.getSize(); ++i)
+            {
+                std::cout << "b";
+                entidade = LEs[i];
+                if (!entidade)
+                    continue;
+
+                std::cout << "a" << std::endl;
+
+                entidade->salvar();
+                file << entidade->getBufferString() << std::endl;
+            }
+
+            std::cout << "ccccccccccccccccc" << std::endl;
+
+            file.close();
+        }
+
 
     }  // namespace Listas
 }

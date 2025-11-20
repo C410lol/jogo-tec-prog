@@ -66,6 +66,15 @@ namespace jogo {
             }
 
 
+
+
+            void Meleca::salvar()
+            {
+                buffer << static_cast<int>(IDs::meleca) << " ";
+                Obstaculo::salvar();
+                buffer << viscosidade << " " << tamMaximo << " " << tamMinimo << " " << aumentando;
+            }
+
         }
     }
 }

@@ -76,6 +76,16 @@ namespace jogo {
                 pJogador->tomarDano(danosidade);
             }
 
+
+
+
+            void Espinho::salvar()
+            {
+                buffer << static_cast<int>(IDs::espinho) << " ";
+                Obstaculo::salvar();
+                buffer << danosidade << " " << disMax << " " << disMin << " " << deslocandoEsquerda;
+            }
+
         }
     }
 }

@@ -32,6 +32,15 @@ namespace jogo {
 
 
 
+                void Inimigo::salvar()
+                {
+                    Personagem::salvar();
+                    buffer << NULL << " " << nivelMaldade << " " << deslocamento << " ";
+                }
+
+
+
+
                 void Inimigo::danificar(Jogador *pJogador)
                 {
                     if (!pJogador)

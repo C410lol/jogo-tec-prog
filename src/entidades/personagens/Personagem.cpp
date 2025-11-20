@@ -33,6 +33,19 @@ namespace jogo {
                 desenhar();
             }
 
+
+
+
+            void Personagem::salvar()
+            {
+                Entidade::salvar();
+                buffer << vidas << " " << velocidade.x << " " << velocidade.y << sofreGravidade << " " << noChao
+                << " " << olhandoDireita << " " << knokback << " ";
+            }
+
+
+
+
             void Personagem::cair()
             {
                 if (sofreGravidade)

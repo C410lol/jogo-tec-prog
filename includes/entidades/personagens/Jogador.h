@@ -31,6 +31,8 @@ namespace jogo {
 
                 void executar() override;
 
+                void salvar() override;
+
                 void setNaMeleca(bool r_estaNaMeleca);
                 void setAtacando(bool r_atacando);
 

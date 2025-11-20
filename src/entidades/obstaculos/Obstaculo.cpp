@@ -13,6 +13,15 @@ namespace jogo {
             Obstaculo::Obstaculo(): danoso(false), cooldown(0) {}
             Obstaculo::~Obstaculo() = default;
 
+
+
+
+            void Obstaculo::salvar()
+            {
+                Entidade::salvar();
+                buffer << danoso << " " << cooldown << " ";
+            }
+
         }
     }
 }

@@ -3,6 +3,7 @@
 
 #include "Ente.h"
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 
 
@@ -21,6 +22,7 @@ namespace jogo {
 
         protected:
             static fases::Fase *pFase;
+            std::ostringstream buffer;
             sf::Vector2f posicao;
             sf::Vector2f tamanho;
 
@@ -34,6 +36,9 @@ namespace jogo {
             void mover(sf::Vector2f mover);
             void aumentar(float x, float y);
             void aumentar(sf::Vector2f aumento);
+
+            virtual void salvar();
+            std::string getBufferString() const;
 
             void fixTexture();
 

@@ -53,6 +53,16 @@ namespace jogo {
 
 
 
+                void Chefao::salvar()
+                {
+                buffer << static_cast<int>(IDs::chefao) << " ";
+                    Inimigo::salvar();
+                    buffer << cooldown << " " << rapidez;
+                }
+
+
+
+
                 void Chefao::deslocar()
                 {
                     if (!pJogadorAlvo)

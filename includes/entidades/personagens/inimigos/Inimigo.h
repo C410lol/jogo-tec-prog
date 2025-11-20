@@ -32,6 +32,8 @@ namespace jogo {
                     void executar() override;
                     virtual void deslocar() = 0;
 
+                    virtual void salvar();
+
                     void danificar(Jogador *pJogador);
                     void setJogadoralvo(Jogador* pjog);
 

@@ -62,6 +62,17 @@ namespace jogo {
 
 
 
+            void Jogador::salvar()
+            {
+                buffer << static_cast<int>(IDs::jogador) << " ";
+                Personagem::salvar();
+                buffer << ehPrimeiro << " " << deslocamentoX << " " << naMeleca << " " << atacando << " "
+                << cooldown << " " << pontos;
+            }
+
+
+
+
             bool Jogador::getAtacando() const
             {
                 return atacando;

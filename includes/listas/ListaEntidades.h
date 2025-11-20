@@ -24,6 +24,8 @@ namespace jogo {
             Lista<entidades::Entidade>::Iterator begin();
             Lista<entidades::Entidade>::Iterator end();
 
+            void salvarEntidades();
+
             void executar();
         };
 

@@ -19,14 +19,21 @@ namespace jogo {
                 fase = nullptr;
             }
         }
+
+
+
+
         void EstadoJogo::executar() {
             fase->executar();
             voltaMenu = false;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 voltaMenu = true;
             }
-
         }
+
+
+
+
         void EstadoJogo::criarFase(IDs idFase, int numJogadores) {
             if (idFase == IDs::primeira_fase)
                 fase = static_cast<fases::Fase*>(new fases::PrimeiraFase(numJogadores, IDs::primeira_fase));

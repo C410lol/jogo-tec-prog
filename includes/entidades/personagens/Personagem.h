@@ -35,6 +35,8 @@ namespace jogo {
 
                 virtual void executar() = 0;
 
+                virtual void salvar();
+
                 virtual void cair();
                 void checarMorte();
 

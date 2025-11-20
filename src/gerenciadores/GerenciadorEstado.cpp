@@ -41,7 +41,7 @@ namespace jogo {
         }
         void GerenciadorEstado::removerEstado() {
             if (!pilhaEstados.empty() && pilhaEstados.top()!=nullptr) {
-                delete pilhaEstados.top();
+                //delete pilhaEstados.top();
                 pilhaEstados.pop();
             }
             if (pilhaEstados.empty()) {

@@ -220,6 +220,15 @@ namespace jogo {
             gerenciadorColisao.checarColisoes();
         }
 
+
+
+
+        void Fase::salvarFase()
+        {
+            listaEntidades.
+            listaEntidades.salvarEntidades();
+        }
+
     }
 }
 

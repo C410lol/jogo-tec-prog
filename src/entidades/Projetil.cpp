@@ -35,6 +35,16 @@ namespace jogo {
 
 
 
+        void Projetil::salvar()
+        {
+            buffer << static_cast<int>(IDs::projetil) << " ";
+            Entidade::salvar();
+            buffer << dano << " " << vel << " " << NULL;
+        }
+
+
+
+
         void Projetil::acertar(personagens::Jogador *pJogador)
         {
             if (!pJogador)

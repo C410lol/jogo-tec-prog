@@ -14,6 +14,9 @@ namespace jogo {
     namespace menus {
 
         class MenuPrincipal : public Menu {
+        private:
+            IDs carregarFaseContinuar();
+
         public:
             MenuPrincipal();
             ~MenuPrincipal();

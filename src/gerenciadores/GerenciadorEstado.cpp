@@ -25,10 +25,10 @@ namespace jogo {
                 removerEstado();
             }
         }
-        void GerenciadorEstado::adicionarEstado(IDs id, int numJogadores, IDs r_fase) {
+        void GerenciadorEstado::adicionarEstado(IDs id, int numJogadores, IDs r_fase, bool continuar) {
             estados::Estado* estado = nullptr;
             if (id == IDs::primeira_fase || id == IDs::segunda_fase) {
-                estado = (new estados::EstadoJogo(id, numJogadores));
+                estado = (new estados::EstadoJogo(id, numJogadores, continuar));
             }
             else if (id == IDs::menu_principal || id == IDs::menu_pausa) {
                 estado = new estados::EstadoMenu(id);

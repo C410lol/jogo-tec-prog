@@ -53,29 +53,27 @@ namespace jogo {
 
 
 
-        void ListaEntidades::salvarEntidades()
+        void ListaEntidades::salvarEntidades(IDs fase)
         {
             std::ofstream file("../salvamentos/salvamento.txt");
 
-            std::cout << LEs.getSize() << std::endl;
-
-            std::cout << "asdasdasd" << std::endl;
+            //  Insere qual a fase
+            if (fase == IDs::primeira_fase)
+                file << "1";
+            else if (fase == IDs::segunda_fase)
+                file << "2";
+            file << std::endl;
 
             entidades::Entidade* entidade = nullptr;
             for (int i = 0; i < LEs.getSize(); ++i)
             {
-                std::cout << "b";
                 entidade = LEs[i];
                 if (!entidade)
                     continue;
 
-                std::cout << "a" << std::endl;
-
                 entidade->salvar();
                 file << entidade->getBufferString() << std::endl;
             }
-
-            std::cout << "ccccccccccccccccc" << std::endl;
 
             file.close();
         }

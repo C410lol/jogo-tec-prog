@@ -24,6 +24,19 @@ namespace jogo {
                 setTexture("../assets/obstaculos/meleca.png");
                 fixTexture();
             }
+            Meleca::Meleca
+            (
+                dtos::ObstaculoDTO obsDTO, int r_viscosidade,
+                float r_tamMaximo, float r_tamMinimo, bool r_aumentando
+            ):
+            Obstaculo(obsDTO), viscosidade(r_viscosidade),
+            tamMaximo(r_tamMaximo), tamMinimo(r_tamMinimo), aumentando(r_aumentando)
+            {
+                ++instancias;
+
+                setTexture("../assets/obstaculos/meleca.png");
+                fixTexture();
+            }
             Meleca::Meleca(): viscosidade(0) {}
             Meleca::~Meleca() = default;
 
@@ -70,9 +83,9 @@ namespace jogo {
 
             void Meleca::salvar()
             {
-                buffer << static_cast<int>(IDs::meleca) << " ";
                 Obstaculo::salvar();
-                buffer << viscosidade << " " << tamMaximo << " " << tamMinimo << " " << aumentando;
+                buffer << static_cast<int>(IDs::meleca) << " " << viscosidade << " " << tamMaximo << " " <<
+                tamMinimo << " " << aumentando;
             }
 
         }

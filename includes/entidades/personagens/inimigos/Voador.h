@@ -20,6 +20,7 @@ namespace jogo {
 
                 public:
                     Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
+                    Voador(dtos::InimigoDTO iniDTO, int r_energia);
                     Voador();
                     ~Voador();
 

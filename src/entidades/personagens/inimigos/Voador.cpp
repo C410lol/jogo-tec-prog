@@ -28,6 +28,15 @@ namespace jogo {
                     setTexture("../assets/personagens/voador.png");
                     fixTexture();
                 }
+                Voador::Voador(dtos::InimigoDTO iniDTO, int r_energia):
+                Inimigo(iniDTO), energia(r_energia)
+                {
+                    ++instancias;
+                    deslocamento = energia;
+
+                    setTexture("../assets/personagens/voador.png");
+                    fixTexture();
+                }
                 Voador::Voador() = default;
                 Voador::~Voador() {
                     --instancias;
@@ -38,9 +47,8 @@ namespace jogo {
 
                 void Voador::salvar()
                 {
-                    buffer << static_cast<int>(IDs::voador) << " ";
                     Inimigo::salvar();
-                    buffer << energia;
+                    buffer << static_cast<int>(IDs::voador) << " " << energia;
                 }
 
 

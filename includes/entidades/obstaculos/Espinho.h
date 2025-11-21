@@ -19,6 +19,11 @@ namespace jogo {
 
             public:
                 Espinho(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_danosidade);
+                Espinho
+                (
+                    dtos::ObstaculoDTO obsDTO, int r_danosidade, float r_disMax,
+                    float r_disMin, bool r_deslocandoEsquerda
+                );
                 Espinho();
                 ~Espinho();
 

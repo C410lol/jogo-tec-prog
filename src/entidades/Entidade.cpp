@@ -12,6 +12,7 @@
 namespace jogo {
     namespace entidades {
 
+        int Entidade::idCont = 0;
         fases::Fase *Entidade::pFase = nullptr;
         void Entidade::setFase(fases::Fase *r_pFase)
         {
@@ -22,11 +23,15 @@ namespace jogo {
 
 
         Entidade::Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-        ativo(true), posicao(r_posicao), tamanho(r_tamanho)
+        idNumber(++idCont), ativo(true), posicao(r_posicao), tamanho(r_tamanho)
         {
             pSprite->setPosition(posicao);
         }
-
+        Entidade::Entidade(dtos::EntidadeDTO entDTO):
+        idNumber(entDTO.idNumber), ativo(entDTO.ativo), posicao(entDTO.posicao), tamanho(entDTO.tamanho)
+        {
+            pSprite->setPosition(posicao);
+        }
         Entidade::Entidade() = default;
         Entidade::~Entidade() {}
 
@@ -49,7 +54,8 @@ namespace jogo {
 
         void Entidade::salvar()
         {
-            buffer << ativo << " " << posicao.x << " " << posicao.y << " " << tamanho.x << " " << tamanho.y << " ";
+            buffer << idNumber << " " << ativo << " " << posicao.x << " " << posicao.y << " " <<
+                tamanho.x << " " << tamanho.y << " ";
         }
         std::string Entidade::getBufferString() const
         {

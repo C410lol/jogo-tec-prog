@@ -36,6 +36,15 @@ namespace jogo {
                     setTexture("../assets/personagens/mago.png");
                     fixTexture();
                 }
+                Chefao::Chefao(dtos::InimigoDTO iniDTO, float r_cooldown, float r_rapidez):
+                Inimigo(iniDTO), cooldown(r_cooldown), rapidez(r_rapidez)
+                {
+                    ++instancias;
+                    deslocamento = 2;
+
+                    setTexture("../assets/personagens/mago.png");
+                    fixTexture();
+                }
                 Chefao::Chefao(): rapidez(0) {}
                 Chefao::~Chefao() = default;
 
@@ -55,9 +64,8 @@ namespace jogo {
 
                 void Chefao::salvar()
                 {
-                buffer << static_cast<int>(IDs::chefao) << " ";
                     Inimigo::salvar();
-                    buffer << cooldown << " " << rapidez;
+                    buffer << static_cast<int>(IDs::chefao) << " " << cooldown << " " << rapidez;
                 }
 
 

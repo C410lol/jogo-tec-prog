@@ -1,6 +1,7 @@
 #ifndef JOGO_ENEMY_H
 #define JOGO_ENEMY_H
 
+#include "dtos/InimigoDTO.h"
 #include "entidades/personagens/Personagem.h"
 
 
@@ -26,6 +27,7 @@ namespace jogo {
                         sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade,
                         int r_nivelMaldade
                     );
+                    Inimigo(dtos::InimigoDTO iniDTO);
                     Inimigo();
                     virtual ~Inimigo();
 

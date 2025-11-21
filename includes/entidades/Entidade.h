@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
+#include "dtos/EntidadeDTO.h"
+
 
 
 
@@ -18,6 +20,8 @@ namespace jogo {
         class Entidade: public Ente
         {
         private:
+            static int idCont;
+            int idNumber;
             bool ativo;
 
         protected:
@@ -28,6 +32,7 @@ namespace jogo {
 
         public:
             Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
+            Entidade(dtos::EntidadeDTO entDTO);
             Entidade();
             virtual ~Entidade();
 

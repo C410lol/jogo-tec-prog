@@ -23,6 +23,7 @@ namespace jogo {
                 public:
                     Chefao();
                     Chefao(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
+                    Chefao(dtos::InimigoDTO iniDTO, float r_cooldown, float r_rapidez);
                     ~Chefao();
 
                     void executar() override;

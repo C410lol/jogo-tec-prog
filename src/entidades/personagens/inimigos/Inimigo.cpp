@@ -17,6 +17,10 @@ namespace jogo {
                 Personagem(r_posicao, r_tamanho, r_vidas, r_sofreGravidade), pJogadorAlvo(nullptr),
                 nivelMaldade(r_nivelMaldade)
                 {}
+                Inimigo::Inimigo(dtos::InimigoDTO iniDTO):
+                Personagem(iniDTO.perDTO), pJogadorAlvo(iniDTO.pJogadorAlvo),
+                nivelMaldade(iniDTO.nivelMaldade), deslocamento(iniDTO.deslocamento)
+                {}
                 Inimigo::Inimigo() = default;
                 Inimigo::~Inimigo() = default;
 
@@ -35,7 +39,8 @@ namespace jogo {
                 void Inimigo::salvar()
                 {
                     Personagem::salvar();
-                    buffer << NULL << " " << nivelMaldade << " " << deslocamento << " ";
+                    buffer << static_cast<int>(IDs::inimigo) << " " << NULL << " " << nivelMaldade << " " <<
+                    deslocamento << " ";
                 }
 
 

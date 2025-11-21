@@ -29,6 +29,19 @@ namespace jogo {
                 setTexture("../assets/obstaculos/espinho.png");
                 fixTexture();
             }
+            Espinho::Espinho
+            (
+                dtos::ObstaculoDTO obsDTO, int r_danosidade, float r_disMax,
+                float r_disMin, bool r_deslocandoEsquerda
+            ):
+            Obstaculo(obsDTO), danosidade(r_danosidade), disMax(r_disMax),
+            disMin(r_disMin), deslocandoEsquerda(r_deslocandoEsquerda)
+            {
+                ++instancias;
+
+                setTexture("../assets/obstaculos/espinho.png");
+                fixTexture();
+            }
             Espinho::Espinho(): danosidade(0) {}
             Espinho::~Espinho() = default;
 
@@ -81,9 +94,9 @@ namespace jogo {
 
             void Espinho::salvar()
             {
-                buffer << static_cast<int>(IDs::espinho) << " ";
                 Obstaculo::salvar();
-                buffer << danosidade << " " << disMax << " " << disMin << " " << deslocandoEsquerda;
+                buffer << static_cast<int>(IDs::espinho) << " " << danosidade << " " << disMax << " " <<
+                disMin << " " << deslocandoEsquerda;
             }
 
         }

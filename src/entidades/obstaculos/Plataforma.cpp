@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "fases/Fase.h"
 #include "gerenciadores/GerenciadorColisao.h"
 
 
@@ -19,18 +20,37 @@ namespace jogo {
             Plataforma::Plataforma(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, bool r_ehChao, IDs id):
             Obstaculo(r_posicao, r_tamanho, r_danoso), ehChao(r_ehChao), invisivel(false)
             {
-                if (!ehChao && id == IDs::plataforma_fase1)
+                if (!ehChao && pFase->getId() == IDs::primeira_fase)
                 {
                     setTexture("../assets/obstaculos/plataformaFase1.png");
                     ++instancias;
                 }
-                else if (ehChao && id == IDs::plataforma_fase1)
-                    setTexture("../assets/obstaculos/chaofase1.png");
-                else if (!ehChao && id == IDs::plataforma_fase2) {
+                else if (!ehChao && pFase->getId() == IDs::segunda_fase) {
                     setTexture("../assets/obstaculos/plataformaFase2.png");
                     ++instancias;
                 }
-                else
+                else if (ehChao && pFase->getId() == IDs::primeira_fase)
+                    setTexture("../assets/obstaculos/chaofase1.png");
+                else if (ehChao && pFase->getId() == IDs::segunda_fase)
+                    setTexture("../assets/obstaculos/chaofase2.png");
+
+                fixTexture();
+            }
+            Plataforma::Plataforma(dtos::ObstaculoDTO obsDTO, bool r_ehChao, bool r_invisivel):
+            Obstaculo(obsDTO), ehChao(r_ehChao), invisivel(r_invisivel)
+            {
+                if (!ehChao && pFase->getId() == IDs::primeira_fase)
+                {
+                    setTexture("../assets/obstaculos/plataformaFase1.png");
+                    ++instancias;
+                }
+                else if (!ehChao && pFase->getId() == IDs::segunda_fase) {
+                    setTexture("../assets/obstaculos/plataformaFase2.png");
+                    ++instancias;
+                }
+                else if (ehChao && pFase->getId() == IDs::primeira_fase)
+                    setTexture("../assets/obstaculos/chaofase1.png");
+                else if (ehChao && pFase->getId() == IDs::segunda_fase)
                     setTexture("../assets/obstaculos/chaofase2.png");
 
                 fixTexture();
@@ -107,9 +127,8 @@ namespace jogo {
 
             void Plataforma::salvar()
             {
-                buffer << static_cast<int>(IDs::plataforma) << " ";
                 Obstaculo::salvar();
-                buffer << ehChao << " " << invisivel;
+                buffer << static_cast<int>(IDs::plataforma) << " " << ehChao << " " << invisivel;
             }
 
         }

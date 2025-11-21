@@ -11,10 +11,17 @@ namespace jogo {
         (
             sf::Vector2f r_posicao, sf::Vector2f r_tamanho,
             personagens::Personagem *r_pPersonagem, float velocidade, int r_dano
-        ): Entidade(r_posicao, r_tamanho), pDono(r_pPersonagem), dano(r_dano)
+        ): Entidade(r_posicao, r_tamanho), pDono(r_pPersonagem), dano(r_dano), vel(velocidade)
         {
-            vel = velocidade;
-
+            setTexture("../assets/projeteis/bolaDeFogo.png");
+            fixTexture();
+        }
+        Projetil::Projetil
+        (
+            dtos::EntidadeDTO entDTO, int r_dano,
+            float r_vel, personagens::Personagem *r_pDono
+        ): Entidade(entDTO), dano(r_dano), vel(r_vel), pDono(r_pDono)
+        {
             setTexture("../assets/projeteis/bolaDeFogo.png");
             fixTexture();
         }
@@ -37,9 +44,8 @@ namespace jogo {
 
         void Projetil::salvar()
         {
-            buffer << static_cast<int>(IDs::projetil) << " ";
             Entidade::salvar();
-            buffer << dano << " " << vel << " " << NULL;
+            buffer << static_cast<int>(IDs::projetil) << " " << dano << " " << vel << " " << NULL;
         }
 
 

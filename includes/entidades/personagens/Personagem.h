@@ -3,6 +3,8 @@
 
 #include "entidades/Entidade.h"
 
+#include "dtos/PersonagemDTO.h"
+
 
 
 
@@ -30,6 +32,7 @@ namespace jogo {
 
             public:
                 Personagem(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade);
+                Personagem(dtos::PersonagemDTO perDTO);
                 Personagem();
                 virtual ~Personagem();
 

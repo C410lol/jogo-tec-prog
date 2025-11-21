@@ -10,6 +10,11 @@
 #include "entidades/Projetil.h"
 #include "observer-pattern/input/JogadorObserver.h"
 
+#include "dtos/EntidadeDTO.h"
+#include "dtos/ObstaculoDTO.h"
+#include "dtos/PersonagemDTO.h"
+#include "dtos/InimigoDTO.h"
+
 
 
 
@@ -21,6 +26,10 @@ namespace jogo {
         private:
             int numJogadores;
         private:
+            void carregaPersonagem(std::stringstream& linha, dtos::EntidadeDTO entDTO);
+            void carregaJogador(std::stringstream& linha, dtos::PersonagemDTO perDTO);
+            void carregaProjetil(std::stringstream& linha, dtos::EntidadeDTO entDTO);
+
             void setarProporcao();
             void criarCenario();
             void criarEntidade(char c, float x, float y);
@@ -33,6 +42,12 @@ namespace jogo {
             std::vector<observers::JogadorObserver*> jogadorObservers;
             sf::Vector2f proporcao;
         protected:
+            void carregarFase();
+            virtual dtos::ObstaculoDTO carregaObstaculos(std::stringstream& linha, dtos::EntidadeDTO entDTO);
+            void carregaPlataforma(std::stringstream& linha, dtos::ObstaculoDTO obsDTO);
+            virtual dtos::InimigoDTO carregaInimigos(std::stringstream& linha, dtos::PersonagemDTO perDTO);
+            void carregaTerrestre(std::stringstream& linha, dtos::InimigoDTO iniDTO);
+
             virtual void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho);
             virtual void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao, IDs id);
             virtual void criarInimigos(char c, float x, float y) = 0;

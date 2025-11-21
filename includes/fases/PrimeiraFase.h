@@ -17,6 +17,11 @@ namespace jogo {
             const int maxPlataformas;
             const int maxEspinhos;
         private:
+            dtos::ObstaculoDTO carregaObstaculos(std::stringstream &linha, dtos::EntidadeDTO entDTO) override;
+            void carregaEspinho(std::stringstream &linha, dtos::ObstaculoDTO obsDTO);
+            dtos::InimigoDTO carregaInimigos(std::stringstream &linha, dtos::PersonagemDTO perDTO) override;
+            void carregaVoador(std::stringstream &linha, dtos::InimigoDTO iniDTO);
+
             void criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho) override;
             void criarVoador(sf::Vector2f posicao, sf::Vector2f tamanho);
             void criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao);
@@ -25,7 +30,7 @@ namespace jogo {
             void criarObstaculos(char c, float x, float y) override;
 
         public:
-            PrimeiraFase(int r_numJogadores, IDs id);
+            PrimeiraFase(int r_numJogadores, IDs id, bool continuar = false);
             ~PrimeiraFase() override;
         };
 

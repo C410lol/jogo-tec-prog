@@ -12,6 +12,11 @@
 #include "gerenciadores/GerenciadorGrafico.h"
 #include "observer-pattern/input/InputSubject.h"
 
+#include "dtos/EntidadeDTO.h"
+#include "dtos/ObstaculoDTO.h"
+#include "dtos/PersonagemDTO.h"
+#include "dtos/InimigoDTO.h"
+
 
 
 
@@ -28,11 +33,11 @@ namespace jogo {
             entidades::obstaculos::Espinho::setInstancias(0);
             entidades::personagens::Jogador::setJogadorExiste(false);
 
-
             entidades::personagens::Personagem::setFase(this);
             setarProporcao();
         }
         Fase::~Fase() {
+            std::cout << "deletando fase" << std::endl;
             for (auto it = listaEntidades.begin(); it != listaEntidades.end(); ++it) {
                 delete *it;
             }
@@ -225,8 +230,175 @@ namespace jogo {
 
         void Fase::salvarFase()
         {
-            listaEntidades.
-            listaEntidades.salvarEntidades();
+            listaEntidades.salvarEntidades(Id);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        void Fase::carregarFase()
+        {
+            std::ifstream file("../salvamentos/salvamento.txt");
+
+            //  Se não conseguir abrir o arquivo, criar uma nova fase
+            if (!file)
+            {
+                inicializar();
+                return;
+            }
+
+            std::string linha;
+            std::getline(file, linha);  //  Pula a linha da fase
+            while (std::getline(file, linha))
+            {
+                std::stringstream linhaUtilizavel(linha);
+
+                int idNumber;   linhaUtilizavel >> idNumber;
+                bool ativo;     linhaUtilizavel >> ativo;
+                float posicaoX; linhaUtilizavel >> posicaoX;
+                float posicaoY; linhaUtilizavel >> posicaoY;
+                float tamanhoX; linhaUtilizavel >> tamanhoX;
+                float tamanhoY; linhaUtilizavel >> tamanhoY;
+
+                dtos::EntidadeDTO entDTO(
+                    idNumber, ativo, sf::Vector2f(posicaoX, posicaoY), sf::Vector2f(tamanhoX, tamanhoY)
+                );
+
+                int t; linhaUtilizavel >> t;
+                IDs tipo = static_cast<IDs>(t);
+
+                if (tipo == IDs::obstaculo)
+                    carregaObstaculos(linhaUtilizavel, entDTO);
+                else if (tipo == IDs::personagem)
+                {
+                    carregaPersonagem(linhaUtilizavel, entDTO);
+                }
+                else if (tipo == IDs::projetil)
+                    carregaProjetil(linhaUtilizavel, entDTO);
+            }
+        }
+
+
+
+
+        dtos::ObstaculoDTO Fase::carregaObstaculos(std::stringstream& linha, dtos::EntidadeDTO entDTO)
+        {
+            bool danoso; linha >> danoso;
+            double cooldown; linha >> cooldown;
+
+            return dtos::ObstaculoDTO(entDTO, danoso, cooldown);
+        }
+        void Fase::carregaPlataforma(std::stringstream &linha, dtos::ObstaculoDTO obsDTO)
+        {
+            bool ehChao; linha >> ehChao;
+            bool invisivel; linha >> invisivel;
+
+            entidades::obstaculos::Plataforma *pPlataforma =
+                new entidades::obstaculos::Plataforma(obsDTO, ehChao, invisivel);
+
+            listaEntidades.incluir(pPlataforma);
+            gerenciadorColisao.incluirObstaculo(pPlataforma);
+        }
+
+
+
+
+        void Fase::carregaPersonagem(std::stringstream &linha, dtos::EntidadeDTO entDTO)
+        {
+            int vidas; linha >> vidas;
+            int velocidadeX; linha >> velocidadeX;
+            int velocidadeY; linha >> velocidadeY;
+            int sofreGravidade; linha >> sofreGravidade;
+            int noChao; linha >> noChao;
+            int olhandoDireita; linha >> olhandoDireita;
+            int knokback; linha >> knokback;
+
+            dtos::PersonagemDTO perDTO(
+                entDTO, vidas, sf::Vector2f(velocidadeX, velocidadeY),
+                sofreGravidade, noChao, olhandoDireita, knokback
+            );
+
+            int t; linha >> t;
+            IDs tipo = static_cast<IDs>(t);
+
+            if (tipo == IDs::inimigo)
+                carregaInimigos(linha, perDTO);
+            else if (tipo == IDs::jogador)
+                carregaJogador(linha, perDTO);
+        }
+
+
+
+
+        dtos::InimigoDTO Fase::carregaInimigos(std::stringstream &linha, dtos::PersonagemDTO perDTO)
+        {
+            int pJogadorAlvoId; linha >> pJogadorAlvoId;
+            int nivelMaldade; linha >> nivelMaldade;
+            int deslocamento; linha >> deslocamento;
+
+            return dtos::InimigoDTO(perDTO, nullptr, nivelMaldade, deslocamento);
+        }
+        void Fase::carregaTerrestre(std::stringstream &linha, dtos::InimigoDTO iniDTO)
+        {
+            int atrito; linha >> atrito;
+
+            entidades::personagens::inimigos::Terrestre *pTerrestre =
+                new entidades::personagens::inimigos::Terrestre(iniDTO, atrito);
+
+            listaEntidades.incluir(pTerrestre);
+            gerenciadorColisao.incluirInimigo(pTerrestre);
+        }
+
+
+
+
+
+        void Fase::carregaJogador(std::stringstream &linha, dtos::PersonagemDTO perDTO)
+        {
+            bool ehPrimeiro; linha >> ehPrimeiro;
+            bool deslocamentoX; linha >> deslocamentoX;
+            bool naMeleca; linha >> naMeleca;
+            bool atacando; linha >> atacando;
+            bool cooldown; linha >> cooldown;
+            bool pontos; linha >> pontos;
+
+            entidades::personagens::Jogador *pJogador =
+                new entidades::personagens::Jogador
+                (
+                    perDTO, ehPrimeiro, deslocamentoX, naMeleca, atacando, cooldown, pontos
+                );
+            observers::JogadorObserver *pJogadorObserver =
+                new observers::JogadorObserver(pJogador);
+
+            listaEntidades.incluir(pJogador);
+            gerenciadorColisao.incluirJogador(pJogador);
+
+            observers::InputSubject::getInstancia()->attach(pJogadorObserver);
+            jogadorObservers.push_back(pJogadorObserver);
+        }
+
+
+
+
+        void Fase::carregaProjetil(std::stringstream &linha, dtos::EntidadeDTO entDTO)
+        {
+            int dano; linha >> dano;
+            int vel; linha >> vel;
+            int pDonoId; linha >> pDonoId;
+
+            entidades::Projetil *pProjetil =
+                new entidades::Projetil(entDTO, dano, vel, nullptr);
+
+            listaEntidades.incluir(pProjetil);
+            gerenciadorColisao.incluirProjetil(pProjetil);
         }
 
     }

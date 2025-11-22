@@ -41,8 +41,10 @@ namespace jogo {
 
             void Personagem::checarMorte()
             {
-                if (vidas <= 0)
+                if (vidas <= 0) {
                     pFase->retirarPersonagem(this);
+                    pFase->pjogo->retirarJogador(dynamic_cast<Jogador *>(this));
+                }
             }
 
 

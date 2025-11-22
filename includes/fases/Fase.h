@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Ente.h"
+#include "Jogo.h"
 #include "gerenciadores/GerenciadorColisao.h"
 #include "listas/ListaEntidades.h"
 #include "entidades/personagens/inimigos/Chefao.h"
@@ -20,6 +21,9 @@ namespace jogo {
         {
         private:
             int numJogadores;
+            static int n_lista;
+            int pos;
+            gerenciadores::GerenciadorEstado* pge;
         private:
             void setarProporcao();
             void criarCenario();
@@ -49,6 +53,7 @@ namespace jogo {
             void retirarProjetil(entidades::Projetil *pProjetil);
 
             void retirarPersonagem(entidades::personagens::Personagem *pPersonagem);
+            static Jogo *pjogo;
         };
 
     }

@@ -9,6 +9,7 @@
 #include "entidades/personagens/inimigos/Terrestre.h"
 #include "entidades/personagens/inimigos/Voador.h"
 #include "fases/PrimeiraFase.h"
+#include "gerenciadores/GerenciadorEstado.h"
 #include "gerenciadores/GerenciadorGrafico.h"
 #include "observer-pattern/input/InputSubject.h"
 
@@ -17,8 +18,12 @@
 
 namespace jogo {
     namespace fases {
+        Jogo* Fase::pjogo = nullptr;
+        int Fase::n_lista = 0;
 
-        Fase::Fase(int r_numJogadores): numJogadores(r_numJogadores) {
+        Fase::Fase(int r_numJogadores): numJogadores(r_numJogadores),
+        pge(gerenciadores::GerenciadorEstado::getGerenEstado()),
+        pos(0){
             entidades::personagens::inimigos::Terrestre::setInstancias(0);
             entidades::personagens::inimigos::Voador::setInstancias(0);
             entidades::personagens::inimigos::Chefao::setInstancias(0);
@@ -26,8 +31,7 @@ namespace jogo {
             entidades::obstaculos::Plataforma::setInstancias(0);
             entidades::obstaculos::Meleca::setInstancias(0);
             entidades::obstaculos::Espinho::setInstancias(0);
-            entidades::personagens::Jogador::setJogadorExiste(false);
-
+            //entidades::personagens::Jogador::setJogadorExiste(false);
 
             entidades::personagens::Personagem::setFase(this);
             setarProporcao();
@@ -89,7 +93,7 @@ namespace jogo {
         {
             if (c == 't' || c == '1' || c == 'v' || c == '2' || c == 'b' || c == '3')
                 criarInimigos(c, x, y);
-            else if (c == 'c' || c == 'p' || c == '4' || c == 'e' || c == '5' || c == 'm' || c == '6')
+            else if (c == 'c' || c == 'p' || c == '4' || c == 'e' || c == '5' || c == 'm' || c == '6' || c =='f')
                 criarObstaculos(c, x, y);
             else if (c == 'j')
                 criarJogador(sf::Vector2f(x, y), proporcao);
@@ -100,19 +104,34 @@ namespace jogo {
 
         void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            if (entidades::personagens::Jogador::getInstancias() >= numJogadores)
+
+            if (entidades::personagens::Jogador::getInstancias() >= numJogadores) {
                 return;
+            }
+            if (pjogo->verificaVazio() || n_lista == pjogo->getTam() && n_lista<2){
+                entidades::personagens::Jogador *pJogador =
+                    new entidades::personagens::Jogador(posicao, tamanho);
+                observers::JogadorObserver *pJogadorObserver =
+                    new observers::JogadorObserver(pJogador);
 
-            entidades::personagens::Jogador *pJogador =
-                new entidades::personagens::Jogador(posicao, tamanho);
-            observers::JogadorObserver *pJogadorObserver =
-                new observers::JogadorObserver(pJogador);
+                pjogo->incluiJogador(pJogador);
+                listaEntidades.incluir(pJogador);
+                gerenciadorColisao.incluirJogador(pJogador);
 
-            listaEntidades.incluir(pJogador);
-            gerenciadorColisao.incluirJogador(pJogador);
+                observers::InputSubject::getInstancia()->attach(pJogadorObserver);
+                jogadorObservers.push_back(pJogadorObserver);
+                n_lista++;
+            }
+            else {
+                pjogo->setposicao(posicao, tamanho, pos);
+                listaEntidades.incluir(pjogo->getJogador(pos));
+                gerenciadorColisao.incluirJogador(pjogo->getJogador(pos));
+                pos++;
+                entidades::personagens::Jogador::incrementarInstancias();
 
-            observers::InputSubject::getInstancia()->attach(pJogadorObserver);
-            jogadorObservers.push_back(pJogadorObserver);
+
+
+            }
         }
 
 
@@ -160,6 +179,7 @@ namespace jogo {
 
         void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
         {
+            n_lista--;
             entidades::personagens::Jogador *pJogador =
                 dynamic_cast<entidades::personagens::Jogador*>(pPersonagem);
             if (pJogador)
@@ -167,14 +187,15 @@ namespace jogo {
                 gerenciadorColisao.retirarJogador(pJogador);
                 retirarJogadorObserver(pJogador);
 
-                if (entidades::personagens::Jogador::getInstancias() - 1 <= 0)
-                    pGerenciadorGrafico->fecharJanela();
+                if (entidades::personagens::Jogador::getInstancias() - 1 <= 0) {
+                    pge->limparEstados();
+                    pge->adicionarEstado(IDs::menu_principal);
+                }
             }
             else
                 gerenciadorColisao.retirarInimigo(
                     dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
                 );
-
             pPersonagem->setAtivo(false);
         }
         void Fase::retirarJogadorObserver(entidades::personagens::Jogador *pJogador)

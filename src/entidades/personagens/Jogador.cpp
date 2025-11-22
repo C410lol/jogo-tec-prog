@@ -22,6 +22,8 @@ namespace jogo {
             }
             int Jogador::getInstancias() { return instancias; }
             void Jogador::setInstancias(int r_instancias) { instancias = r_instancias; }
+            void Jogador::incrementarInstancias() {++instancias;}
+
 
 
 
@@ -30,6 +32,7 @@ namespace jogo {
             Personagem(r_posicao, r_tamanho, 10, true), ehPrimeiro(false),
             deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
             {
+                std::cout<<primeiroExiste<<std::endl;
                 ++instancias;
                 if (!primeiroExiste)
                 {

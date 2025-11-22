@@ -49,6 +49,7 @@ namespace jogo {
 
                 static int getInstancias();
                 static void setInstancias(int instancias);
+                static void incrementarInstancias();
             };
 
         }

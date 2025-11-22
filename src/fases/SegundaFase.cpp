@@ -3,6 +3,8 @@
 
 #include "fases/SegundaFase.h"
 
+#include <iostream>
+
 #include "entidades/obstaculos/Meleca.h"
 #include "entidades/obstaculos/Plataforma.h"
 #include "gerenciadores/GerenciadorGrafico.h"

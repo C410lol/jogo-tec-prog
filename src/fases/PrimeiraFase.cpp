@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "entidades/obstaculos/Bandeira.h"
 #include "entidades/obstaculos/Plataforma.h"
 #include "entidades/obstaculos/Espinho.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
@@ -71,6 +72,12 @@ namespace jogo {
             listaEntidades.incluir(pEspinho);
             gerenciadorColisao.incluirObstaculo(pEspinho);
         }
+        void PrimeiraFase::criarFlag(sf::Vector2f posicao, sf::Vector2f tamanho) {
+            entidades::obstaculos::Bandeira* pBandeira  = new entidades::obstaculos::Bandeira(posicao, tamanho, false);
+
+            listaEntidades.incluir(pBandeira);
+            gerenciadorColisao.incluirObstaculo(pBandeira);
+        }
 
 
 
@@ -117,6 +124,9 @@ namespace jogo {
                 case '5':
                     if (rand() % 2)
                         criarEspinho(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
+                    break;
+                case 'f':
+                    criarFlag(sf::Vector2f(x, y + 8), sf::Vector2f(proporcao.x, proporcao.y*2));
                     break;
                 default:
                     break;

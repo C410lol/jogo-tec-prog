@@ -23,6 +23,7 @@ namespace jogo {
             void criarEspinho(sf::Vector2f posicao, sf::Vector2f tamanho);
             void criarInimigos(char c, float x, float y) override;
             void criarObstaculos(char c, float x, float y) override;
+            void criarFlag(sf::Vector2f posicao, sf::Vector2f tamanho);
 
         public:
             PrimeiraFase(int r_numJogadores, IDs id);

@@ -52,6 +52,8 @@ namespace jogo {
                 bool getKnokback() const;
                 void setKnokback(bool r_knokback);
 
+                int getVidas() const;
+
                 bool getOlhandoDireita() const;
 
                 void tomarDano(int dano);

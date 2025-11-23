@@ -14,10 +14,10 @@
 namespace jogo
 {
     Jogo::Jogo():
-    inputSubject(observers::InputSubject::getInstancia()),
     pge(gerenciadores::GerenciadorEstado::getGerenEstado())
     {
         Ente::setGerenciadorGrafico(&gerenciadorGrafico);
+        estados::Estado::setGE(gerenciadores::GerenciadorEstado::getGerenEstado());
         pge->adicionarEstado(IDs::menu_principal);
         exec();
     }
@@ -37,7 +37,6 @@ namespace jogo
                 }
             }
             gerenciadorGrafico.limpar();
-            inputSubject->execute();
             pge->executar();
             if (pge->getEstadoAtual()->getvoltaMenu()) {
                 pge->adicionarEstado(IDs::menu_pausa);

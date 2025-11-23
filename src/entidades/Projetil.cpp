@@ -45,7 +45,12 @@ namespace jogo {
         void Projetil::salvar()
         {
             Entidade::salvar();
-            buffer << static_cast<int>(IDs::projetil) << " " << dano << " " << vel << " " << NULL;
+
+            int donoId = -1;
+            if (pDono)
+                donoId = pDono->getIdNumber();
+
+            buffer << static_cast<int>(IDs::projetil) << " " << dano << " " << vel << " " << donoId;
         }
 
 

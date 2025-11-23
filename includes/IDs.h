@@ -12,6 +12,8 @@ namespace jogo {
         segunda_fase,
         menu_principal,
         menu_jogadores,
+        menu_pontuacao,
+        menu_ranking,
         menu_pausa,
         botao,
         plataforma_fase1,

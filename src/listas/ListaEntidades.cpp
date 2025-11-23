@@ -77,7 +77,21 @@ namespace jogo {
 
             file.close();
         }
+        entidades::Entidade *ListaEntidades::procurarPeloId(int id)
+        {
+            entidades::Entidade *pEntidade = nullptr;
+            for (int i = 0; i < LEs.getSize(); ++i)
+            {
+                pEntidade = LEs[i];
+                if (!pEntidade)
+                    continue;
 
+                if (pEntidade->getIdNumber() == id)
+                    return pEntidade;
+            }
+
+            return nullptr;
+        }
 
     }  // namespace Listas
 }

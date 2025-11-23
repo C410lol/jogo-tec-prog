@@ -25,6 +25,7 @@ namespace jogo {
             Lista<entidades::Entidade>::Iterator end();
 
             void salvarEntidades(IDs fase);
+            entidades::Entidade* procurarPeloId(int id);
 
             void executar();
         };

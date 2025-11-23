@@ -25,6 +25,7 @@ namespace jogo {
         {
         private:
             int numJogadores;
+            bool faseAcabou;
         private:
             void carregaPersonagem(std::stringstream& linha, dtos::EntidadeDTO entDTO);
             void carregaJogador(std::stringstream& linha, dtos::PersonagemDTO perDTO);
@@ -66,6 +67,8 @@ namespace jogo {
             void retirarProjetil(entidades::Projetil *pProjetil);
 
             void retirarPersonagem(entidades::personagens::Personagem *pPersonagem);
+
+            bool getfaseAcabou() const;
         };
 
     }

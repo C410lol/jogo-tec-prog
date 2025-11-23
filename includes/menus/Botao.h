@@ -9,6 +9,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+
+
+
 namespace jogo {
     namespace menus {
         class Botao : public Ente {
@@ -24,7 +27,6 @@ namespace jogo {
 
             void desenhar();
             void executar() override;
-
 
             // Verifica se o clique está dentro do botão
             bool contem(const sf::Vector2f& ponto) const;

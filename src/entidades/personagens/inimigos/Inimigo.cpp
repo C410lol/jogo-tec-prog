@@ -39,7 +39,12 @@ namespace jogo {
                 void Inimigo::salvar()
                 {
                     Personagem::salvar();
-                    buffer << static_cast<int>(IDs::inimigo) << " " << NULL << " " << nivelMaldade << " " <<
+
+                    int jogadorAlvoId = -1;
+                    if (pJogadorAlvo)
+                        jogadorAlvoId = pJogadorAlvo->getIdNumber();
+
+                    buffer << static_cast<int>(IDs::inimigo) << " " << jogadorAlvoId << " " << nivelMaldade << " " <<
                     deslocamento << " ";
                 }
 

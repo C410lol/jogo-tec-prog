@@ -139,6 +139,9 @@ namespace jogo {
                 pInimigo->setKnokback(true);
                 pInimigo->setVelocidade(vetorVelocidade);
                 pInimigo->tomarDano(1);
+
+                if (pInimigo->getVidas() <= 0)
+                    pontos += 10;
             }
 
 

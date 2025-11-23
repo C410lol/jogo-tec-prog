@@ -23,7 +23,9 @@
 namespace jogo {
     namespace fases {
 
-        Fase::Fase(int r_numJogadores): numJogadores(r_numJogadores) {
+        Fase::Fase(int r_numJogadores):
+        numJogadores(r_numJogadores), faseAcabou(false)
+        {
             entidades::personagens::inimigos::Terrestre::setInstancias(0);
             entidades::personagens::inimigos::Voador::setInstancias(0);
             entidades::personagens::inimigos::Chefao::setInstancias(0);
@@ -37,7 +39,6 @@ namespace jogo {
             setarProporcao();
         }
         Fase::~Fase() {
-            std::cout << "deletando fase" << std::endl;
             for (auto it = listaEntidades.begin(); it != listaEntidades.end(); ++it) {
                 delete *it;
             }
@@ -64,7 +65,7 @@ namespace jogo {
             try
             {
                 std::ifstream faseTemplate;
-                if (dynamic_cast<fases::PrimeiraFase*>(this))
+                if (dynamic_cast<PrimeiraFase*>(this))
                     faseTemplate.open("../fases-template/primeira-fase.txt");
                 else
                     faseTemplate.open("../fases-template/segunda-fase.txt");
@@ -173,7 +174,7 @@ namespace jogo {
                 retirarJogadorObserver(pJogador);
 
                 if (entidades::personagens::Jogador::getInstancias() - 1 <= 0)
-                    pGerenciadorGrafico->fecharJanela();
+                    faseAcabou = true;
             }
             else
                 gerenciadorColisao.retirarInimigo(
@@ -231,6 +232,14 @@ namespace jogo {
         void Fase::salvarFase()
         {
             listaEntidades.salvarEntidades(Id);
+        }
+
+
+
+
+        bool Fase::getfaseAcabou() const
+        {
+            return faseAcabou;
         }
 
 
@@ -344,7 +353,10 @@ namespace jogo {
             int nivelMaldade; linha >> nivelMaldade;
             int deslocamento; linha >> deslocamento;
 
-            return dtos::InimigoDTO(perDTO, nullptr, nivelMaldade, deslocamento);
+            entidades::personagens::Jogador *pJogadorAlvo =
+                dynamic_cast<entidades::personagens::Jogador*>(listaEntidades.procurarPeloId(pJogadorAlvoId));
+
+            return dtos::InimigoDTO(perDTO, pJogadorAlvo,nivelMaldade, deslocamento);
         }
         void Fase::carregaTerrestre(std::stringstream &linha, dtos::InimigoDTO iniDTO)
         {
@@ -394,8 +406,11 @@ namespace jogo {
             int vel; linha >> vel;
             int pDonoId; linha >> pDonoId;
 
+            entidades::personagens::Personagem *pDono =
+                dynamic_cast<entidades::personagens::Personagem*>(listaEntidades.procurarPeloId(pDonoId));
+
             entidades::Projetil *pProjetil =
-                new entidades::Projetil(entDTO, dano, vel, nullptr);
+                new entidades::Projetil(entDTO, dano, vel, pDono);
 
             listaEntidades.incluir(pProjetil);
             gerenciadorColisao.incluirProjetil(pProjetil);

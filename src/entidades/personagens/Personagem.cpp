@@ -143,6 +143,14 @@ namespace jogo {
 
 
 
+            int Personagem::getVidas() const
+            {
+                return vidas;
+            }
+
+
+
+
             bool Personagem::getOlhandoDireita() const
             {
                 return olhandoDireita;

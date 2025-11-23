@@ -56,6 +56,8 @@ namespace jogo {
             bool getAtivo() const;
             void setAtivo(bool r_ativo);
 
+            int getIdNumber() const;
+
             static void setFase(fases::Fase *r_pFase);
         };
 

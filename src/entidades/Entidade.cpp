@@ -123,5 +123,13 @@ namespace jogo {
             ativo = r_ativo;
         }
 
+
+
+
+        int Entidade::getIdNumber() const
+        {
+            return idNumber;
+        }
+
     }
 }

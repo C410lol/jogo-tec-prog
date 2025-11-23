@@ -15,7 +15,7 @@ namespace jogo {
 
         MenuPrincipal::MenuPrincipal() {
             float posX = sf::VideoMode::getDesktopMode().width / 2.75;
-            botoes.push_back( new Botao("JOGO", {posX, 100.f}, {300.f, 100.f}));
+            botoes.push_back( new Botao("Vassal", {posX, 100.f}, {300.f, 100.f}));
             botoes.push_back( new Botao("Continuar", {posX + 50, 300.f}, {200.f, 50.f}));
             botoes.push_back( new Botao("Fase 1", {posX + 50, 375.f}, {200.f, 50.f}));
             botoes.push_back( new Botao("Fase 2", {posX + 50, 450.f}, {200.f, 50.f}));

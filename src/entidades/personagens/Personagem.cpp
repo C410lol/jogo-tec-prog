@@ -43,7 +43,13 @@ namespace jogo {
             {
                 if (vidas <= 0) {
                     pFase->retirarPersonagem(this);
-                    pFase->pjogo->retirarJogador(dynamic_cast<Jogador *>(this));
+                    Jogador* pjogador = dynamic_cast<Jogador *>(this);
+                    if (pjogador)
+                    {
+                        if (pjogador->getEhPrimeiro())
+                            Jogador::setJogadorExiste(false);
+                        pFase->pjogo->retirarJogador(pjogador);
+                    }
                 }
             }
 

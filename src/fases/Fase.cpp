@@ -114,7 +114,7 @@ namespace jogo {
             observers::JogadorObserver *pJogadorObserver =
                 new observers::JogadorObserver(pJogador);
 
-            listaEntidades.incluir(pJogador);
+            listaEntidades.incluirNoInicio(pJogador);
             gerenciadorColisao.incluirJogador(pJogador);
 
             observers::InputSubject::getInstancia()->attach(pJogadorObserver);

@@ -17,6 +17,11 @@ namespace jogo {
             if (e != nullptr) LEs.incluir(e);
         }
 
+        void ListaEntidades::incluirNoInicio(entidades::Entidade *pE)
+        {
+            if (pE != nullptr) LEs.incluirNoInicio(pE);
+        }
+
         void ListaEntidades::deletar(entidades::Entidade *e) {
             if (e != nullptr) LEs.remover(e);
         }

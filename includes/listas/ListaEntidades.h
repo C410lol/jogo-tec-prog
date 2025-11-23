@@ -18,6 +18,7 @@ namespace jogo {
             ~ListaEntidades();
 
             void incluir(entidades::Entidade *pE);
+            void incluirNoInicio(entidades::Entidade *pE);
             void deletar(entidades::Entidade *pE);
             const int getSize() const;
             void limpar();

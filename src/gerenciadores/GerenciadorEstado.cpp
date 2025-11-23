@@ -30,7 +30,12 @@ namespace jogo {
             if (id == IDs::primeira_fase || id == IDs::segunda_fase) {
                 estado = (new estados::EstadoJogo(id, numJogadores, continuar));
             }
-            else if (id == IDs::menu_principal || id == IDs::menu_pausa) {
+            else if
+            (
+                id == IDs::menu_principal || id == IDs::menu_pausa ||
+                id == IDs::menu_pontuacao || id == IDs::menu_ranking
+            )
+            {
                 estado = new estados::EstadoMenu(id);
             }
             else if (id == IDs::menu_jogadores)

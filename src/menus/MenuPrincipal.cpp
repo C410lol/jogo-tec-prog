@@ -17,8 +17,9 @@ namespace jogo {
             float posX = sf::VideoMode::getDesktopMode().width / 2.75;
             botoes.push_back( new Botao("JOGO", {posX, 100.f}, {300.f, 100.f}));
             botoes.push_back( new Botao("Continuar", {posX + 50, 300.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Fase 1", {posX + 50, 400.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Fase 2", {posX + 50, 500.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Fase 1", {posX + 50, 375.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Fase 2", {posX + 50, 450.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Ranking", {posX + 50, 525.f}, {200.f, 50.f}));
             botoes.push_back( new Botao("Sair", {posX + 50, 600.f}, {200.f, 50.f}));
 
             setTexture("../assets/Menu.png");
@@ -57,6 +58,10 @@ namespace jogo {
                     pge->adicionarEstado(IDs::menu_jogadores, 0, IDs::segunda_fase);
                 }
                 else if (botoes[4]->contem(mousePos))
+                {
+                    pge->adicionarEstado(IDs::menu_ranking);
+                }
+                else if (botoes[5]->contem(mousePos))
                 {
                     pGerenciadorGrafico->fecharJanela(); // sair
                 }

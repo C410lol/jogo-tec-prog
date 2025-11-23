@@ -1,6 +1,3 @@
-
-
-
 #include "estados/EstadoJogo.h"
 
 #include <iostream>
@@ -8,9 +5,17 @@
 #include "fases/PrimeiraFase.h"
 #include "fases/SegundaFase.h"
 
+#include "gerenciadores/GerenciadorEstado.h"
+
+
+
+
 namespace jogo {
     namespace estados {
-        EstadoJogo::EstadoJogo(IDs id, int numJogadores, bool continuar):Estado(id) {
+
+        EstadoJogo::EstadoJogo(IDs id, int numJogadores, bool continuar):
+        Estado(id), pInputSubject(observers::InputSubject::getInstancia())
+        {
             criarFase(id, numJogadores, continuar);
         }
         EstadoJogo::~EstadoJogo() {
@@ -24,11 +29,17 @@ namespace jogo {
 
 
         void EstadoJogo::executar() {
+            pInputSubject->execute();
             fase->executar();
             voltaMenu = false;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 fase->salvarFase();
                 voltaMenu = true;
+            }
+            if (fase->getfaseAcabou())
+            {
+                delete fase;
+                pGE->adicionarEstado(IDs::menu_pontuacao);
             }
         }
 

@@ -102,7 +102,7 @@ namespace jogo {
         {
             if (c == 't' || c == '1' || c == 'v' || c == '2' || c == 'b' || c == '3')
                 criarInimigos(c, x, y);
-            else if (c == 'c' || c == 'p' || c == '4' || c == 'e' || c == '5' || c == 'm' || c == '6')
+            else if (c == 'c' || c == 'p' || c == '4' || c == 'e' || c == '5' || c == 'm' || c == '6' || c == 'f')
                 criarObstaculos(c, x, y);
             else if (c == 'j')
                 criarJogador(sf::Vector2f(x, y), proporcao);

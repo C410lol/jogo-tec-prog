@@ -27,6 +27,7 @@ namespace jogo {
         ~Jogo();
 
         std::list<entidades::personagens::Jogador*>* getLista();
+        int getTam();
         void exec();
         void startF1();
         void startF2();

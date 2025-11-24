@@ -28,6 +28,10 @@ namespace jogo
     {
         return &listaJogadores;
     }
+    int Jogo::getTam()
+    {
+        return listaJogadores.size();
+    }
 
 
 

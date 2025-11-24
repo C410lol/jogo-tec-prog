@@ -19,14 +19,12 @@ namespace jogo {
         private:
             observers::InputSubject  *pInputSubject;
             fases::Fase *fase;
-            static bool primeiroJogo;
 
         public:
             EstadoJogo(IDs id, int numJogadores = 1, bool continuar = false);
             ~EstadoJogo();
             void executar();
             void criarFase(IDs idFase, int numJogadores = 1, bool continuar = false);
-            static bool getPrimeiroJogo();
 
         };
 

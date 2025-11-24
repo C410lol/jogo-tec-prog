@@ -18,21 +18,10 @@ namespace jogo
     {
         Ente::setGerenciadorGrafico(&gerenciadorGrafico);
         estados::Estado::setGE(gerenciadores::GerenciadorEstado::getGerenEstado());
-        fases::Fase::pjogo = this;
         pge->adicionarEstado(IDs::menu_principal);
         exec();
     }
     Jogo::~Jogo() = default;
-
-    std::list<entidades::personagens::Jogador*>* Jogo::getLista()
-    {
-        return &listaJogadores;
-    }
-    int Jogo::getTam()
-    {
-        return listaJogadores.size();
-    }
-
 
 
     void Jogo::exec()

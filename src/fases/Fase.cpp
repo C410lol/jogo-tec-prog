@@ -16,13 +16,13 @@
 #include "dtos/ObstaculoDTO.h"
 #include "dtos/PersonagemDTO.h"
 #include "dtos/InimigoDTO.h"
-#include "estados/EstadoJogo.h"
+
+
 
 
 namespace jogo {
     namespace fases {
-        Jogo* Fase::pjogo = nullptr;
-        int Fase::numLista = 0;
+
         Fase::Fase(int r_numJogadores):
         numJogadores(r_numJogadores), faseAcabou(false)
         {
@@ -36,14 +36,7 @@ namespace jogo {
             entidades::personagens::Jogador::setJogadorExiste(false);
 
             entidades::personagens::Personagem::setFase(this);
-            pLista = pjogo->getLista();
             setarProporcao();
-            if (!estados::EstadoJogo::getPrimeiroJogo())
-            {
-                numLista -= pLista->size();
-                pLista->clear();
-            }
-
         }
         Fase::~Fase() {
             for (auto it = listaEntidades.begin(); it != listaEntidades.end(); ++it) {
@@ -115,21 +108,17 @@ namespace jogo {
         {
             if (entidades::personagens::Jogador::getInstancias() >= numJogadores)
                 return;
-            if (pLista->empty()||numLista == pLista->size() && numLista<numJogadores)
-            {
-                entidades::personagens::Jogador *pJogador =
-                    new entidades::personagens::Jogador(posicao, tamanho);
-                observers::JogadorObserver *pJogadorObserver =
-                    new observers::JogadorObserver(pJogador);
 
-                listaEntidades.incluirNoInicio(pJogador);
-                gerenciadorColisao.incluirJogador(pJogador);
+            entidades::personagens::Jogador *pJogador =
+                new entidades::personagens::Jogador(posicao, tamanho);
+            observers::JogadorObserver *pJogadorObserver =
+                new observers::JogadorObserver(pJogador);
 
-                observers::InputSubject::getInstancia()->attach(pJogadorObserver);
-                jogadorObservers.push_back(pJogadorObserver);
-                pLista->push_back(pJogador);
-                numLista++;
-            }
+            listaEntidades.incluirNoInicio(pJogador);
+            gerenciadorColisao.incluirJogador(pJogador);
+
+            observers::InputSubject::getInstancia()->attach(pJogadorObserver);
+            jogadorObservers.push_back(pJogadorObserver);
         }
 
 

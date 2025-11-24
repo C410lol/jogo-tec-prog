@@ -12,11 +12,17 @@
 
 namespace jogo {
     namespace estados {
+        bool EstadoJogo::primeiroJogo = true;
+        bool EstadoJogo::getPrimeiroJogo(){
+            return primeiroJogo;
+        }
+
 
         EstadoJogo::EstadoJogo(IDs id, int numJogadores, bool continuar):
         Estado(id), pInputSubject(observers::InputSubject::getInstancia())
         {
             criarFase(id, numJogadores, continuar);
+            primeiroJogo = false;
         }
         EstadoJogo::~EstadoJogo() {
             if (fase) {
@@ -53,6 +59,7 @@ namespace jogo {
                 fase = static_cast<fases::Fase*>(new fases::SegundaFase(numJogadores, IDs::segunda_fase, continuar));
             }
         }
+
 
 
     }

@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Ente.h"
+#include "Jogo.h"
 #include "gerenciadores/GerenciadorColisao.h"
 #include "listas/ListaEntidades.h"
 #include "entidades/personagens/inimigos/Chefao.h"
@@ -26,6 +27,7 @@ namespace jogo {
         private:
             int numJogadores;
             bool faseAcabou;
+            static int numLista;
         private:
             void carregaPersonagem(std::stringstream& linha, dtos::EntidadeDTO entDTO);
             void carregaJogador(std::stringstream& linha, dtos::PersonagemDTO perDTO);
@@ -42,6 +44,7 @@ namespace jogo {
             listas::ListaEntidades listaEntidades;
             std::vector<observers::JogadorObserver*> jogadorObservers;
             sf::Vector2f proporcao;
+            std::list<entidades::personagens::Jogador*>* pLista;
         protected:
             void carregarFase();
             virtual dtos::ObstaculoDTO carregaObstaculos(std::stringstream& linha, dtos::EntidadeDTO entDTO);
@@ -69,6 +72,7 @@ namespace jogo {
             void retirarPersonagem(entidades::personagens::Personagem *pPersonagem);
 
             bool getfaseAcabou() const;
+            static Jogo *pjogo;
         };
 
     }

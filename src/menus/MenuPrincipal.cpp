@@ -15,12 +15,12 @@ namespace jogo {
 
         MenuPrincipal::MenuPrincipal() {
             float posX = sf::VideoMode::getDesktopMode().width / 2.75;
-            botoes.push_back( new Botao("Vassal", {posX, 100.f}, {300.f, 100.f}));
-            botoes.push_back( new Botao("Continuar", {posX + 50, 300.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Fase 1", {posX + 50, 375.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Fase 2", {posX + 50, 450.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Ranking", {posX + 50, 525.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Sair", {posX + 50, 600.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Vassals", {posX, 100.f}, {300.f, 100.f}));
+            botoes.push_back( new Botao("Continuar", {posX + 50, 250.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Fase 1", {posX + 50, 325.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Fase 2", {posX + 50, 400.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Ranking", {posX + 50, 475.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Sair", {posX + 50, 550.f}, {200.f, 50.f}));
 
             setTexture("../assets/Menu.png");
             pSprite->setTexture(*pTexture);

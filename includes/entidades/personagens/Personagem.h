@@ -3,6 +3,8 @@
 
 #include "entidades/Entidade.h"
 
+#include "dtos/PersonagemDTO.h"
+
 
 
 
@@ -30,10 +32,13 @@ namespace jogo {
 
             public:
                 Personagem(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade);
+                Personagem(dtos::PersonagemDTO perDTO);
                 Personagem();
                 virtual ~Personagem();
 
                 virtual void executar() = 0;
+
+                virtual void salvar();
 
                 virtual void cair();
                 void checarMorte();
@@ -46,6 +51,8 @@ namespace jogo {
 
                 bool getKnokback() const;
                 void setKnokback(bool r_knokback);
+
+                int getVidas() const;
 
                 bool getOlhandoDireita() const;
 

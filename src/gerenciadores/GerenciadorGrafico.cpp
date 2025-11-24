@@ -21,7 +21,7 @@ namespace jogo {
 
         void GerenciadorGrafico::criarJanela()
         {
-            pJanela = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Jogo");
+            pJanela = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Vassal");
             pJanela->setFramerateLimit(30);
         }
         void GerenciadorGrafico::fecharJanela() const {
@@ -62,7 +62,6 @@ namespace jogo {
             if (pJanela)
                 pJanela->draw(pshape);
         }
-
         void GerenciadorGrafico::mostrar() const
         {
             if (pJanela)

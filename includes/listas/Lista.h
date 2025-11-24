@@ -72,6 +72,26 @@ namespace jogo {
           }
         }
       }
+      void incluirNoInicio(TL* p)
+      {
+        if (!p)
+          return;
+
+        Elemento<TL>* node = new Elemento<TL>();
+        node->incluir(p);
+
+        if (pPrimeiro == nullptr)
+        {
+          pPrimeiro = node;
+          pUltimo = node;
+        }
+        else
+        {
+          node->setProx(pPrimeiro);
+          pPrimeiro = node;
+        }
+        ++tamanho;
+      }
 
       TL* operator[](int pos) {
         Elemento<TL>* aux = pPrimeiro;

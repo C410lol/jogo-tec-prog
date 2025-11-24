@@ -18,7 +18,6 @@ namespace jogo {
     private:
         gerenciadores::GerenciadorEstado* pge;
         gerenciadores::GerenciadorGrafico gerenciadorGrafico;
-        observers::InputSubject *inputSubject;
         Menu *pMenu;
 
     public:

@@ -26,7 +26,6 @@ namespace jogo {
                 if (botoes[0]->contem(mousePos)) {
                     pge->limparEstados();                     // esvazia toda a pilha
                     pge->adicionarEstado(IDs::menu_principal);
-
                 }
                 if (botoes[1]->contem(mousePos)) {
                     pge->removerEstado();

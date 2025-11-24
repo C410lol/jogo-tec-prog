@@ -12,12 +12,23 @@ namespace jogo {
         segunda_fase,
         menu_principal,
         menu_jogadores,
+        menu_pontuacao,
+        menu_ranking,
+        menu_pausa,
         botao,
         plataforma_fase1,
         plataforma_fase2,
-        menu_pausa
-
-
+        obstaculo,
+        personagem,
+        inimigo,
+        espinho,
+        meleca,
+        plataforma,
+        chefao,
+        terrestre,
+        voador,
+        jogador,
+        projetil
     };
 
 }

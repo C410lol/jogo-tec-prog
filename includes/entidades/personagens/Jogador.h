@@ -4,6 +4,10 @@
 #include "entidades/personagens/Personagem.h"
 #include "inimigos/Terrestre.h"
 
+#include "dtos/PersonagemDTO.h"
+
+
+
 
 namespace jogo {
     namespace entidades {
@@ -26,10 +30,17 @@ namespace jogo {
 
             public:
                 Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
+                Jogador
+                (
+                    dtos::PersonagemDTO perDTO, bool r_ehPrimeiro, float r_deslocamentoX, bool r_naMeleca,
+                    bool r_atacando, int r_cooldown, int r_pontos
+                );
                 Jogador();
                 ~Jogador() override;
 
                 void executar() override;
+
+                void salvar() override;
 
                 void setNaMeleca(bool r_estaNaMeleca);
                 void setAtacando(bool r_atacando);

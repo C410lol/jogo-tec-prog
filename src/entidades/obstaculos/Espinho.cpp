@@ -29,6 +29,19 @@ namespace jogo {
                 setTexture("../assets/obstaculos/espinho.png");
                 fixTexture();
             }
+            Espinho::Espinho
+            (
+                dtos::ObstaculoDTO obsDTO, int r_danosidade, float r_disMax,
+                float r_disMin, bool r_deslocandoEsquerda
+            ):
+            Obstaculo(obsDTO), danosidade(r_danosidade), disMax(r_disMax),
+            disMin(r_disMin), deslocandoEsquerda(r_deslocandoEsquerda)
+            {
+                ++instancias;
+
+                setTexture("../assets/obstaculos/espinho.png");
+                fixTexture();
+            }
             Espinho::Espinho(): danosidade(0) {}
             Espinho::~Espinho() = default;
 
@@ -74,6 +87,16 @@ namespace jogo {
                 pJogador->setKnokback(true);
                 pJogador->setVelocidade(vetorVelocidade);
                 pJogador->tomarDano(danosidade);
+            }
+
+
+
+
+            void Espinho::salvar()
+            {
+                Obstaculo::salvar();
+                buffer << static_cast<int>(IDs::espinho) << " " << danosidade << " " << disMax << " " <<
+                disMin << " " << deslocandoEsquerda;
             }
 
         }

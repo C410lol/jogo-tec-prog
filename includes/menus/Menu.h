@@ -15,9 +15,8 @@ namespace jogo
 
     class Menu:public Ente
     {
-    private:
-        Jogo *pjogo;
     protected:
+        static Jogo *pjogo;
         std::vector<menus::Botao*> botoes;
         gerenciadores::GerenciadorEstado *pge;
     public:

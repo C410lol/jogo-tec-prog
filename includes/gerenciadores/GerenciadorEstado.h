@@ -24,7 +24,7 @@ namespace jogo {
             ~GerenciadorEstado();
             static GerenciadorEstado* getGerenEstado();
             void executar();
-            void adicionarEstado(IDs id, int numJogadores = 1, IDs r_fase = IDs::primeira_fase);
+            void adicionarEstado(IDs id, int numJogadores = 1, IDs r_fase = IDs::primeira_fase, bool continuar = false);
             void removerEstado();
 
             estados::Estado* getEstadoAtual();

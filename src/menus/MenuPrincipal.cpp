@@ -1,4 +1,6 @@
 #include "menus/MenuPrincipal.h"
+
+#include <fstream>
 #include <iostream>
 
 #include "estados/Estado.h"
@@ -13,10 +15,12 @@ namespace jogo {
 
         MenuPrincipal::MenuPrincipal() {
             float posX = sf::VideoMode::getDesktopMode().width / 2.75;
-            botoes.push_back( new Botao("Fase 1", {posX + 50, 300.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Vassals", {posX, 100.f}, {300.f, 100.f}));
+            botoes.push_back( new Botao("Continuar", {posX + 50, 250.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Fase 1", {posX + 50, 325.f}, {200.f, 50.f}));
             botoes.push_back( new Botao("Fase 2", {posX + 50, 400.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("Sair", {posX + 50, 500.f}, {200.f, 50.f}));
-            botoes.push_back( new Botao("JOGO", {posX, 100.f}, {300.f, 100.f}));
+            botoes.push_back( new Botao("Ranking", {posX + 50, 475.f}, {200.f, 50.f}));
+            botoes.push_back( new Botao("Sair", {posX + 50, 550.f}, {200.f, 50.f}));
 
             setTexture("../assets/Menu.png");
             pSprite->setTexture(*pTexture);
@@ -41,13 +45,24 @@ namespace jogo {
             sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(*pGerenciadorGrafico->getJanela()));
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                if (botoes[0]->contem(mousePos)) {
+                if (botoes[1]->contem(mousePos))
+                {
+                    pge->adicionarEstado(carregarFaseContinuar(), 0, static_cast<IDs>(NULL), true);
+                }
+                if (botoes[2]->contem(mousePos))
+                {
                     pge->adicionarEstado(IDs::menu_jogadores, 0, IDs::primeira_fase);
                 }
-                else if (botoes[1]->contem(mousePos)) {
+                else if (botoes[3]->contem(mousePos))
+                {
                     pge->adicionarEstado(IDs::menu_jogadores, 0, IDs::segunda_fase);
                 }
-                else if (botoes[2]->contem(mousePos)) {
+                else if (botoes[4]->contem(mousePos))
+                {
+                    pge->adicionarEstado(IDs::menu_ranking);
+                }
+                else if (botoes[5]->contem(mousePos))
+                {
                     pGerenciadorGrafico->fecharJanela(); // sair
                 }
             }
@@ -58,6 +73,23 @@ namespace jogo {
             for (size_t i = 0; i < botoes.size(); ++i) {
                 botoes[i]->desenhar();
             }
+        }
+
+
+
+
+        IDs MenuPrincipal::carregarFaseContinuar()
+        {
+            std::ifstream file("../salvamentos/salvamento.txt");
+
+            char fase;
+            file.get(fase);
+            file.close();
+
+            if (!fase || fase == '1')
+                return IDs::primeira_fase;
+
+            return IDs::segunda_fase;
         }
 
     }

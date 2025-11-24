@@ -16,6 +16,11 @@ namespace jogo {
             Entidade(r_posicao, r_tamanho), vidas(r_vidas), sofreGravidade(r_sofreGravidade), noChao(false),
             olhandoDireita(true), knokback(false)
             {}
+            Personagem::Personagem(dtos::PersonagemDTO perDTO):
+            Entidade(perDTO.entDTO), vidas(perDTO.vidas),
+            velocidade(perDTO.velocidade), sofreGravidade(perDTO.sofreGravidade),
+            noChao(perDTO.noChao), olhandoDireita(perDTO.olhandoDireita),knokback(perDTO.knokback)
+            {}
             Personagem::Personagem() = default;
             Personagem::~Personagem() = default;
 
@@ -32,6 +37,19 @@ namespace jogo {
                 pSprite->setPosition(posicao);
                 desenhar();
             }
+
+
+
+
+            void Personagem::salvar()
+            {
+                Entidade::salvar();
+                buffer << static_cast<int>(IDs::personagem) << " " << vidas << " " << velocidade.x << " " << velocidade.y
+                << " " << sofreGravidade << " " << noChao << " " << olhandoDireita << " " << knokback << " ";
+            }
+
+
+
 
             void Personagem::cair()
             {
@@ -120,6 +138,14 @@ namespace jogo {
             void Personagem::setKnokback(bool r_knokback)
             {
                 knokback = r_knokback;
+            }
+
+
+
+
+            int Personagem::getVidas() const
+            {
+                return vidas;
             }
 
 

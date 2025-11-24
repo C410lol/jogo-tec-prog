@@ -19,11 +19,18 @@ namespace jogo {
 
             public:
                 Meleca(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso, int r_viscosidade);
+                Meleca
+                (
+                    dtos::ObstaculoDTO obsDTO, int r_viscosidade,
+                    float r_tamMaximo, float r_tamMinimo, bool r_aumentando
+                );
                 Meleca();
                 ~Meleca();
 
                 void executar() override;
                 void obstaculizar(Entidade *entidade) override;
+
+                void salvar() override;
 
                 static int getInstancias();
                 static void setInstancias(int instancias);

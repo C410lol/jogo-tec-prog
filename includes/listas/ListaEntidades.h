@@ -18,11 +18,15 @@ namespace jogo {
             ~ListaEntidades();
 
             void incluir(entidades::Entidade *pE);
+            void incluirNoInicio(entidades::Entidade *pE);
             void deletar(entidades::Entidade *pE);
             const int getSize() const;
             void limpar();
             Lista<entidades::Entidade>::Iterator begin();
             Lista<entidades::Entidade>::Iterator end();
+
+            void salvarEntidades(IDs fase);
+            entidades::Entidade* procurarPeloId(int id);
 
             void executar();
         };

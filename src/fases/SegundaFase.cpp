@@ -9,7 +9,10 @@
 
 namespace jogo{
     namespace fases{
-        SegundaFase::SegundaFase(int r_numJogadores, IDs id):Fase(r_numJogadores), maxTerrestres(8), maxChefoes(7), maxPlataformas(325), maxMelecas(15) {
+
+        SegundaFase::SegundaFase(int r_numJogadores, IDs id, bool continuar):
+        Fase(r_numJogadores), maxTerrestres(8), maxChefoes(7), maxPlataformas(325), maxMelecas(15)
+        {
             Id=id;
             setTexture("../assets/fundos/caverna.png");
             pSprite->setTexture(*pTexture);
@@ -20,10 +23,17 @@ namespace jogo{
                 static_cast<float>(windowSize.x) / textureSize.x,
                 static_cast<float>(windowSize.y) / textureSize.y
             );
-            inicializar();
+
+            if (continuar)
+                carregarFase();
+            else
+                inicializar();
         }
         SegundaFase::~SegundaFase() = default;
 
+
+
+        
         void SegundaFase::criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
             if (entidades::personagens::inimigos::Terrestre::getInstancias() >= maxTerrestres)
@@ -39,6 +49,10 @@ namespace jogo{
             listaEntidades.incluir(pChefao);
             gerenciadorColisao.incluirInimigo(pChefao);
         }
+
+
+
+        
         void SegundaFase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao)
         {
             if (entidades::obstaculos::Plataforma::getInstancias() >= maxPlataformas)
@@ -54,6 +68,10 @@ namespace jogo{
             listaEntidades.incluir((pMeleca));
             gerenciadorColisao.incluirObstaculo(pMeleca);
         }
+
+
+
+        
         void SegundaFase::criarInimigos(char c, float x, float y)
         {
             switch (c)
@@ -76,6 +94,10 @@ namespace jogo{
                 break;
             }
         }
+
+
+
+        
         void SegundaFase::criarObstaculos(char c, float x, float y)
         {
             switch (c)
@@ -100,6 +122,74 @@ namespace jogo{
             default:
                 break;
             }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        dtos::ObstaculoDTO SegundaFase::carregaObstaculos(std::stringstream &linha, dtos::EntidadeDTO entDTO)
+        {
+            dtos::ObstaculoDTO obsDTO = Fase::carregaObstaculos(linha, entDTO);
+
+            int t; linha >> t;
+            IDs tipo = static_cast<IDs>(t);
+
+            if (tipo == IDs::meleca)
+                carregaMeleca(linha, obsDTO);
+            else if (tipo == IDs::plataforma)
+                carregaPlataforma(linha, obsDTO);
+
+            return obsDTO;
+        }
+        void SegundaFase::carregaMeleca(std::stringstream &linha, dtos::ObstaculoDTO obsDTO)
+        {
+            int viscosidade; linha >> viscosidade;
+            float tamMaximo; linha >> tamMaximo;
+            float tamMinimo; linha >> tamMinimo;
+            bool aumentando; linha >> aumentando;
+
+            entidades::obstaculos::Meleca *pMeleca =
+                new entidades::obstaculos::Meleca(obsDTO, viscosidade, tamMaximo, tamMinimo, aumentando);
+
+            listaEntidades.incluir(pMeleca);
+            gerenciadorColisao.incluirObstaculo(pMeleca);
+        }
+
+
+
+
+        dtos::InimigoDTO SegundaFase::carregaInimigos(std::stringstream &linha, dtos::PersonagemDTO perDTO)
+        {
+            dtos::InimigoDTO iniDTO = Fase::carregaInimigos(linha, perDTO);
+
+            int t; linha >> t;
+            IDs tipo = static_cast<IDs>(t);
+
+            if (tipo == IDs::chefao)
+                carregaChefao(linha, iniDTO);
+            else if (tipo == IDs::terrestre)
+                carregaTerrestre(linha, iniDTO);
+
+            return iniDTO;
+        }
+        void SegundaFase::carregaChefao(std::stringstream &linha, dtos::InimigoDTO iniDTO)
+        {
+            float cooldown; linha >> cooldown;
+            float rapidez; linha >> rapidez;
+
+            entidades::personagens::inimigos::Chefao *pChefao =
+                new entidades::personagens::inimigos::Chefao(iniDTO, cooldown, rapidez);
+
+            listaEntidades.incluir(pChefao);
+            gerenciadorColisao.incluirInimigo(pChefao);
         }
 
     }

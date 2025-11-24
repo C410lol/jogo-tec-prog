@@ -12,8 +12,9 @@
 namespace jogo {
     namespace fases {
 
-        PrimeiraFase::PrimeiraFase(int r_numJogadores, IDs id):
-        Fase(r_numJogadores), maxTerrestres(8), maxVoadores(4), maxPlataformas(315), maxEspinhos(20) {
+        PrimeiraFase::PrimeiraFase(int r_numJogadores, IDs id, bool continuar):
+        Fase(r_numJogadores), maxTerrestres(8), maxVoadores(4), maxPlataformas(315), maxEspinhos(20)
+        {
             Id=id;
             setTexture("../assets/fundos/planicie.png");
             pSprite->setTexture(*pTexture);
@@ -24,7 +25,11 @@ namespace jogo {
                 static_cast<float>(windowSize.x) / textureSize.x,
                 static_cast<float>(windowSize.y) / textureSize.y
             );
-            inicializar();
+
+            if (continuar)
+                carregarFase();
+            else
+                inicializar();
         }
         PrimeiraFase::~PrimeiraFase() {
 
@@ -121,6 +126,73 @@ namespace jogo {
                 default:
                     break;
             }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        dtos::ObstaculoDTO PrimeiraFase::carregaObstaculos(std::stringstream &linha, dtos::EntidadeDTO entDTO)
+        {
+            dtos::ObstaculoDTO obsDTO = Fase::carregaObstaculos(linha, entDTO);
+
+            int t; linha >> t;
+            IDs tipo = static_cast<IDs>(t);
+
+            if (tipo == IDs::espinho)
+                carregaEspinho(linha, obsDTO);
+            else if (tipo == IDs::plataforma)
+                carregaPlataforma(linha, obsDTO);
+
+            return obsDTO;
+        }
+        void PrimeiraFase::carregaEspinho(std::stringstream &linha, dtos::ObstaculoDTO obsDTO)
+        {
+            int danosidade; linha >> danosidade;
+            float disMax; linha >> disMax;
+            float disMin; linha >> disMin;
+            bool deslocandoEsquerda; linha >> deslocandoEsquerda;
+
+            entidades::obstaculos::Espinho *pEspinho =
+                new entidades::obstaculos::Espinho(obsDTO, danosidade, disMax, disMin, deslocandoEsquerda);
+
+            listaEntidades.incluir(pEspinho);
+            gerenciadorColisao.incluirObstaculo(pEspinho);
+        }
+
+
+
+
+        dtos::InimigoDTO PrimeiraFase::carregaInimigos(std::stringstream &linha, dtos::PersonagemDTO perDTO)
+        {
+            dtos::InimigoDTO iniDTO = Fase::carregaInimigos(linha, perDTO);
+
+            int t; linha >> t;
+            IDs tipo = static_cast<IDs>(t);
+
+            if (tipo == IDs::voador)
+                carregaVoador(linha, iniDTO);
+            else if (tipo == IDs::terrestre)
+                carregaTerrestre(linha, iniDTO);
+
+            return iniDTO;
+        }
+        void PrimeiraFase::carregaVoador(std::stringstream &linha, dtos::InimigoDTO iniDTO)
+        {
+            int energia; linha >> energia;
+
+            entidades::personagens::inimigos::Voador *pVoador =
+                new entidades::personagens::inimigos::Voador(iniDTO, energia);
+
+            listaEntidades.incluir(pVoador);
+            gerenciadorColisao.incluirInimigo(pVoador);
         }
 
     }

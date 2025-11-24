@@ -4,6 +4,8 @@
 #include "entidades/Entidade.h"
 #include "entidades/personagens/Jogador.h"
 
+#include "dtos/EntidadeDTO.h"
+
 
 
 
@@ -23,11 +25,18 @@ namespace jogo {
                         sf::Vector2f r_posicao, sf::Vector2f r_tamanho,
                         personagens::Personagem* r_pPersonagem, float vel, int r_dano
                     );
+                    Projetil
+                    (
+                        dtos::EntidadeDTO entDTO, int r_dano,
+                        float r_vel, personagens::Personagem *r_pDono
+                    );
                     Projetil();
                     ~Projetil();
 
                     void executar() override;
                     void deslocar();
+
+                    void salvar() override;
 
                     void acertar(personagens::Jogador *pJogador);
                     void destruir();

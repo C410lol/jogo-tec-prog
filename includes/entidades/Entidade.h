@@ -3,6 +3,9 @@
 
 #include "Ente.h"
 #include <SFML/Graphics.hpp>
+#include <sstream>
+
+#include "dtos/EntidadeDTO.h"
 
 
 
@@ -17,15 +20,19 @@ namespace jogo {
         class Entidade: public Ente
         {
         private:
+            static int idCont;
+            int idNumber;
             bool ativo;
 
         protected:
             static fases::Fase *pFase;
+            std::ostringstream buffer;
             sf::Vector2f posicao;
             sf::Vector2f tamanho;
 
         public:
             Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
+            Entidade(dtos::EntidadeDTO entDTO);
             Entidade();
             virtual ~Entidade();
 
@@ -34,6 +41,9 @@ namespace jogo {
             void mover(sf::Vector2f mover);
             void aumentar(float x, float y);
             void aumentar(sf::Vector2f aumento);
+
+            virtual void salvar();
+            std::string getBufferString() const;
 
             void fixTexture();
 
@@ -45,6 +55,8 @@ namespace jogo {
 
             bool getAtivo() const;
             void setAtivo(bool r_ativo);
+
+            int getIdNumber() const;
 
             static void setFase(fases::Fase *r_pFase);
         };

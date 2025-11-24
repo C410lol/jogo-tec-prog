@@ -20,21 +20,39 @@ namespace jogo {
                 Inimigo(r_posicao, r_tamanho, 1, true, 1), atrito((rand() % 6) + 1)
                 {
                     ++instancias;
+
+                    deslocamento = atrito;
+
+                    setTexture("../assets/personagens/terrestre.png");
+                    fixTexture();
+                }
+                Terrestre::Terrestre(dtos::InimigoDTO iniDTO, int r_atrito):
+                Inimigo(iniDTO), atrito(r_atrito)
+                {
+                    ++instancias;
+
                     deslocamento = atrito;
 
                     setTexture("../assets/personagens/terrestre.png");
                     fixTexture();
                 }
                 Terrestre::Terrestre() = default;
-                Terrestre::~Terrestre() {
-                    --instancias;
-                };
+                Terrestre::~Terrestre() { --instancias; }
 
 
 
 
                 void Terrestre::executar() {
                     Inimigo::executar();
+                }
+
+
+
+
+                void Terrestre::salvar()
+                {
+                    Inimigo::salvar();
+                    buffer << static_cast<int>(IDs::terrestre) << " " << atrito;
                 }
 
 

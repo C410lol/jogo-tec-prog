@@ -31,6 +31,7 @@ namespace jogo {
             deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
             {
                 ++instancias;
+
                 if (!primeiroExiste)
                 {
                     ehPrimeiro = true;
@@ -38,6 +39,23 @@ namespace jogo {
 
                     setTexture("../assets/personagens/jogador1.png");
                 }
+                else
+                    setTexture("../assets/personagens/jogador2.png");
+
+                fixTexture();
+            }
+            Jogador::Jogador
+            (
+                dtos::PersonagemDTO perDTO, bool r_ehPrimeiro, float r_deslocamentoX, bool r_naMeleca,
+                bool r_atacando, int r_cooldown, int r_pontos
+            ):
+            Personagem(perDTO), ehPrimeiro(r_ehPrimeiro), deslocamentoX(r_deslocamentoX), naMeleca(r_naMeleca),
+            atacando(r_atacando), cooldown(r_cooldown), pontos(r_pontos)
+            {
+                ++instancias;
+
+                if (ehPrimeiro)
+                    setTexture("../assets/personagens/jogador1.png");
                 else
                     setTexture("../assets/personagens/jogador2.png");
 
@@ -57,6 +75,16 @@ namespace jogo {
                 atualizarNaMeleca();
 
                 cooldown /= 2;
+            }
+
+
+
+
+            void Jogador::salvar()
+            {
+                Personagem::salvar();
+                buffer << static_cast<int>(IDs::jogador) << " " << ehPrimeiro << " " << deslocamentoX << " " <<
+                naMeleca << " " << atacando << " " << cooldown << " " << pontos;
             }
 
 
@@ -111,6 +139,9 @@ namespace jogo {
                 pInimigo->setKnokback(true);
                 pInimigo->setVelocidade(vetorVelocidade);
                 pInimigo->tomarDano(1);
+
+                if (pInimigo->getVidas() <= 0)
+                    pontos += 10;
             }
 
 

@@ -93,6 +93,7 @@ namespace jogo {
         }
         void Fase::criarEntidade(char c, float x, float y)
         {
+
             if (c == 't' || c == '1' || c == 'v' || c == '2' || c == 'b' || c == '3')
                 criarInimigos(c, x, y);
             else if (c == 'c' || c == 'p' || c == '4' || c == 'e' || c == '5' || c == 'm' || c == '6' || c == 'f')

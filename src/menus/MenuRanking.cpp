@@ -90,7 +90,7 @@ namespace jogo {
                     continue;
                 }
 
-                ranking += std::to_string(i + 1) + ". " + pontuacoes[i].username + ": " +
+                ranking += std::to_string(i + 1) + ". " + pontuacoes[i].username + " - " +
                     std::to_string(pontuacoes[i].pontuacao);
                 caixaTexto = new CaixaTexto(sf::Vector2f(posX - 12.5, posY), sf::Vector2f(325.f, 50.f));
                 caixaTexto->setTexto(ranking);

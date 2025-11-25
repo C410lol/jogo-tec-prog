@@ -3,9 +3,9 @@
 
 #include "menus/Menu.h"
 #include "gerenciadores/GerenciadorGrafico.h"
+#include "entidades/personagens/Jogador.h"
 #include "observer-pattern/input/InputSubject.h"
-
-
+#include "observer-pattern/input/JogadorObserver.h"
 
 
 namespace jogo {
@@ -19,6 +19,8 @@ namespace jogo {
         gerenciadores::GerenciadorEstado* pge;
         gerenciadores::GerenciadorGrafico gerenciadorGrafico;
         Menu *pMenu;
+        std::vector<entidades::personagens::Jogador*> jogadores;
+        std::vector<observers::JogadorObserver*> jogadorObservers;
 
     public:
         Jogo();
@@ -27,6 +29,10 @@ namespace jogo {
         void exec();
         void startF1();
         void startF2();
+
+        void criarJogadores();
+        void resetarJogadores();
+        std::vector<entidades::personagens::Jogador*> &getJogadores();
     };
 
 }

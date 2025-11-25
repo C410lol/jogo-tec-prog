@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "entidades/personagens/Jogador.h"
+
 
 namespace jogo {
     namespace listas {
@@ -22,8 +24,8 @@ namespace jogo {
             if (pE != nullptr) LEs.incluirNoInicio(pE);
         }
 
-        void ListaEntidades::deletar(entidades::Entidade *e) {
-            if (e != nullptr) LEs.remover(e);
+        void ListaEntidades::deletar(entidades::Entidade *e, bool apagar) {
+            if (e != nullptr) LEs.remover(e, apagar);
         }
 
         const int ListaEntidades::getSize() const { return LEs.getSize(); }
@@ -49,9 +51,23 @@ namespace jogo {
                     }
                     else
                     {
-                        deletar(aux);
+                        if (!(dynamic_cast<entidades::personagens::Jogador*>(aux)))
+                            deletar(aux, true);
                     }
                 }
+            }
+        }
+
+
+
+
+        void ListaEntidades::retirarJogadores() {
+            entidades::Entidade *aux = nullptr;
+            for (int i = 0; i < LEs.getSize(); ++i) {
+                aux = LEs[i];
+                if (aux)
+                    if (dynamic_cast<entidades::personagens::Jogador*>(aux))
+                        deletar(aux, false);
             }
         }
 
@@ -79,7 +95,6 @@ namespace jogo {
                 entidade->salvar();
                 file << entidade->getBufferString() << std::endl;
             }
-
             file.close();
         }
         entidades::Entidade *ListaEntidades::procurarPeloId(int id)

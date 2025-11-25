@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 
+#include "Jogo.h"
 #include "gerenciadores/GerenciadorEstado.h"
 #include "gerenciadores/GerenciadorGrafico.h"
 
@@ -112,8 +113,10 @@ namespace jogo {
             //  Não sobreescreve o arquivo
             std::ofstream file("../salvamentos/pontuacoes.txt", std::ios::app);
 
-            int pontuacao = -1;
+            int pontuacao = 0;
             //  Resgatar pontuação do(s) jogador(es)
+            pontuacao += pjogo->getJogadores()[0]->getUltimaPontuacao();
+            pontuacao += pjogo->getJogadores()[1]->getUltimaPontuacao();
 
             file << username << " " << pontuacao << std::endl;
         }

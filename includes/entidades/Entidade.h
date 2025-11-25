@@ -21,14 +21,14 @@ namespace jogo {
         {
         private:
             static int idCont;
-            int idNumber;
-            bool ativo;
 
         protected:
+            int idNumber;
             static fases::Fase *pFase;
             std::ostringstream buffer;
             sf::Vector2f posicao;
             sf::Vector2f tamanho;
+            bool ativo;
 
         public:
             Entidade(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);

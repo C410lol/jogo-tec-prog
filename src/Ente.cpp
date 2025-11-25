@@ -1,5 +1,8 @@
 #include "Ente.h"
 
+#include <iostream>
+
+#include "entidades/personagens/Jogador.h"
 #include "gerenciadores/GerenciadorGrafico.h"
 
 
@@ -42,6 +45,10 @@ namespace jogo {
     {
         pTexture = new sf::Texture();
         pTexture->loadFromFile(path);
+
+        if (dynamic_cast<entidades::personagens::Jogador*>(this))
+            std::cout << "xamaxamaxa" << std::endl;
+
         pSprite->setTexture(*pTexture);
     }
     IDs Ente::getId() {

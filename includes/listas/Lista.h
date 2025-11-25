@@ -137,7 +137,7 @@ namespace jogo {
       Iterator begin() { return Iterator(pPrimeiro); }
 
       Iterator end() { return Iterator(nullptr); }
-      void remover(TL* p) {
+      void remover(TL* p, bool apagar) {
         Iterator it = begin();
         Iterator anterior = end();
 
@@ -166,7 +166,8 @@ namespace jogo {
             anterior.getAtual()->setProx(atual->getProximo());
           }
 
-          delete atual->getInfo();
+          if (apagar)
+            delete atual->getInfo();
           delete atual;
           tamanho--;
         }

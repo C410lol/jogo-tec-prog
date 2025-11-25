@@ -28,7 +28,7 @@ namespace jogo {
 
             Jogador::Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
             Personagem(r_posicao, r_tamanho, 10, true), ehPrimeiro(false),
-            deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
+            deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0), ultimaPontuacao(0)
             {
                 ++instancias;
 
@@ -50,7 +50,7 @@ namespace jogo {
                 bool r_atacando, int r_cooldown, int r_pontos
             ):
             Personagem(perDTO), ehPrimeiro(r_ehPrimeiro), deslocamentoX(r_deslocamentoX), naMeleca(r_naMeleca),
-            atacando(r_atacando), cooldown(r_cooldown), pontos(r_pontos)
+            atacando(r_atacando), cooldown(r_cooldown), pontos(r_pontos), ultimaPontuacao(r_pontos)
             {
                 ++instancias;
 
@@ -140,8 +140,10 @@ namespace jogo {
                 pInimigo->setVelocidade(vetorVelocidade);
                 pInimigo->tomarDano(1);
 
-                if (pInimigo->getVidas() <= 0)
+                if (pInimigo->getVidas() <= 0) {
                     pontos += 10;
+                    ultimaPontuacao = pontos;
+                }
             }
 
 
@@ -172,6 +174,78 @@ namespace jogo {
 
                 cooldown = std::pow(2, 15);
                 atacando = true;
+            }
+
+
+
+
+            void Jogador::resetarJogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool resetarPontos)
+            {
+                buffer = std::ostringstream("");
+
+                posicao = r_posicao;
+                tamanho = r_tamanho;
+                fixTexture();
+
+                ultimaPontuacao = pontos;
+
+                naMeleca = false;
+                atacando = false;
+                cooldown = 0;
+
+                if (resetarPontos)
+                    pontos = 0;
+
+                velocidade = sf::Vector2f(0, 0);
+                deslocamentoX = DESLOCAMENTO_JOGADOR_PADRAO;
+                vidas = 10;
+                noChao = true;
+                olhandoDireita = true;
+                knokback = false;
+
+                ativo = true;
+            }
+            void Jogador::setJogador(
+                dtos::PersonagemDTO perDTO, bool r_ehPrimeiro, float r_deslocamentoX,
+                bool r_naMeleca, bool r_atacando, int r_cooldown, int r_pontos
+            )
+            {
+                buffer = std::ostringstream("");
+
+                idNumber = perDTO.entDTO.idNumber;
+                posicao = perDTO.entDTO.posicao;
+                tamanho = perDTO.entDTO.tamanho;
+                ativo = perDTO.entDTO.ativo;
+
+                vidas = perDTO.vidas;
+                velocidade = perDTO.velocidade;
+                sofreGravidade = perDTO.sofreGravidade;
+                noChao = perDTO.noChao;
+                olhandoDireita = perDTO.olhandoDireita;
+                knokback = perDTO.knokback;
+
+                ehPrimeiro = r_ehPrimeiro;
+                deslocamentoX = r_deslocamentoX;
+                naMeleca = r_naMeleca;
+                atacando = r_atacando;
+                cooldown = r_cooldown;
+                pontos = r_pontos;
+                ultimaPontuacao = pontos;
+
+                if (ehPrimeiro)
+                    setTexture("../assets/personagens/jogador1.png");
+                else
+                    setTexture("../assets/personagens/jogador2.png");
+                fixTexture();
+            }
+
+
+
+
+
+            int Jogador::getUltimaPontuacao() const
+            {
+                return ultimaPontuacao;
             }
 
         }

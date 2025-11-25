@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "Jogo.h"
 #include "entidades/obstaculos/Espinho.h"
 #include "entidades/obstaculos/Meleca.h"
 #include "entidades/obstaculos/Plataforma.h"
@@ -16,15 +17,20 @@
 #include "dtos/ObstaculoDTO.h"
 #include "dtos/PersonagemDTO.h"
 #include "dtos/InimigoDTO.h"
-
-
+#include "entidades/obstaculos/Bandeira.h"
 
 
 namespace jogo {
     namespace fases {
 
+        Jogo *Fase::pJogo = nullptr;
+        void Fase::setJogo(Jogo *r_pJogo) { pJogo = r_pJogo; }
+
+
+
+
         Fase::Fase(int r_numJogadores):
-        numJogadores(r_numJogadores), faseAcabou(false)
+        numJogadores(r_numJogadores), faseAcabou(false), jogCont(0), jogAtivos(0)
         {
             entidades::personagens::inimigos::Terrestre::setInstancias(0);
             entidades::personagens::inimigos::Voador::setInstancias(0);
@@ -33,14 +39,17 @@ namespace jogo {
             entidades::obstaculos::Plataforma::setInstancias(0);
             entidades::obstaculos::Meleca::setInstancias(0);
             entidades::obstaculos::Espinho::setInstancias(0);
-            entidades::personagens::Jogador::setJogadorExiste(false);
+
+            listaEntidades.retirarJogadores();
 
             entidades::personagens::Personagem::setFase(this);
             setarProporcao();
         }
         Fase::~Fase() {
-            for (auto it = listaEntidades.begin(); it != listaEntidades.end(); ++it) {
-                delete *it;
+            for (auto it = listaEntidades.begin(); it != listaEntidades.end(); ++it)
+            {
+                if (!(dynamic_cast<entidades::personagens::Jogador*>(*it)))
+                    delete *it;
             }
             listaEntidades.limpar();
         }
@@ -93,7 +102,6 @@ namespace jogo {
         }
         void Fase::criarEntidade(char c, float x, float y)
         {
-
             if (c == 't' || c == '1' || c == 'v' || c == '2' || c == 'b' || c == '3')
                 criarInimigos(c, x, y);
             else if (c == 'c' || c == 'p' || c == '4' || c == 'e' || c == '5' || c == 'm' || c == '6' || c == 'f')
@@ -107,19 +115,21 @@ namespace jogo {
 
         void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            if (entidades::personagens::Jogador::getInstancias() >= numJogadores)
+            if (jogCont >= numJogadores)
                 return;
 
-            entidades::personagens::Jogador *pJogador =
-                new entidades::personagens::Jogador(posicao, tamanho);
-            observers::JogadorObserver *pJogadorObserver =
-                new observers::JogadorObserver(pJogador);
+            entidades::personagens::Jogador *pJogador = pJogo->getJogadores()[jogCont];
+
+            if (Id == IDs::primeira_fase)
+                pJogador->resetarJogador(posicao, tamanho, true);
+            else
+                pJogador->resetarJogador(posicao, tamanho, false);
 
             listaEntidades.incluirNoInicio(pJogador);
             gerenciadorColisao.incluirJogador(pJogador);
 
-            observers::InputSubject::getInstancia()->attach(pJogadorObserver);
-            jogadorObservers.push_back(pJogadorObserver);
+            ++jogCont;
+            ++jogAtivos;
         }
 
 
@@ -144,6 +154,13 @@ namespace jogo {
 
             listaEntidades.incluir(pPlataforma);
             gerenciadorColisao.incluirObstaculo(pPlataforma);
+        }
+        void Fase::criaBandeira(sf::Vector2f posicao, sf::Vector2f tamanho)
+        {
+            entidades::obstaculos::Bandeira* pBandeira =
+                new entidades::obstaculos::Bandeira(posicao, tamanho, false);
+            listaEntidades.incluir(pBandeira);
+            gerenciadorColisao.incluirObstaculo(pBandeira);
         }
 
 
@@ -172,9 +189,8 @@ namespace jogo {
             if (pJogador)
             {
                 gerenciadorColisao.retirarJogador(pJogador);
-                retirarJogadorObserver(pJogador);
 
-                if (entidades::personagens::Jogador::getInstancias() - 1 <= 0)
+                if (--jogAtivos <= 0)
                     faseAcabou = true;
             }
             else
@@ -183,28 +199,6 @@ namespace jogo {
                 );
 
             pPersonagem->setAtivo(false);
-        }
-        void Fase::retirarJogadorObserver(entidades::personagens::Jogador *pJogador)
-        {
-            std::vector<observers::JogadorObserver*>::iterator itJogadorObserver;
-            for
-            (
-                itJogadorObserver = jogadorObservers.begin();
-                itJogadorObserver != jogadorObservers.end();
-                ++itJogadorObserver
-            )
-            {
-                if (*itJogadorObserver)
-                {
-                    if ((*itJogadorObserver)->getJogador() == pJogador)
-                    {
-                        observers::InputSubject::getInstancia()->detach(*itJogadorObserver);
-                        delete *itJogadorObserver;
-                        jogadorObservers.erase(itJogadorObserver);
-                        break;
-                    }
-                }
-            }
         }
         void Fase::retirarProjetil(entidades::Projetil *pProjetil)
         {
@@ -242,6 +236,15 @@ namespace jogo {
         {
             return faseAcabou;
         }
+        void Fase::acabarFase() {
+            faseAcabou = true;
+        }
+        int Fase::getNumJogadores() const
+        {
+            return numJogadores;
+        }
+
+
 
 
 
@@ -317,6 +320,13 @@ namespace jogo {
             listaEntidades.incluir(pPlataforma);
             gerenciadorColisao.incluirObstaculo(pPlataforma);
         }
+        void Fase::carregaBandeira(dtos::ObstaculoDTO obsDTO) {
+            entidades::obstaculos::Bandeira *pBandeira =
+                new entidades::obstaculos::Bandeira(obsDTO);
+
+            listaEntidades.incluir(pBandeira);
+            gerenciadorColisao.incluirObstaculo(pBandeira);
+        }
 
 
 
@@ -324,12 +334,12 @@ namespace jogo {
         void Fase::carregaPersonagem(std::stringstream &linha, dtos::EntidadeDTO entDTO)
         {
             int vidas; linha >> vidas;
-            int velocidadeX; linha >> velocidadeX;
-            int velocidadeY; linha >> velocidadeY;
-            int sofreGravidade; linha >> sofreGravidade;
-            int noChao; linha >> noChao;
-            int olhandoDireita; linha >> olhandoDireita;
-            int knokback; linha >> knokback;
+            float velocidadeX; linha >> velocidadeX;
+            float velocidadeY; linha >> velocidadeY;
+            bool sofreGravidade; linha >> sofreGravidade;
+            bool noChao; linha >> noChao;
+            bool olhandoDireita; linha >> olhandoDireita;
+            bool knokback; linha >> knokback;
 
             dtos::PersonagemDTO perDTO(
                 entDTO, vidas, sf::Vector2f(velocidadeX, velocidadeY),
@@ -377,25 +387,23 @@ namespace jogo {
         void Fase::carregaJogador(std::stringstream &linha, dtos::PersonagemDTO perDTO)
         {
             bool ehPrimeiro; linha >> ehPrimeiro;
-            bool deslocamentoX; linha >> deslocamentoX;
+            float deslocamentoX; linha >> deslocamentoX;
             bool naMeleca; linha >> naMeleca;
             bool atacando; linha >> atacando;
-            bool cooldown; linha >> cooldown;
-            bool pontos; linha >> pontos;
+            int cooldown; linha >> cooldown;
+            int pontos; linha >> pontos;
 
-            entidades::personagens::Jogador *pJogador =
-                new entidades::personagens::Jogador
-                (
-                    perDTO, ehPrimeiro, deslocamentoX, naMeleca, atacando, cooldown, pontos
-                );
-            observers::JogadorObserver *pJogadorObserver =
-                new observers::JogadorObserver(pJogador);
+            entidades::personagens::Jogador *pJogador = pJogo->getJogadores()[jogCont];
+            pJogador->setJogador(perDTO, ehPrimeiro, deslocamentoX, naMeleca, atacando, cooldown, pontos);
 
             listaEntidades.incluir(pJogador);
             gerenciadorColisao.incluirJogador(pJogador);
 
-            observers::InputSubject::getInstancia()->attach(pJogadorObserver);
-            jogadorObservers.push_back(pJogadorObserver);
+            if (perDTO.entDTO.ativo)
+                ++jogAtivos;
+
+            ++jogCont;
+            ++numJogadores;
         }
 
 

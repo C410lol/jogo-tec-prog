@@ -49,9 +49,6 @@ namespace jogo {
                 //delete pilhaEstados.top();
                 pilhaEstados.pop();
             }
-            if (pilhaEstados.empty()) {
-
-            }
         }
         estados::Estado* GerenciadorEstado::getEstadoAtual() {
             if (!pilhaEstados.empty()) {

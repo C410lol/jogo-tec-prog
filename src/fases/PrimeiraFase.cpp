@@ -15,7 +15,7 @@ namespace jogo
     namespace fases {
 
         PrimeiraFase::PrimeiraFase(int r_numJogadores, IDs id, bool continuar):
-        Fase(r_numJogadores), maxTerrestres(8), maxVoadores(4), maxPlataformas(315), maxEspinhos(20)
+        Fase(r_numJogadores), maxTerrestres(8), maxVoadores(10), maxPlataformas(315), maxEspinhos(20)
         {
             Id=id;
             setTexture("../assets/fundos/planicie.png");
@@ -78,14 +78,6 @@ namespace jogo
             listaEntidades.incluir(pEspinho);
             gerenciadorColisao.incluirObstaculo(pEspinho);
         }
-        void PrimeiraFase::criaBandeira(sf::Vector2f posicao, sf::Vector2f tamanho)
-        {
-            entidades::obstaculos::Bandeira* pBandeira =
-                new entidades::obstaculos::Bandeira(posicao, tamanho, false);
-            listaEntidades.incluir(pBandeira);
-            gerenciadorColisao.incluirObstaculo(pBandeira);
-        }
-
 
 
 
@@ -163,6 +155,8 @@ namespace jogo
                 carregaEspinho(linha, obsDTO);
             else if (tipo == IDs::plataforma)
                 carregaPlataforma(linha, obsDTO);
+            else if (tipo == IDs::bandeira)
+                carregaBandeira(obsDTO);
 
             return obsDTO;
         }

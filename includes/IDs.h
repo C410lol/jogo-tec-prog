@@ -28,7 +28,8 @@ namespace jogo {
         terrestre,
         voador,
         jogador,
-        projetil
+        projetil,
+        bandeira
     };
 
 }

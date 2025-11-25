@@ -13,6 +13,12 @@ namespace jogo{
             //pjogo=r_pjogo;
         //executar();
     //}
+    Jogo *Menu::pjogo = nullptr;
+    void Menu::setJogo(Jogo *r_pJogo) {
+        pjogo = r_pJogo;
+    }
+
+
     Menu::Menu()  : pge(gerenciadores::GerenciadorEstado::getGerenEstado()), Ente() {
         //executar();
 

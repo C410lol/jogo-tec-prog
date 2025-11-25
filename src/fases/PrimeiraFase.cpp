@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "entidades/obstaculos/Bandeira.h"
 #include "entidades/obstaculos/Plataforma.h"
 #include "entidades/obstaculos/Espinho.h"
 #include "entidades/personagens/inimigos/Terrestre.h"
@@ -9,11 +10,12 @@
 #include "gerenciadores/GerenciadorGrafico.h"
 
 
-namespace jogo {
+namespace jogo
+{
     namespace fases {
 
         PrimeiraFase::PrimeiraFase(int r_numJogadores, IDs id, bool continuar):
-        Fase(r_numJogadores), maxTerrestres(8), maxVoadores(4), maxPlataformas(315), maxEspinhos(20)
+        Fase(r_numJogadores), maxTerrestres(8), maxVoadores(10), maxPlataformas(315), maxEspinhos(20)
         {
             Id=id;
             setTexture("../assets/fundos/planicie.png");
@@ -84,47 +86,50 @@ namespace jogo {
         {
             switch (c)
             {
-                case 't':
+            case 't':
+                criarTerrestre(sf::Vector2f(x, y), proporcao);
+                break;
+            case '1':
+                if (rand() % 2)
                     criarTerrestre(sf::Vector2f(x, y), proporcao);
-                    break;
-                case '1':
-                    if (rand() % 2)
-                        criarTerrestre(sf::Vector2f(x, y), proporcao);
-                    break;
-                case 'v':
+                break;
+            case 'v':
+                criarVoador(sf::Vector2f(x, y), proporcao);
+                break;
+            case '2':
+                if (rand() % 2)
                     criarVoador(sf::Vector2f(x, y), proporcao);
-                    break;
-                case '2':
-                    if (rand() % 2)
-                        criarVoador(sf::Vector2f(x, y), proporcao);
-                    break;
-                default:
-                    break;
+                break;
+            default:
+                break;
             }
         }
         void PrimeiraFase::criarObstaculos(char c, float x, float y)
         {
             switch (c)
             {
-                case 'c':
-                    criarPlataforma(sf::Vector2f(x, y), proporcao, true);
-                    break;
-                case 'p':
+            case 'c':
+                criarPlataforma(sf::Vector2f(x, y), proporcao, true);
+                break;
+            case 'p':
+                criarPlataforma(sf::Vector2f(x, y), proporcao, false);
+                break;
+            case '4':
+                if (rand() % 2)
                     criarPlataforma(sf::Vector2f(x, y), proporcao, false);
-                    break;
-                case '4':
-                    if (rand() % 2)
-                        criarPlataforma(sf::Vector2f(x, y), proporcao, false);
-                    break;
-                case 'e':
+                break;
+            case 'e':
+                criarEspinho(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
+                break;
+            case '5':
+                if (rand() % 2)
                     criarEspinho(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
-                    break;
-                case '5':
-                    if (rand() % 2)
-                        criarEspinho(sf::Vector2f(x, y + proporcao.y / 2), sf::Vector2f(proporcao.x, proporcao.y / 2));
-                    break;
-                default:
-                    break;
+                break;
+            case 'f':
+                criaBandeira(sf::Vector2f(x, y + 8), sf::Vector2f(proporcao.x, proporcao.y * 2));
+                break;
+            default:
+                break;
             }
         }
 
@@ -150,6 +155,8 @@ namespace jogo {
                 carregaEspinho(linha, obsDTO);
             else if (tipo == IDs::plataforma)
                 carregaPlataforma(linha, obsDTO);
+            else if (tipo == IDs::bandeira)
+                carregaBandeira(obsDTO);
 
             return obsDTO;
         }

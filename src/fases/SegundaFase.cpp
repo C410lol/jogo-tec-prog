@@ -3,6 +3,9 @@
 
 #include "fases/SegundaFase.h"
 
+#include <iostream>
+
+#include "Jogo.h"
 #include "entidades/obstaculos/Meleca.h"
 #include "entidades/obstaculos/Plataforma.h"
 #include "gerenciadores/GerenciadorGrafico.h"
@@ -13,6 +16,7 @@ namespace jogo{
         SegundaFase::SegundaFase(int r_numJogadores, IDs id, bool continuar):
         Fase(r_numJogadores), maxTerrestres(8), maxChefoes(7), maxPlataformas(325), maxMelecas(15)
         {
+            std::cout << r_numJogadores << std::endl;
             Id=id;
             setTexture("../assets/fundos/caverna.png");
             pSprite->setTexture(*pTexture);
@@ -29,7 +33,10 @@ namespace jogo{
             else
                 inicializar();
         }
-        SegundaFase::~SegundaFase() = default;
+        SegundaFase::~SegundaFase()
+        {
+            pJogo->resetarJogadores();
+        };
 
 
 
@@ -119,6 +126,9 @@ namespace jogo{
                 if (rand() % 2)
                     criarMelecas(sf::Vector2f(x, y + proporcao.y / 1.25), sf::Vector2f(proporcao.x, proporcao.y / 6));
                 break;
+            case 'f':
+                criaBandeira(sf::Vector2f(x, y + 8), sf::Vector2f(proporcao.x, proporcao.y * 2));
+                break;
             default:
                 break;
             }
@@ -146,6 +156,8 @@ namespace jogo{
                 carregaMeleca(linha, obsDTO);
             else if (tipo == IDs::plataforma)
                 carregaPlataforma(linha, obsDTO);
+            else if (tipo == IDs::bandeira)
+                carregaBandeira(obsDTO);
 
             return obsDTO;
         }

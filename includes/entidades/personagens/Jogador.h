@@ -25,6 +25,7 @@ namespace jogo {
                 bool atacando;
                 int cooldown;
                 int pontos;
+                int ultimaPontuacao;
             private:
                 void atualizarNaMeleca();
 
@@ -55,6 +56,15 @@ namespace jogo {
                 void moverEsquerda();
                 void moverDireita();
                 void ataque();
+
+                void resetarJogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool resetarPontuacao);
+                void setJogador
+                (
+                    dtos::PersonagemDTO perDTO, bool r_ehPrimeiro, float r_deslocamentoX, bool r_naMeleca,
+                    bool r_atacando, int r_cooldown, int r_pontos
+                );
+
+                int getUltimaPontuacao() const;
                 
                 static void setJogadorExiste(bool est);
 

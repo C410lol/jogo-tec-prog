@@ -25,7 +25,7 @@ namespace jogo {
         virtual ~Ente();
 
         virtual void executar() = 0;
-        void desenhar();
+        virtual void desenhar();
 
         sf::Sprite* getSprite() const;
         void setTexture(std::string path);

@@ -16,6 +16,7 @@ namespace jogo {
         public:
             void atualizar();
             MenuPausa(fases::Fase* fase = nullptr);
+            ~MenuPausa();
             void setFase(fases::Fase* fase);
 
             fases::Fase* getFase();

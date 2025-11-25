@@ -17,10 +17,9 @@ namespace jogo {
         class Estado:public Ente {
         private:
             bool remover;
-            protected:
-            bool voltaMenu;
 
         protected:
+            bool voltaMenu;
             static gerenciadores::GerenciadorEstado *pGE;
 
         public:

@@ -27,7 +27,6 @@ namespace jogo
         void executar() override;
         virtual void atualizar() = 0;
         virtual void desenhaMenu() = 0;
-        IDs exec();
 
         static void setJogo(Jogo *r_pJogo);
     };

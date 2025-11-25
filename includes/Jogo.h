@@ -27,8 +27,6 @@ namespace jogo {
         ~Jogo();
 
         void exec();
-        void startF1();
-        void startF2();
 
         void criarJogadores();
         void resetarJogadores();

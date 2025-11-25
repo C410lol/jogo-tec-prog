@@ -51,18 +51,6 @@ namespace jogo
 
 
 
-    void Jogo::startF1()
-    {
-
-    }
-    void Jogo::startF2()
-    {
-
-    }
-
-
-
-
     void Jogo::criarJogadores()
     {
         jogadores.push_back(new entidades::personagens::Jogador(

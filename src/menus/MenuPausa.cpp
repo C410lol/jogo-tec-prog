@@ -19,6 +19,11 @@ namespace jogo {
             fundoPainel.setFillColor(sf::Color(0, 0, 0, 150)); // preto semi-transparente
             fundoPainel.setPosition(400.f, 200.f);
         }
+        MenuPausa::~MenuPausa()
+        {
+
+        }
+
         void MenuPausa::atualizar() {
             sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(*pGerenciadorGrafico->getJanela()));
 

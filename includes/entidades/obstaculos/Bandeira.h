@@ -17,10 +17,12 @@ namespace jogo {
 
             public:
                 Bandeira(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso);
+                Bandeira(dtos::ObstaculoDTO obsDTO);
                 ~Bandeira();
 
                 void executar() override;
                 void obstaculizar(Entidade *pEntidade) override;
+                void salvar() override;
             };
 
         }

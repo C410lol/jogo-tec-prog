@@ -15,7 +15,12 @@ namespace jogo {
 
                 setTexture("../assets/obstaculos/Waving Flag Red.gif");
                 fixTexture();
-
+            }
+            Bandeira::Bandeira(dtos::ObstaculoDTO obsDTO):
+            Obstaculo(obsDTO), pge(gerenciadores::GerenciadorEstado::getGerenEstado())
+            {
+                setTexture("../assets/obstaculos/Waving Flag Red.gif");
+                fixTexture();
             }
             Bandeira::~Bandeira() {
 
@@ -24,15 +29,19 @@ namespace jogo {
                 personagens::Jogador* pJogador = dynamic_cast<personagens::Jogador*>(pEntidade);
                 if (!pJogador)
                     return;
-                pge->adicionarEstado(IDs::segunda_fase, fases::Fase::pjogo->getTam());
 
+                if (pFase->getId() == IDs::primeira_fase)
+                    pge->adicionarEstado(IDs::segunda_fase, pFase->getNumJogadores());
+                else
+                    pFase->acabarFase();
             }
             void Bandeira::executar() {
 
             }
-
-
-
+            void Bandeira::salvar() {
+                Obstaculo::salvar();
+                buffer << static_cast<int>(IDs::bandeira);
+            }
 
         }
     }

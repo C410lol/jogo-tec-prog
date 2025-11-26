@@ -11,9 +11,9 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                int Voador::instancias = 0;
-                int Voador::getInstancias() { return instancias; }
-                void Voador::setInstancias(int r_instancias) { instancias = r_instancias; }
+                int Voador::numInstancias = 0;
+                int Voador::getInstancias() { return numInstancias; }
+                void Voador::setInstancias(int r_instancias) { numInstancias = r_instancias; }
 
 
 
@@ -22,7 +22,7 @@ namespace jogo {
                 Inimigo(r_posicao, r_tamanho, 2, false, 2),
                 energia((rand() % 6) + 1)
                 {
-                    ++instancias;
+                    ++numInstancias;
                     deslocamento = energia;
 
                     setTexture("../assets/personagens/voador.png");
@@ -31,7 +31,7 @@ namespace jogo {
                 Voador::Voador(dtos::InimigoDTO iniDTO, int r_energia):
                 Inimigo(iniDTO), energia(r_energia)
                 {
-                    ++instancias;
+                    ++numInstancias;
                     deslocamento = energia;
 
                     setTexture("../assets/personagens/voador.png");
@@ -39,7 +39,7 @@ namespace jogo {
                 }
                 Voador::Voador() = default;
                 Voador::~Voador() {
-                    --instancias;
+                    --numInstancias;
                 };
 
 

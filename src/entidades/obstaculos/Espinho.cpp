@@ -10,9 +10,9 @@ namespace jogo {
     namespace entidades {
         namespace obstaculos {
 
-            int Espinho::instancias = 0;
-            int Espinho::getInstancias() { return instancias; }
-            void Espinho::setInstancias(int r_instancias) { instancias = r_instancias; }
+            int Espinho::numInstancias = 0;
+            int Espinho::getInstancias() { return numInstancias; }
+            void Espinho::setInstancias(int r_instancias) { numInstancias = r_instancias; }
 
 
 
@@ -24,7 +24,7 @@ namespace jogo {
             Obstaculo(r_posicao, r_tamanho, r_danoso), danosidade(r_danosidade),
             disMax(r_posicao.x + r_tamanho.x), disMin(r_posicao.x - r_tamanho.x), deslocandoEsquerda(true)
             {
-                ++instancias;
+                ++numInstancias;
 
                 setTexture("../assets/obstaculos/espinho.png");
                 fixTexture();
@@ -37,7 +37,7 @@ namespace jogo {
             Obstaculo(obsDTO), danosidade(r_danosidade), disMax(r_disMax),
             disMin(r_disMin), deslocandoEsquerda(r_deslocandoEsquerda)
             {
-                ++instancias;
+                ++numInstancias;
 
                 setTexture("../assets/obstaculos/espinho.png");
                 fixTexture();

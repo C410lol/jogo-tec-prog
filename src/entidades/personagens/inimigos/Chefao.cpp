@@ -17,10 +17,10 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                int Chefao::instancias = 0;
-                int Chefao::getInstancias() { return instancias; }
+                int Chefao::numInstancias = 0;
+                int Chefao::getInstancias() { return numInstancias; }
                 void Chefao::setInstancias(int n) {
-                    instancias = n;
+                    numInstancias = n;
                 }
 
 
@@ -30,7 +30,7 @@ namespace jogo {
                 Inimigo(r_posicao, r_tamanho, 5, true, 1),
                 cooldown(0), rapidez(rand() % 5 + 3)
                 {
-                    ++instancias;
+                    ++numInstancias;
                     deslocamento = 2;
 
                     setTexture("../assets/personagens/mago.png");
@@ -39,7 +39,7 @@ namespace jogo {
                 Chefao::Chefao(dtos::InimigoDTO iniDTO, float r_cooldown, float r_rapidez):
                 Inimigo(iniDTO), cooldown(r_cooldown), rapidez(r_rapidez)
                 {
-                    ++instancias;
+                    ++numInstancias;
                     deslocamento = 2;
 
                     setTexture("../assets/personagens/mago.png");

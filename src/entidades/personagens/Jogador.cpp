@@ -15,13 +15,13 @@ namespace jogo {
 
 
 
-            int Jogador::instancias = 0;
+            int Jogador::numInstancias = 0;
             bool Jogador::primeiroExiste = false;
             void Jogador::setJogadorExiste(bool est) {
                 primeiroExiste = est;
             }
-            int Jogador::getInstancias() { return instancias; }
-            void Jogador::setInstancias(int r_instancias) { instancias = r_instancias; }
+            int Jogador::getInstancias() { return numInstancias; }
+            void Jogador::setInstancias(int r_instancias) { numInstancias = r_instancias; }
 
 
 
@@ -30,7 +30,7 @@ namespace jogo {
             Personagem(r_posicao, r_tamanho, 10, true), ehPrimeiro(false),
             deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0), ultimaPontuacao(0)
             {
-                ++instancias;
+                ++numInstancias;
 
                 if (!primeiroExiste)
                 {
@@ -52,7 +52,7 @@ namespace jogo {
             Personagem(perDTO), ehPrimeiro(r_ehPrimeiro), deslocamentoX(r_deslocamentoX), naMeleca(r_naMeleca),
             atacando(r_atacando), cooldown(r_cooldown), pontos(r_pontos), ultimaPontuacao(r_pontos)
             {
-                ++instancias;
+                ++numInstancias;
 
                 if (ehPrimeiro)
                     setTexture("../assets/personagens/jogador1.png");
@@ -63,7 +63,7 @@ namespace jogo {
             }
             Jogador::Jogador(): deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0) {}
             Jogador::~Jogador() {
-                --instancias;
+                --numInstancias;
             };
 
 

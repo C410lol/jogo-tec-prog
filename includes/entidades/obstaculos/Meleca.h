@@ -10,7 +10,7 @@ namespace jogo {
             class Meleca: public Obstaculo
             {
             private:
-                static int instancias;
+                static int numInstancias;
 
                 int viscosidade;
                 float tamMaximo;

@@ -10,9 +10,9 @@ namespace jogo {
     namespace entidades {
         namespace obstaculos {
 
-            int Plataforma::instancias = 0;
-            int Plataforma::getInstancias() { return instancias; }
-            void Plataforma::setInstancias(int r_instancias) { instancias = r_instancias; }
+            int Plataforma::numInstancias = 0;
+            int Plataforma::getInstancias() { return numInstancias; }
+            void Plataforma::setInstancias(int r_instancias) { numInstancias = r_instancias; }
 
 
 
@@ -23,11 +23,11 @@ namespace jogo {
                 if (!ehChao && pFase->getId() == IDs::primeira_fase)
                 {
                     setTexture("../assets/obstaculos/plataformaFase1.png");
-                    ++instancias;
+                    ++numInstancias;
                 }
                 else if (!ehChao && pFase->getId() == IDs::segunda_fase) {
                     setTexture("../assets/obstaculos/plataformaFase2.png");
-                    ++instancias;
+                    ++numInstancias;
                 }
                 else if (ehChao && pFase->getId() == IDs::primeira_fase)
                     setTexture("../assets/obstaculos/chaofase1.png");
@@ -42,11 +42,11 @@ namespace jogo {
                 if (!ehChao && pFase->getId() == IDs::primeira_fase)
                 {
                     setTexture("../assets/obstaculos/plataformaFase1.png");
-                    ++instancias;
+                    ++numInstancias;
                 }
                 else if (!ehChao && pFase->getId() == IDs::segunda_fase) {
                     setTexture("../assets/obstaculos/plataformaFase2.png");
-                    ++instancias;
+                    ++numInstancias;
                 }
                 else if (ehChao && pFase->getId() == IDs::primeira_fase)
                     setTexture("../assets/obstaculos/chaofase1.png");

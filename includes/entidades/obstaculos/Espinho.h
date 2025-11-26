@@ -10,7 +10,7 @@ namespace jogo {
             class Espinho: public Obstaculo
             {
             private:
-                static int instancias;
+                static int numInstancias;
 
                 int danosidade;
                 float disMax;

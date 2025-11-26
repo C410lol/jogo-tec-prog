@@ -16,7 +16,7 @@ namespace jogo {
             class Jogador: public Personagem
             {
             private:
-                static int instancias;
+                static int numInstancias;
                 static bool primeiroExiste;
 
                 bool ehPrimeiro;

@@ -15,7 +15,7 @@ namespace jogo {
                 class Terrestre: public Inimigo
                 {
                 private:
-                    static int instancias;
+                    static int numInstancias;
 
                     int atrito;
 

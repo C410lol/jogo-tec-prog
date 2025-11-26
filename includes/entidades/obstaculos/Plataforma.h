@@ -16,7 +16,7 @@ namespace jogo {
             class Plataforma: public Obstaculo
             {
             private:
-                static int instancias;
+                static int numInstancias;
 
                 bool ehChao;
                 bool invisivel;

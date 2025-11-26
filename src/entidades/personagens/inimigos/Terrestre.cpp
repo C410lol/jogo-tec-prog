@@ -9,9 +9,9 @@ namespace jogo {
         namespace personagens {
             namespace inimigos {
 
-                int Terrestre::instancias = 0;
-                int Terrestre::getInstancias() { return instancias; }
-                void Terrestre::setInstancias(int r_instancias) { instancias = r_instancias; }
+                int Terrestre::numInstancias = 0;
+                int Terrestre::getInstancias() { return numInstancias; }
+                void Terrestre::setInstancias(int r_instancias) { numInstancias = r_instancias; }
 
 
 
@@ -19,7 +19,7 @@ namespace jogo {
                 Terrestre::Terrestre(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
                 Inimigo(r_posicao, r_tamanho, 1, true, 1), atrito((rand() % 6) + 1)
                 {
-                    ++instancias;
+                    ++numInstancias;
 
                     deslocamento = atrito;
 
@@ -29,7 +29,7 @@ namespace jogo {
                 Terrestre::Terrestre(dtos::InimigoDTO iniDTO, int r_atrito):
                 Inimigo(iniDTO), atrito(r_atrito)
                 {
-                    ++instancias;
+                    ++numInstancias;
 
                     deslocamento = atrito;
 
@@ -37,7 +37,7 @@ namespace jogo {
                     fixTexture();
                 }
                 Terrestre::Terrestre() = default;
-                Terrestre::~Terrestre() { --instancias; }
+                Terrestre::~Terrestre() { --numInstancias; }
 
 
 

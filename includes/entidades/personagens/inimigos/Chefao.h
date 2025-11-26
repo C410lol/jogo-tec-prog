@@ -16,7 +16,7 @@ namespace jogo {
                 class Chefao: public Inimigo
                 {
                 private:
-                    static int instancias;
+                    static int numInstancias;
                     float cooldown;
                     float rapidez;
 

@@ -8,9 +8,9 @@ namespace jogo {
     namespace entidades {
         namespace obstaculos {
 
-            int Meleca::instancias = 0;
-            int Meleca::getInstancias() { return instancias; }
-            void Meleca::setInstancias(int r_instancias) { instancias = r_instancias; }
+            int Meleca::numInstancias = 0;
+            int Meleca::getInstancias() { return numInstancias; }
+            void Meleca::setInstancias(int r_instancias) { numInstancias = r_instancias; }
 
 
 
@@ -19,7 +19,7 @@ namespace jogo {
             Obstaculo(r_posicao, r_tamanho, r_danoso), viscosidade(r_viscosidade),
             tamMaximo(r_tamanho.x * 5), tamMinimo(r_tamanho.x), aumentando(true)
             {
-                ++instancias;
+                ++numInstancias;
 
                 setTexture("../assets/obstaculos/meleca.png");
                 fixTexture();
@@ -32,7 +32,7 @@ namespace jogo {
             Obstaculo(obsDTO), viscosidade(r_viscosidade),
             tamMaximo(r_tamMaximo), tamMinimo(r_tamMinimo), aumentando(r_aumentando)
             {
-                ++instancias;
+                ++numInstancias;
 
                 setTexture("../assets/obstaculos/meleca.png");
                 fixTexture();

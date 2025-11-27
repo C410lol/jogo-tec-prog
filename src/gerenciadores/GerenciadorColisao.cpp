@@ -82,6 +82,11 @@ namespace jogo {
             entidades::Entidade *ent2
         )
         {
+            /*
+            Código adaptado da do Gerenciador de Colisões do antigo monitor de Técnicas de Programação
+            Matheus Augusto Burda, diponível em:
+            https://youtu.be/mxZMK7ZqFtE?si=JyQCYPUJjrcNiTut
+            */
             return colidiuHor(ent1, ent2) && colidiuVert(ent1, ent2);
         }
 

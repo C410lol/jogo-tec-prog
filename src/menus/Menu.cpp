@@ -7,32 +7,37 @@
 #include "estados/EstadoMenu.h"
 #include "gerenciadores/GerenciadorEstado.h"
 
-namespace jogo{
+namespace jogo {
     //Menu::Menu(Jogo *r_pjogo) : pge(gerenciadores::GerenciadorEstado::getGerenEstado())
     //{
-            //pjogo=r_pjogo;
-        //executar();
+    //pjogo=r_pjogo;
+    //executar();
     //}
     Jogo *Menu::pjogo = nullptr;
-    void Menu::setJogo(Jogo *r_pJogo) {
+
+    void Menu::setJogo(Jogo *r_pJogo)
+    {
         pjogo = r_pJogo;
     }
 
 
-    Menu::Menu()  : pge(gerenciadores::GerenciadorEstado::getGerenEstado()), Ente() {
+    Menu::Menu() : pge(gerenciadores::GerenciadorEstado::getGerenEstado()), Ente()
+    {
         //executar();
-
     }
-    Menu::~Menu(){}
 
-    void Menu::executar() {
+    Menu::~Menu()
+    {
+    }
+
+    void Menu::executar()
+    {
         //atualizar();
         //desenharbotoes();
     }
+}
 
-    }
-
-        /*std::cout<<"qual opcao"<<std::endl;
+/*std::cout<<"qual opcao"<<std::endl;
         int choice;
 
         std::cout<<"1"<<"jogar fase 1"<<std::endl;

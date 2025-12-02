@@ -9,24 +9,29 @@
 #include "fases/Fase.h"
 
 namespace jogo {
-     namespace Gerenciador {
+    namespace Gerenciador {
         class GerenciadorEstado;
     }
 
     namespace estados {
         class EstadoMenu : public Estado {
         private:
-            Menu* menu;
+            Menu *menu;
             IDs fase;
+
         public:
             EstadoMenu(IDs id, IDs r_fase = IDs::primeira_fase);
+
             ~EstadoMenu() override;
 
             void executar() override;
+
             void criarMenu();
-            Menu* getMenu();
+
+            Menu *getMenu();
         };
-    }}
+    }
+}
 
 
 #endif //JOGO_ESTADOMENU_H

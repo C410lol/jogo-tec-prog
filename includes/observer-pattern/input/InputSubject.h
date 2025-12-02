@@ -5,20 +5,16 @@
 #include <SFML/Window/Keyboard.hpp>
 
 
-
-
 namespace jogo {
     namespace observers {
-
-        class InputSubject: public Subject
-        {
+        class InputSubject : public Subject {
         private:
-            static InputSubject* instancia;
+            static InputSubject *instancia;
 
             InputSubject() = default;
+
         public:
-            enum Teclas
-            {
+            enum Teclas {
                 UP,
                 LEFT,
                 RIGHT,
@@ -29,12 +25,13 @@ namespace jogo {
                 F
             };
 
-            static InputSubject* getInstancia()
+            static InputSubject *getInstancia()
             {
                 if (!instancia)
                     instancia = new InputSubject();
                 return instancia;
             }
+
             ~InputSubject() = default;
 
             void execute()
@@ -57,11 +54,8 @@ namespace jogo {
                     notify(F);
             }
         };
-
     }
 }
-
-
 
 
 #endif //JOGO_INPUTSUBJECT_H

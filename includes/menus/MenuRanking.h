@@ -6,34 +6,31 @@
 #include "dtos/PontuacaoDTO.h"
 
 
-
-
 namespace jogo {
     namespace menus {
-
-        class MenuRanking: public Menu
-        {
+        class MenuRanking : public Menu {
         private:
-            std::vector<CaixaTexto*> caixasTexto;
+            std::vector<CaixaTexto *> caixasTexto;
 
         public:
             MenuRanking();
+
             ~MenuRanking();
 
             void executar() override;
+
             void atualizar() override;
+
             void desenhaMenu() override;
 
             void carregarPontuacoes();
+
             void ordenarPontuacoes(
                 std::ifstream &file, std::vector<dtos::PontuacaoDTO> &pontuacoes
             );
         };
-
     }
 }
-
-
 
 
 #endif //JOGO_MENURANKING_H

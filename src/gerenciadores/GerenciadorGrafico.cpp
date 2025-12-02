@@ -5,18 +5,14 @@
 #include "entidades/Entidade.h"
 
 
-
-
 namespace jogo {
     namespace gerenciadores {
-
         GerenciadorGrafico::GerenciadorGrafico()
         {
             criarJanela();
         }
+
         GerenciadorGrafico::~GerenciadorGrafico() = default;
-
-
 
 
         void GerenciadorGrafico::criarJanela()
@@ -24,11 +20,11 @@ namespace jogo {
             pJanela = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Vassal");
             pJanela->setFramerateLimit(30);
         }
-        void GerenciadorGrafico::fecharJanela() const {
+
+        void GerenciadorGrafico::fecharJanela() const
+        {
             pJanela->close();
         }
-
-
 
 
         bool GerenciadorGrafico::isJanelaAberta() const
@@ -39,29 +35,36 @@ namespace jogo {
         }
 
 
-
         void GerenciadorGrafico::limpar() const
         {
             if (pJanela)
                 pJanela->clear();
         }
+
         void GerenciadorGrafico::desenhar(Ente *pEnte) const
         {
             if (pJanela && pEnte)
                 pJanela->draw(*pEnte->getSprite());
         }
-        void GerenciadorGrafico::desenhar(sf::Sprite psprite) {
+
+        void GerenciadorGrafico::desenhar(sf::Sprite psprite)
+        {
             if (pJanela)
                 pJanela->draw(psprite);
         }
-        void GerenciadorGrafico::desenhar(sf::Text& fonte){
+
+        void GerenciadorGrafico::desenhar(sf::Text &fonte)
+        {
             if (pJanela)
                 pJanela->draw(fonte);
         }
-        void GerenciadorGrafico::desenhar(sf::RectangleShape pshape) {
+
+        void GerenciadorGrafico::desenhar(sf::RectangleShape pshape)
+        {
             if (pJanela)
                 pJanela->draw(pshape);
         }
+
         void GerenciadorGrafico::mostrar() const
         {
             if (pJanela)
@@ -69,16 +72,14 @@ namespace jogo {
         }
 
 
-
-
         sf::Vector2u GerenciadorGrafico::getWindowSize() const
         {
             return pJanela->getSize();
         }
-        sf::RenderWindow* GerenciadorGrafico::getJanela() const
+
+        sf::RenderWindow *GerenciadorGrafico::getJanela() const
         {
             return pJanela;
         }
-
     }
 }

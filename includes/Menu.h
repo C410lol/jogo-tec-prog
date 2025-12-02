@@ -1,21 +1,20 @@
-
 #ifndef JOGO_MENU_H
 #define JOGO_MENU_H
 #include "Ente.h"
 
 
-
-namespace jogo
-{
+namespace jogo {
     class Jogo;
 
-    class Menu:public Ente
-    {
+    class Menu : public Ente {
     private:
         Jogo *pjogo;
+
     public:
         Menu(Jogo *r_pjogo);
+
         Menu();
+
         ~Menu();
 
         void executar() override;

@@ -9,19 +9,24 @@
 namespace jogo {
     namespace entidades {
         namespace personagens {
-
             Personagem::Personagem(
                 sf::Vector2f r_posicao, sf::Vector2f r_tamanho, const int r_vidas, const bool r_sofreGravidade
-            ):
-            Entidade(r_posicao, r_tamanho), vidas(r_vidas), sofreGravidade(r_sofreGravidade), noChao(false),
-            olhandoDireita(true), knokback(false)
-            {}
-            Personagem::Personagem(dtos::PersonagemDTO perDTO):
-            Entidade(perDTO.entDTO), vidas(perDTO.vidas),
-            velocidade(perDTO.velocidade), sofreGravidade(perDTO.sofreGravidade),
-            noChao(perDTO.noChao), olhandoDireita(perDTO.olhandoDireita),knokback(perDTO.knokback)
-            {}
+            ) : Entidade(r_posicao, r_tamanho), vidas(r_vidas), sofreGravidade(r_sofreGravidade), noChao(false),
+                olhandoDireita(true), knokback(false)
+            {
+            }
+
+            Personagem::Personagem(dtos::PersonagemDTO perDTO) : Entidade(perDTO.entDTO), vidas(perDTO.vidas),
+                                                                 velocidade(perDTO.velocidade),
+                                                                 sofreGravidade(perDTO.sofreGravidade),
+                                                                 noChao(perDTO.noChao),
+                                                                 olhandoDireita(perDTO.olhandoDireita),
+                                                                 knokback(perDTO.knokback)
+            {
+            }
+
             Personagem::Personagem() = default;
+
             Personagem::~Personagem() = default;
 
 
@@ -39,16 +44,13 @@ namespace jogo {
             }
 
 
-
-
             void Personagem::salvar()
             {
                 Entidade::salvar();
-                buffer << static_cast<int>(IDs::personagem) << " " << vidas << " " << velocidade.x << " " << velocidade.y
-                << " " << sofreGravidade << " " << noChao << " " << olhandoDireita << " " << knokback << " ";
+                buffer << static_cast<int>(IDs::personagem) << " " << vidas << " " << velocidade.x << " " << velocidade.
+                        y
+                        << " " << sofreGravidade << " " << noChao << " " << olhandoDireita << " " << knokback << " ";
             }
-
-
 
 
             void Personagem::cair()
@@ -64,35 +66,29 @@ namespace jogo {
             }
 
 
-
-
-
             void Personagem::atualizaSprite()
             {
                 sf::IntRect rect = pSprite->getTextureRect();
-                if (olhandoDireita)
-                {
-                    if (rect.width < 0)
-                    {
+                if (olhandoDireita) {
+                    if (rect.width < 0) {
                         rect.left += rect.width;
                         rect.width *= -1;
                     }
-                }
-                else
-                {
-                    if (rect.width > 0)
-                    {
+                } else {
+                    if (rect.width > 0) {
                         rect.left += rect.width;
                         rect.width *= -1;
                     }
                 }
                 pSprite->setTextureRect(rect);
             }
+
             void Personagem::atualizaVelocidadeX()
             {
                 if (noChao)
                     setVelocidade(sf::Vector2f(0, getVelocidade().y));
             }
+
             void Personagem::atualizaPosicao()
             {
                 posicao.x += velocidade.x / 30.f;
@@ -100,30 +96,26 @@ namespace jogo {
             }
 
 
-
-
             sf::Vector2f Personagem::getVelocidade() const
             {
                 return velocidade;
             }
+
             void Personagem::setVelocidade(const sf::Vector2f r_velocidade)
             {
                 velocidade = r_velocidade;
             }
 
 
-
-
             bool Personagem::getNoChao() const
             {
                 return noChao;
             }
+
             void Personagem::setNoChao(const bool r_noChao)
             {
                 noChao = r_noChao;
             }
-
-
 
 
             void Personagem::atualizaKnokback()
@@ -131,16 +123,16 @@ namespace jogo {
                 if (getNoChao())
                     setKnokback(false);
             }
+
             bool Personagem::getKnokback() const
             {
                 return knokback;
             }
+
             void Personagem::setKnokback(bool r_knokback)
             {
                 knokback = r_knokback;
             }
-
-
 
 
             int Personagem::getVidas() const
@@ -149,21 +141,16 @@ namespace jogo {
             }
 
 
-
-
             bool Personagem::getOlhandoDireita() const
             {
                 return olhandoDireita;
             }
 
 
-
-
             void Personagem::tomarDano(int dano)
             {
                 vidas -= dano;
             }
-
         }
     }
 }

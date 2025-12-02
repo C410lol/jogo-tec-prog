@@ -8,23 +8,25 @@ namespace jogo {
     namespace entidades {
         namespace personagens {
             namespace inimigos {
-
                 Inimigo::Inimigo
                 (
                     sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade,
                     int r_nivelMaldade
-                ):
-                Personagem(r_posicao, r_tamanho, r_vidas, r_sofreGravidade), pJogadorAlvo(nullptr),
-                nivelMaldade(r_nivelMaldade)
-                {}
-                Inimigo::Inimigo(dtos::InimigoDTO iniDTO):
-                Personagem(iniDTO.perDTO), pJogadorAlvo(iniDTO.pJogadorAlvo),
-                nivelMaldade(iniDTO.nivelMaldade), deslocamento(iniDTO.deslocamento)
-                {}
+                ) : Personagem(r_posicao, r_tamanho, r_vidas, r_sofreGravidade), pJogadorAlvo(nullptr),
+                    nivelMaldade(r_nivelMaldade)
+                {
+                }
+
+                Inimigo::Inimigo(dtos::InimigoDTO iniDTO) : Personagem(iniDTO.perDTO),
+                                                            pJogadorAlvo(iniDTO.pJogadorAlvo),
+                                                            nivelMaldade(iniDTO.nivelMaldade),
+                                                            deslocamento(iniDTO.deslocamento)
+                {
+                }
+
                 Inimigo::Inimigo() = default;
+
                 Inimigo::~Inimigo() = default;
-
-
 
 
                 void Inimigo::executar()
@@ -32,8 +34,6 @@ namespace jogo {
                     deslocar();
                     Personagem::executar();
                 }
-
-
 
 
                 void Inimigo::salvar()
@@ -45,10 +45,8 @@ namespace jogo {
                         jogadorAlvoId = pJogadorAlvo->getIdNumber();
 
                     buffer << static_cast<int>(IDs::inimigo) << " " << jogadorAlvoId << " " << nivelMaldade << " " <<
-                    deslocamento << " ";
+                            deslocamento << " ";
                 }
-
-
 
 
                 void Inimigo::danificar(Jogador *pJogador)
@@ -70,21 +68,16 @@ namespace jogo {
                 }
 
 
-
-
-                void Inimigo::setJogadoralvo(Jogador* pjog)
+                void Inimigo::setJogadoralvo(Jogador *pjog)
                 {
-                    pJogadorAlvo=pjog;
+                    pJogadorAlvo = pjog;
                 }
-
-
 
 
                 int Inimigo::getNivelMaldade() const
                 {
                     return nivelMaldade;
                 }
-
             }
         }
     }

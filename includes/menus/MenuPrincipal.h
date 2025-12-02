@@ -12,20 +12,21 @@
 
 namespace jogo {
     namespace menus {
-
         class MenuPrincipal : public Menu {
         private:
             IDs carregarFaseContinuar();
 
         public:
             MenuPrincipal();
+
             ~MenuPrincipal();
 
             void atualizar() override;
+
             void desenhaMenu();
+
             void executar();
         };
-
     }
 }
 #endif //JOGO_MENUPRINCIPAL_H

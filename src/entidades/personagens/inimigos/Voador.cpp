@@ -5,22 +5,18 @@
 #include "fases/Fase.h"
 
 
-
 namespace jogo {
     namespace entidades {
         namespace personagens {
             namespace inimigos {
-
                 int Voador::numInstancias = 0;
                 int Voador::getInstancias() { return numInstancias; }
                 void Voador::setInstancias(int r_instancias) { numInstancias = r_instancias; }
 
 
-
-
-                Voador::Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-                Inimigo(r_posicao, r_tamanho, 2, false, 2),
-                energia((rand() % 6) + 1)
+                Voador::Voador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho) : Inimigo(r_posicao, r_tamanho, 2, false,
+                        2),
+                    energia((rand() % 6) + 1)
                 {
                     ++numInstancias;
                     deslocamento = energia;
@@ -28,8 +24,8 @@ namespace jogo {
                     setTexture("../assets/personagens/voador.png");
                     fixTexture();
                 }
-                Voador::Voador(dtos::InimigoDTO iniDTO, int r_energia):
-                Inimigo(iniDTO), energia(r_energia)
+
+                Voador::Voador(dtos::InimigoDTO iniDTO, int r_energia) : Inimigo(iniDTO), energia(r_energia)
                 {
                     ++numInstancias;
                     deslocamento = energia;
@@ -37,12 +33,13 @@ namespace jogo {
                     setTexture("../assets/personagens/voador.png");
                     fixTexture();
                 }
+
                 Voador::Voador() = default;
-                Voador::~Voador() {
+
+                Voador::~Voador()
+                {
                     --numInstancias;
                 };
-
-
 
 
                 void Voador::salvar()
@@ -50,8 +47,6 @@ namespace jogo {
                     Inimigo::salvar();
                     buffer << static_cast<int>(IDs::voador) << " " << energia;
                 }
-
-
 
 
                 void Voador::deslocar()
@@ -62,12 +57,11 @@ namespace jogo {
                     if (!pJogadorAlvo->getAtivo())
                         return;
 
-                    float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
-                    float disY = pJogadorAlvo->getPosicao().y - getPosicao().y;
+                    float disX = pJogadorAlvo->getPosicao().x - getPosicao().x + energia;
+                    float disY = pJogadorAlvo->getPosicao().y - getPosicao().y + energia;
                     float magnitude = std::sqrt(disX * disX + disY * disY);
 
-                    if (magnitude != 0.f)
-                    {
+                    if (magnitude != 0.f) {
                         //  Normaliza o vetor direção
                         float dirX = disX / magnitude;
                         float dirY = disY / magnitude;
@@ -76,7 +70,6 @@ namespace jogo {
                         mover(dirX * static_cast<float>(deslocamento), dirY * static_cast<float>(deslocamento));
                     }
                 }
-
             }
         }
     }

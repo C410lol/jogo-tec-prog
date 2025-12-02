@@ -5,11 +5,8 @@
 #include "gerenciadores/GerenciadorGrafico.h"
 
 
-
-
 namespace jogo {
     namespace menus {
-
         CaixaTexto::CaixaTexto(const sf::Vector2f &pos, const sf::Vector2f &tam, bool centralizado)
         {
             corpo.setSize(tam);
@@ -25,43 +22,39 @@ namespace jogo {
             );
 
             if (!fonte.loadFromFile("../assets/fonts/Pixlpowr.ttf"))
-                std::cout<< "Fonte.loadFromFile() failed" << std::endl;
+                std::cout << "Fonte.loadFromFile() failed" << std::endl;
 
             texto.setFont(fonte);
             texto.setCharacterSize(24);
             texto.setFillColor(sf::Color::Black);
 
-            if (centralizado)
-            {
+            if (centralizado) {
                 // centralizar texto
                 sf::FloatRect bounds = texto.getLocalBounds();
                 texto.setOrigin(bounds.width / 2, bounds.height / 2);
                 texto.setPosition(pos.x + tam.x / 2, pos.y + tam.y / 2);
-            }
-            else
+            } else
                 texto.setPosition(pos.x + 10, pos.y + tam.y / 2.f - 10);
         }
+
         CaixaTexto::~CaixaTexto() = default;
 
 
-
-
-        void CaixaTexto::desenhar() {
+        void CaixaTexto::desenhar()
+        {
             pGerenciadorGrafico->desenhar(*pSprite);
             pGerenciadorGrafico->desenhar(texto);
         }
+
         void CaixaTexto::executar()
         {
             desenhar();
         }
 
 
-
-
-        void CaixaTexto::setTexto(std::string& username)
+        void CaixaTexto::setTexto(std::string &username)
         {
             texto.setString(username);
         }
-
     }
 }

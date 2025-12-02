@@ -7,11 +7,11 @@
 
 
 namespace jogo {
-
     Ente::Ente()
     {
         pSprite = new sf::Sprite();
     };
+
     Ente::~Ente()
     {
         if (pTexture)
@@ -21,22 +21,20 @@ namespace jogo {
     };
 
 
-
-
     gerenciadores::GerenciadorGrafico *Ente::pGerenciadorGrafico = nullptr;
+
     void Ente::setGerenciadorGrafico(gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico)
     {
         pGerenciadorGrafico = r_pGerenciadorGrafico;
     }
+
     void Ente::desenhar()
     {
         pGerenciadorGrafico->desenhar(this);
     }
 
 
-
-
-    sf::Sprite* Ente::getSprite() const
+    sf::Sprite *Ente::getSprite() const
     {
         return pSprite;
     }
@@ -46,13 +44,14 @@ namespace jogo {
         pTexture = new sf::Texture();
         pTexture->loadFromFile(path);
 
-        if (dynamic_cast<entidades::personagens::Jogador*>(this))
+        if (dynamic_cast<entidades::personagens::Jogador *>(this))
             std::cout << "xamaxamaxa" << std::endl;
 
         pSprite->setTexture(*pTexture);
     }
-    IDs Ente::getId() {
+
+    IDs Ente::getId()
+    {
         return Id;
     }
-
 }

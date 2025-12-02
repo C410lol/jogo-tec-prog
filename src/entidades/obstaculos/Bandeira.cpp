@@ -9,24 +9,28 @@
 namespace jogo {
     namespace entidades {
         namespace obstaculos {
-            Bandeira::Bandeira(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso) :
-            Obstaculo(r_posicao, r_tamanho, r_danoso),
-            pge(gerenciadores::GerenciadorEstado::getGerenEstado()){
-
-                setTexture("../assets/obstaculos/Waving Flag Red.gif");
-                fixTexture();
-            }
-            Bandeira::Bandeira(dtos::ObstaculoDTO obsDTO):
-            Obstaculo(obsDTO), pge(gerenciadores::GerenciadorEstado::getGerenEstado())
+            Bandeira::Bandeira(sf::Vector2f r_posicao, sf::Vector2f r_tamanho,
+                               bool r_danoso) : Obstaculo(r_posicao, r_tamanho, r_danoso),
+                                                pge(gerenciadores::GerenciadorEstado::getGerenEstado())
             {
                 setTexture("../assets/obstaculos/Waving Flag Red.gif");
                 fixTexture();
             }
-            Bandeira::~Bandeira() {
 
+            Bandeira::Bandeira(dtos::ObstaculoDTO obsDTO) : Obstaculo(obsDTO),
+                                                            pge(gerenciadores::GerenciadorEstado::getGerenEstado())
+            {
+                setTexture("../assets/obstaculos/Waving Flag Red.gif");
+                fixTexture();
             }
-            void Bandeira::obstaculizar(Entidade *pEntidade) {
-                personagens::Jogador* pJogador = dynamic_cast<personagens::Jogador*>(pEntidade);
+
+            Bandeira::~Bandeira()
+            {
+            }
+
+            void Bandeira::obstaculizar(Entidade *pEntidade)
+            {
+                personagens::Jogador *pJogador = dynamic_cast<personagens::Jogador *>(pEntidade);
                 if (!pJogador)
                     return;
 
@@ -35,14 +39,16 @@ namespace jogo {
                 else
                     pFase->acabarFase();
             }
-            void Bandeira::executar() {
 
+            void Bandeira::executar()
+            {
             }
-            void Bandeira::salvar() {
+
+            void Bandeira::salvar()
+            {
                 Obstaculo::salvar();
                 buffer << static_cast<int>(IDs::bandeira);
             }
-
         }
     }
 }

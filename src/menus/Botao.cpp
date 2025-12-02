@@ -1,5 +1,3 @@
-
-
 #include "menus/Botao.h"
 
 #include <iostream>
@@ -8,8 +6,7 @@
 
 namespace jogo {
     namespace menus {
-
-        Botao::Botao(const std::string& str, const sf::Vector2f& pos, const sf::Vector2f& tam)
+        Botao::Botao(const std::string &str, const sf::Vector2f &pos, const sf::Vector2f &tam)
             : Ente(), selecionado(false)
         {
             corpo.setSize(tam);
@@ -25,7 +22,7 @@ namespace jogo {
             );
 
             if (!fonte.loadFromFile("../assets/fonts/Pixlpowr.ttf"))
-                std::cout<< "Fonte.loadFromFile() failed" << std::endl;
+                std::cout << "Fonte.loadFromFile() failed" << std::endl;
             texto.setFont(fonte);
             texto.setString(str);
             texto.setCharacterSize(24);
@@ -37,19 +34,24 @@ namespace jogo {
             texto.setPosition(pos.x + tam.x / 2, pos.y + tam.y / 2);
         }
 
-        Botao::~Botao() {}
+        Botao::~Botao()
+        {
+        }
 
-        void Botao::desenhar() {
+        void Botao::desenhar()
+        {
             pGerenciadorGrafico->desenhar(*pSprite);
             pGerenciadorGrafico->desenhar(texto);
         }
-        bool Botao::contem(const sf::Vector2f& mousepos) const {
+
+        bool Botao::contem(const sf::Vector2f &mousepos) const
+        {
             return corpo.getGlobalBounds().contains(mousepos);
         }
-        void Botao::executar() {
+
+        void Botao::executar()
+        {
             desenhar();
         }
-
-
     }
 }

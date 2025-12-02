@@ -9,48 +9,46 @@
 namespace jogo {
     namespace entidades {
         namespace personagens {
-
-            #define DESLOCAMENTO_JOGADOR_PADRAO 7.5
-
-
+#define DESLOCAMENTO_JOGADOR_PADRAO 7.5
 
 
             int Jogador::numInstancias = 0;
             bool Jogador::primeiroExiste = false;
-            void Jogador::setJogadorExiste(bool est) {
+
+            void Jogador::setJogadorExiste(bool est)
+            {
                 primeiroExiste = est;
             }
+
             int Jogador::getInstancias() { return numInstancias; }
             void Jogador::setInstancias(int r_instancias) { numInstancias = r_instancias; }
 
 
-
-
-            Jogador::Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-            Personagem(r_posicao, r_tamanho, 10, true), ehPrimeiro(false),
-            deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0), ultimaPontuacao(0)
+            Jogador::Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho) : Personagem(r_posicao, r_tamanho, 10,
+                                                                                   true), ehPrimeiro(false),
+                                                                               deslocamentoX(
+                                                                                   DESLOCAMENTO_JOGADOR_PADRAO),
+                                                                               pontos(0), ultimaPontuacao(0)
             {
                 ++numInstancias;
 
-                if (!primeiroExiste)
-                {
+                if (!primeiroExiste) {
                     ehPrimeiro = true;
                     primeiroExiste = true;
 
                     setTexture("../assets/personagens/jogador1.png");
-                }
-                else
+                } else
                     setTexture("../assets/personagens/jogador2.png");
 
                 fixTexture();
             }
+
             Jogador::Jogador
             (
                 dtos::PersonagemDTO perDTO, bool r_ehPrimeiro, float r_deslocamentoX, bool r_naMeleca,
                 bool r_atacando, int r_cooldown, int r_pontos
-            ):
-            Personagem(perDTO), ehPrimeiro(r_ehPrimeiro), deslocamentoX(r_deslocamentoX), naMeleca(r_naMeleca),
-            atacando(r_atacando), cooldown(r_cooldown), pontos(r_pontos), ultimaPontuacao(r_pontos)
+            ) : Personagem(perDTO), ehPrimeiro(r_ehPrimeiro), deslocamentoX(r_deslocamentoX), naMeleca(r_naMeleca),
+                atacando(r_atacando), cooldown(r_cooldown), pontos(r_pontos), ultimaPontuacao(r_pontos)
             {
                 ++numInstancias;
 
@@ -61,12 +59,15 @@ namespace jogo {
 
                 fixTexture();
             }
-            Jogador::Jogador(): deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0) {}
-            Jogador::~Jogador() {
+
+            Jogador::Jogador() : deslocamentoX(DESLOCAMENTO_JOGADOR_PADRAO), pontos(0)
+            {
+            }
+
+            Jogador::~Jogador()
+            {
                 --numInstancias;
             };
-
-
 
 
             void Jogador::executar()
@@ -78,38 +79,35 @@ namespace jogo {
             }
 
 
-
-
             void Jogador::salvar()
             {
                 Personagem::salvar();
                 buffer << static_cast<int>(IDs::jogador) << " " << ehPrimeiro << " " << deslocamentoX << " " <<
-                naMeleca << " " << atacando << " " << cooldown << " " << pontos;
+                        naMeleca << " " << atacando << " " << cooldown << " " << pontos;
             }
-
-
 
 
             bool Jogador::getAtacando() const
             {
                 return atacando;
             }
+
             bool Jogador::getEhPrimeiro() const
             {
                 return ehPrimeiro;
             }
 
 
-
-
             void Jogador::setNaMeleca(bool r_estaNaMeleca)
             {
                 naMeleca = r_estaNaMeleca;
             }
+
             void Jogador::setAtacando(bool r_atacando)
             {
                 atacando = r_atacando;
             }
+
             void Jogador::atualizarNaMeleca()
             {
                 if (naMeleca)
@@ -118,9 +116,6 @@ namespace jogo {
                     deslocamentoX = DESLOCAMENTO_JOGADOR_PADRAO;
                 naMeleca = false;
             }
-
-
-
 
 
             void Jogador::atacar(inimigos::Inimigo *pInimigo)
@@ -147,26 +142,26 @@ namespace jogo {
             }
 
 
-
-
             void Jogador::pular()
             {
-                if (noChao && !naMeleca)
-                {
+                if (noChao && !naMeleca) {
                     noChao = false;
                     setVelocidade(sf::Vector2f(getVelocidade().x, -400));
                 }
             }
+
             void Jogador::moverEsquerda()
             {
                 olhandoDireita = false;
                 mover(-deslocamentoX, 0);
             }
+
             void Jogador::moverDireita()
             {
                 olhandoDireita = true;
                 mover(deslocamentoX, 0);
             }
+
             void Jogador::ataque()
             {
                 if (cooldown)
@@ -175,8 +170,6 @@ namespace jogo {
                 cooldown = std::pow(2, 15);
                 atacando = true;
             }
-
-
 
 
             void Jogador::resetarJogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool resetarPontos)
@@ -205,6 +198,7 @@ namespace jogo {
 
                 ativo = true;
             }
+
             void Jogador::setJogador(
                 dtos::PersonagemDTO perDTO, bool r_ehPrimeiro, float r_deslocamentoX,
                 bool r_naMeleca, bool r_atacando, int r_cooldown, int r_pontos
@@ -240,15 +234,10 @@ namespace jogo {
             }
 
 
-
-
-
             int Jogador::getUltimaPontuacao() const
             {
                 return ultimaPontuacao;
             }
-
         }
     }
 }
-

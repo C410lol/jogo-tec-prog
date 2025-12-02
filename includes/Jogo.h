@@ -13,29 +13,28 @@ namespace jogo {
         class GerenciadorEstado;
     }
 
-    class Jogo
-    {
+    class Jogo {
     private:
-        gerenciadores::GerenciadorEstado* pge;
+        gerenciadores::GerenciadorEstado *pge;
         gerenciadores::GerenciadorGrafico gerenciadorGrafico;
         Menu *pMenu;
-        std::vector<entidades::personagens::Jogador*> jogadores;
-        std::vector<observers::JogadorObserver*> jogadorObservers;
+        std::vector<entidades::personagens::Jogador *> jogadores;
+        std::vector<observers::JogadorObserver *> jogadorObservers;
 
     public:
         Jogo();
+
         ~Jogo();
 
         void exec();
 
         void criarJogadores();
+
         void resetarJogadores();
-        std::vector<entidades::personagens::Jogador*> &getJogadores();
+
+        std::vector<entidades::personagens::Jogador *> &getJogadores();
     };
-
 }
-
-
 
 
 #endif //JOGO_JOGO_H

@@ -9,17 +9,23 @@
 
 namespace jogo {
     namespace estados {
-        EstadoMenu::EstadoMenu(IDs id, IDs r_fase) : Estado(id), menu(nullptr), fase(r_fase) {
+        EstadoMenu::EstadoMenu(IDs id, IDs r_fase) : Estado(id), menu(nullptr), fase(r_fase)
+        {
             criarMenu();
         }
-        EstadoMenu::~EstadoMenu() {
 
+        EstadoMenu::~EstadoMenu()
+        {
         }
-        void EstadoMenu::executar() {
+
+        void EstadoMenu::executar()
+        {
             voltaMenu = false;
-           menu->executar();
+            menu->executar();
         }
-        void EstadoMenu::criarMenu() {
+
+        void EstadoMenu::criarMenu()
+        {
             switch (Id) {
                 case IDs::menu_principal:
                     menu = new menus::MenuPrincipal();
@@ -40,6 +46,5 @@ namespace jogo {
                     break;
             }
         }
-
     }
 }

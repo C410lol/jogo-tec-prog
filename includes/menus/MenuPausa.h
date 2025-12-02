@@ -11,16 +11,22 @@ namespace jogo {
     namespace menus {
         class MenuPausa : public Menu {
         private:
-            fases::Fase* fase;
+            fases::Fase *fase;
             sf::RectangleShape fundoPainel;
+
         public:
             void atualizar();
-            MenuPausa(fases::Fase* fase = nullptr);
-            ~MenuPausa();
-            void setFase(fases::Fase* fase);
 
-            fases::Fase* getFase();
+            MenuPausa(fases::Fase *fase = nullptr);
+
+            ~MenuPausa();
+
+            void setFase(fases::Fase *fase);
+
+            fases::Fase *getFase();
+
             virtual void executar();
+
             void desenhaMenu() override;
         };
     }

@@ -1,5 +1,3 @@
-
-
 #ifndef JOGO_BANDEIRA_H
 #define JOGO_BANDEIRA_H
 
@@ -11,22 +9,24 @@
 namespace jogo {
     namespace entidades {
         namespace obstaculos {
-            class Bandeira:public Obstaculo {
+            class Bandeira : public Obstaculo {
             private:
-                gerenciadores::GerenciadorEstado* pge;
+                gerenciadores::GerenciadorEstado *pge;
 
             public:
                 Bandeira(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool r_danoso);
+
                 Bandeira(dtos::ObstaculoDTO obsDTO);
+
                 ~Bandeira();
 
                 void executar() override;
+
                 void obstaculizar(Entidade *pEntidade) override;
+
                 void salvar() override;
             };
-
         }
-
     }
 }
 

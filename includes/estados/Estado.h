@@ -1,11 +1,7 @@
-
-
 #ifndef JOGO_ESTADO_H
 #define JOGO_ESTADO_H
 
 #include "Ente.h"
-
-
 
 
 namespace jogo {
@@ -14,7 +10,7 @@ namespace jogo {
     }
 
     namespace estados {
-        class Estado:public Ente {
+        class Estado : public Ente {
         private:
             bool remover;
 
@@ -24,9 +20,13 @@ namespace jogo {
 
         public:
             Estado(IDs id);
+
             virtual ~Estado() = default;
+
             virtual void executar() = 0;
+
             bool getvoltaMenu();
+
             void setvoltaMenu(bool voltaMenu);
 
             static void setGE(gerenciadores::GerenciadorEstado *r_pGE);

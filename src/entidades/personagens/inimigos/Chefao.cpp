@@ -10,25 +10,22 @@
 #include "gerenciadores/GerenciadorColisao.h"
 
 
-
-
 namespace jogo {
     namespace entidades {
         namespace personagens {
             namespace inimigos {
-
                 int Chefao::numInstancias = 0;
                 int Chefao::getInstancias() { return numInstancias; }
-                void Chefao::setInstancias(int n) {
+
+                void Chefao::setInstancias(int n)
+                {
                     numInstancias = n;
                 }
 
 
-
-
-                Chefao::Chefao(sf::Vector2f r_posicao, sf::Vector2f r_tamanho):
-                Inimigo(r_posicao, r_tamanho, 5, true, 1),
-                cooldown(0), rapidez(rand() % 5 + 3)
+                Chefao::Chefao(sf::Vector2f r_posicao, sf::Vector2f r_tamanho) : Inimigo(r_posicao, r_tamanho, 5, true,
+                        1),
+                    cooldown(0), rapidez(rand() % 5 + 3)
                 {
                     ++numInstancias;
                     deslocamento = 2;
@@ -36,8 +33,9 @@ namespace jogo {
                     setTexture("../assets/personagens/mago.png");
                     fixTexture();
                 }
-                Chefao::Chefao(dtos::InimigoDTO iniDTO, float r_cooldown, float r_rapidez):
-                Inimigo(iniDTO), cooldown(r_cooldown), rapidez(r_rapidez)
+
+                Chefao::Chefao(dtos::InimigoDTO iniDTO, float r_cooldown, float r_rapidez) : Inimigo(iniDTO),
+                    cooldown(r_cooldown), rapidez(r_rapidez)
                 {
                     ++numInstancias;
                     deslocamento = 2;
@@ -45,10 +43,12 @@ namespace jogo {
                     setTexture("../assets/personagens/mago.png");
                     fixTexture();
                 }
-                Chefao::Chefao(): rapidez(0) {}
+
+                Chefao::Chefao() : rapidez(0)
+                {
+                }
+
                 Chefao::~Chefao() = default;
-
-
 
 
                 void Chefao::executar()
@@ -60,15 +60,11 @@ namespace jogo {
                 }
 
 
-
-
                 void Chefao::salvar()
                 {
                     Inimigo::salvar();
                     buffer << static_cast<int>(IDs::chefao) << " " << cooldown << " " << rapidez;
                 }
-
-
 
 
                 void Chefao::deslocar()
@@ -83,26 +79,19 @@ namespace jogo {
                         return;
 
                     float disX = pJogadorAlvo->getPosicao().x - getPosicao().x;
-                    if (disX > RAIO_MAX)
-                    {
+                    if (disX > RAIO_MAX) {
                         olhandoDireita = true;
                         mover(deslocamento, 0.f);
-                    }
-                    else if (disX < -RAIO_MAX)
-                    {
+                    } else if (disX < -RAIO_MAX) {
                         olhandoDireita = false;
                         mover(-deslocamento, 0.f);
-                    }
-                    else
-                    {
+                    } else {
                         if (disX > 0)
                             mover(-deslocamento, 0);
                         else
                             mover(deslocamento, 0);
                     }
                 }
-
-
 
 
                 void Chefao::atirar()
@@ -128,13 +117,10 @@ namespace jogo {
                 }
 
 
-
-
                 float Chefao::getRapidez() const
                 {
                     return rapidez;
                 }
-
             }
         }
     }

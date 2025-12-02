@@ -6,20 +6,19 @@
 #include "dtos/PersonagemDTO.h"
 
 
-
-
 namespace jogo {
     namespace entidades {
         namespace personagens {
+#define GRAVIDADE 50
 
-            #define GRAVIDADE 50
-
-            class Personagem: public Entidade
-            {
+            class Personagem : public Entidade {
             private:
                 void atualizaSprite();
+
                 void atualizaPosicao();
+
                 void atualizaVelocidadeX();
+
                 void atualizaKnokback();
 
             protected:
@@ -32,8 +31,11 @@ namespace jogo {
 
             public:
                 Personagem(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, int r_vidas, bool r_sofreGravidade);
+
                 Personagem(dtos::PersonagemDTO perDTO);
+
                 Personagem();
+
                 virtual ~Personagem();
 
                 virtual void executar() = 0;
@@ -41,15 +43,19 @@ namespace jogo {
                 virtual void salvar();
 
                 virtual void cair();
+
                 void checarMorte();
 
                 sf::Vector2f getVelocidade() const;
+
                 void setVelocidade(sf::Vector2f r_velocidade);
 
                 bool getNoChao() const;
+
                 void setNoChao(bool r_noChao);
 
                 bool getKnokback() const;
+
                 void setKnokback(bool r_knokback);
 
                 int getVidas() const;
@@ -58,12 +64,9 @@ namespace jogo {
 
                 void tomarDano(int dano);
             };
-
         }
     }
 }
-
-
 
 
 #endif //JOGO_CHARACTER_H

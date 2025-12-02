@@ -31,6 +31,5 @@ namespace jogo {
         projetil,
         bandeira
     };
-
 }
 #endif //JOGO_IDS_H

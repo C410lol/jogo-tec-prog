@@ -1,4 +1,3 @@
-
 #ifndef JOGO_MENU_H
 #define JOGO_MENU_H
 #include "Botao.h"
@@ -9,23 +8,26 @@ namespace jogo::gerenciadores {
     class GerenciadorEstado;
 }
 
-namespace jogo
-{
+namespace jogo {
     class Jogo;
 
-    class Menu:public Ente
-    {
+    class Menu : public Ente {
     protected:
         static Jogo *pjogo;
-        std::vector<menus::Botao*> botoes;
+        std::vector<menus::Botao *> botoes;
         gerenciadores::GerenciadorEstado *pge;
+
     public:
         Menu(Jogo *r_pjogo);
+
         Menu();
+
         ~Menu();
 
         void executar() override;
+
         virtual void atualizar() = 0;
+
         virtual void desenhaMenu() = 0;
 
         static void setJogo(Jogo *r_pJogo);

@@ -5,18 +5,17 @@
 #include "observer-pattern/input/InputSubject.h"
 
 
-
-
 namespace jogo {
     namespace observers {
+        JogadorObserver::JogadorObserver(entidades::personagens::Jogador *r_pJogador) : pJogador(r_pJogador)
+        {
+        }
 
-        JogadorObserver::JogadorObserver(entidades::personagens::Jogador* r_pJogador):
-        pJogador(r_pJogador)
-        {}
-        JogadorObserver::JogadorObserver(): pJogador(nullptr) {}
+        JogadorObserver::JogadorObserver() : pJogador(nullptr)
+        {
+        }
+
         JogadorObserver::~JogadorObserver() = default;
-
-
 
 
         void JogadorObserver::update(int message)
@@ -27,8 +26,7 @@ namespace jogo {
             if (pJogador->getKnokback())
                 return;
 
-            if (pJogador->getEhPrimeiro())
-            {
+            if (pJogador->getEhPrimeiro()) {
                 if (message == InputSubject::Teclas::W)
                     pJogador->pular();
                 if (message == InputSubject::Teclas::A)
@@ -40,9 +38,7 @@ namespace jogo {
                     pJogador->ataque();
                 else
                     pJogador->setAtacando(false);
-            }
-            else
-            {
+            } else {
                 if (message == InputSubject::Teclas::UP)
                     pJogador->pular();
                 if (message == InputSubject::Teclas::LEFT)
@@ -58,12 +54,9 @@ namespace jogo {
         }
 
 
-
-
         entidades::personagens::Jogador *JogadorObserver::getJogador() const
         {
             return pJogador;
         }
-
     }
 }

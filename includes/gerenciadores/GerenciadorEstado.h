@@ -9,28 +9,30 @@
 #include "estados/Estado.h"
 
 
-
-
 namespace jogo {
     namespace gerenciadores {
-
         class GerenciadorEstado {
         private:
-            std::stack<estados::Estado*> pilhaEstados;
-            static GerenciadorEstado* pGerenciadorEstado;
+            std::stack<estados::Estado *> pilhaEstados;
+            static GerenciadorEstado *pGerenciadorEstado;
+
             GerenciadorEstado();
 
         public:
             ~GerenciadorEstado();
-            static GerenciadorEstado* getGerenEstado();
+
+            static GerenciadorEstado *getGerenEstado();
+
             void executar();
+
             void adicionarEstado(IDs id, int numJogadores = 1, IDs r_fase = IDs::primeira_fase, bool continuar = false);
+
             void removerEstado();
 
-            estados::Estado* getEstadoAtual();
+            estados::Estado *getEstadoAtual();
+
             void limparEstados();
         };
-
     }
 }
 #endif //JOGO_GERENCIADORESTADO_H

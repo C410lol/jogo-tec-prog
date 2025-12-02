@@ -5,15 +5,12 @@
 #include "IDs.h"
 
 
-
-
 namespace jogo {
     namespace gerenciadores {
         class GerenciadorGrafico;
     }
 
-    class Ente
-    {
+    class Ente {
     protected:
         IDs Id;
         sf::Texture *pTexture;
@@ -22,21 +19,22 @@ namespace jogo {
 
     public:
         Ente();
+
         virtual ~Ente();
 
         virtual void executar() = 0;
+
         virtual void desenhar();
 
-        sf::Sprite* getSprite() const;
+        sf::Sprite *getSprite() const;
+
         void setTexture(std::string path);
 
         static void setGerenciadorGrafico(gerenciadores::GerenciadorGrafico *r_pGerenciadorGrafico);
+
         IDs getId();
     };
-
 }
-
-
 
 
 #endif //JOGO_ENTE_H

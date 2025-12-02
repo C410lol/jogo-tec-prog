@@ -4,18 +4,16 @@
 #include <iostream>
 
 
-
-
 namespace jogo {
     namespace gerenciadores {
-
         GerenciadorColisao::GerenciadorColisao(
         )
-        {}
+        {
+        }
+
         GerenciadorColisao::~GerenciadorColisao()
-        {}
-
-
+        {
+        }
 
 
         float GerenciadorColisao::calcOverlapHor(
@@ -28,8 +26,8 @@ namespace jogo {
                 return 0.f;
 
             float disX = std::abs(
-                            (ent1->getPosicao().x + ent1->getTamanho().x / 2.f) -
-                            (ent2->getPosicao().x + ent2->getTamanho().x / 2.f)
+                (ent1->getPosicao().x + ent1->getTamanho().x / 2.f) -
+                (ent2->getPosicao().x + ent2->getTamanho().x / 2.f)
             );
             float sumX = (ent1->getTamanho().x / 2.f) + (ent2->getTamanho().x / 2.f);
 
@@ -37,14 +35,15 @@ namespace jogo {
                 return sumX - disX;
             return 0;
         }
+
         float GerenciadorColisao::calcOverlapVert(
             entidades::Entidade *ent1,
             entidades::Entidade *ent2
         )
         {
             float disY = std::abs(
-                            (ent1->getPosicao().y + ent1->getTamanho().y / 2.f) -
-                            (ent2->getPosicao().y + ent2->getTamanho().y / 2.f)
+                (ent1->getPosicao().y + ent1->getTamanho().y / 2.f) -
+                (ent2->getPosicao().y + ent2->getTamanho().y / 2.f)
             );
             float sumY = (ent1->getTamanho().y / 2.f) + (ent2->getTamanho().y / 2.f);
 
@@ -52,6 +51,7 @@ namespace jogo {
                 return sumY - disY;
             return 0;
         }
+
         sf::Vector2f GerenciadorColisao::calcOverlap(
             entidades::Entidade *ent1,
             entidades::Entidade *ent2
@@ -59,7 +59,6 @@ namespace jogo {
         {
             return sf::Vector2f(calcOverlapHor(ent1, ent2), calcOverlapVert(ent1, ent2));
         }
-
 
 
         bool GerenciadorColisao::colidiuHor(
@@ -70,6 +69,7 @@ namespace jogo {
         {
             return calcOverlapHor(ent1, ent2, gap) != 0;
         }
+
         bool GerenciadorColisao::colidiuVert(
             entidades::Entidade *ent1,
             entidades::Entidade *ent2
@@ -77,6 +77,7 @@ namespace jogo {
         {
             return calcOverlapVert(ent1, ent2) != 0;
         }
+
         bool GerenciadorColisao::colidiu(
             entidades::Entidade *ent1,
             entidades::Entidade *ent2
@@ -91,20 +92,12 @@ namespace jogo {
         }
 
 
-
-
-
-
-
-
         void GerenciadorColisao::checarColisoes()
         {
             checarObstaculoColisoes();
             checarInimigoColisoes();
             checarProjeteisColisoes();
         }
-
-
 
 
         void GerenciadorColisao::checarObstaculo_InimigosColisao(
@@ -114,18 +107,18 @@ namespace jogo {
             if (!pObstaculo)
                 return;
 
-            std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
-            for (itInimigo=listaInimigos.begin();
-                itInimigo != listaInimigos.end();
-                ++itInimigo)
-                {
-                    entidades::personagens::inimigos::Inimigo* pInimigo= *itInimigo;
-                    if (!pInimigo)
-                        continue;
-                    if (colidiu(pObstaculo,pInimigo))
-                        pObstaculo->obstaculizar(pInimigo);
+            std::vector<entidades::personagens::inimigos::Inimigo *>::iterator itInimigo;
+            for (itInimigo = listaInimigos.begin();
+                 itInimigo != listaInimigos.end();
+                 ++itInimigo) {
+                entidades::personagens::inimigos::Inimigo *pInimigo = *itInimigo;
+                if (!pInimigo)
+                    continue;
+                if (colidiu(pObstaculo, pInimigo))
+                    pObstaculo->obstaculizar(pInimigo);
             }
         }
+
         void GerenciadorColisao::checarObstaculo_JogadoresColisao(
             entidades::obstaculos::Obstaculo *pObstaculo
         )
@@ -133,14 +126,13 @@ namespace jogo {
             if (!pObstaculo)
                 return;
 
-            std::vector<entidades::personagens::Jogador*>::iterator itJogador;
+            std::vector<entidades::personagens::Jogador *>::iterator itJogador;
             for
             (
                 itJogador = listaJogadores.begin();
                 itJogador != listaJogadores.end();
                 ++itJogador
-            )
-            {
+            ) {
                 if (!(*itJogador))
                     continue;
 
@@ -148,19 +140,19 @@ namespace jogo {
                     pObstaculo->obstaculizar(*itJogador);
             }
         }
+
         void GerenciadorColisao::checarObstaculo_ProjeteisColisao(entidades::obstaculos::Obstaculo *pObstaculo)
         {
             if (!pObstaculo)
                 return;
 
-            std::set<entidades::Projetil*>::iterator itProjetil;
+            std::set<entidades::Projetil *>::iterator itProjetil;
             for
             (
                 itProjetil = listaProjeteis.begin();
                 itProjetil != listaProjeteis.end();
                 ++itProjetil
-            )
-            {
+            ) {
                 if (!(*itProjetil))
                     continue;
 
@@ -169,47 +161,42 @@ namespace jogo {
                 }
             }
         }
+
         void GerenciadorColisao::checarObstaculoColisoes()
         {
-
-            std::list<entidades::obstaculos::Obstaculo*>::iterator itObstaculo;
+            std::list<entidades::obstaculos::Obstaculo *>::iterator itObstaculo;
             for (
                 itObstaculo = listaObstaculos.begin();
                 itObstaculo != listaObstaculos.end();
                 ++itObstaculo
-            )
-            {
+            ) {
                 if (!(*itObstaculo))
                     continue;
 
                 checarObstaculo_InimigosColisao(*itObstaculo);
                 checarObstaculo_JogadoresColisao(*itObstaculo);
 
-                if (dynamic_cast<entidades::obstaculos::Plataforma*>(*itObstaculo))
+                if (dynamic_cast<entidades::obstaculos::Plataforma *>(*itObstaculo))
                     checarObstaculo_ProjeteisColisao(*itObstaculo);
             }
         }
-
-
 
 
         void GerenciadorColisao::checarInimigo_JogadoresColisao(
             entidades::personagens::inimigos::Inimigo *pInimigo
         )
         {
-            std::vector<entidades::personagens::Jogador*>::iterator itJogadores;
+            std::vector<entidades::personagens::Jogador *>::iterator itJogadores;
             for
             (
                 itJogadores = listaJogadores.begin();
                 itJogadores != listaJogadores.end();
                 ++itJogadores
-            )
-            {
+            ) {
                 if (!(*itJogadores))
                     continue;
 
-                if (colidiuVert(pInimigo, *itJogadores))
-                {
+                if (colidiuVert(pInimigo, *itJogadores)) {
                     pInimigo->setJogadoralvo(*itJogadores);
                     if (colidiuHor(pInimigo, *itJogadores))
                         pInimigo->danificar(*itJogadores);
@@ -218,8 +205,7 @@ namespace jogo {
                         colidiuHor(pInimigo, *itJogadores, 50)
                         &&
                         (*itJogadores)->getAtacando()
-                    )
-                    {
+                    ) {
                         float dirX = pInimigo->getPosicao().x - (*itJogadores)->getPosicao().x;
                         if
                         (
@@ -232,16 +218,15 @@ namespace jogo {
                 }
             }
         }
+
         void GerenciadorColisao::checarInimigoColisoes()
         {
-
-            std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
+            std::vector<entidades::personagens::inimigos::Inimigo *>::iterator itInimigo;
             for
             (
-                itInimigo=listaInimigos.begin();
+                itInimigo = listaInimigos.begin();
                 itInimigo != listaInimigos.end();
-                ++itInimigo)
-            {
+                ++itInimigo) {
                 if (!(*itInimigo))
                     continue;
 
@@ -250,18 +235,15 @@ namespace jogo {
         }
 
 
-
-
         void GerenciadorColisao::checarProjeteis_JogadoresColisao(entidades::Projetil *pProjetil)
         {
-            std::vector<entidades::personagens::Jogador*>::iterator itJogador;
+            std::vector<entidades::personagens::Jogador *>::iterator itJogador;
             for
             (
                 itJogador = listaJogadores.begin();
                 itJogador != listaJogadores.end();
                 ++itJogador
-            )
-            {
+            ) {
                 if (!(*itJogador))
                     continue;
 
@@ -269,16 +251,16 @@ namespace jogo {
                     pProjetil->acertar(*itJogador);
             }
         }
+
         void GerenciadorColisao::checarProjeteisColisoes()
         {
-            std::set<entidades::Projetil*>::iterator itProjetil;
+            std::set<entidades::Projetil *>::iterator itProjetil;
             for
             (
                 itProjetil = listaProjeteis.begin();
                 itProjetil != listaProjeteis.end();
                 ++itProjetil
-            )
-            {
+            ) {
                 if (!(*itProjetil))
                     continue;
 
@@ -287,89 +269,82 @@ namespace jogo {
         }
 
 
-
-
-
         void GerenciadorColisao::incluirJogador(entidades::personagens::Jogador *jog)
         {
             listaJogadores.push_back(jog);
         }
+
         void GerenciadorColisao::incluirInimigo(entidades::personagens::inimigos::Inimigo *pInimigo)
         {
             listaInimigos.push_back(pInimigo);
         }
+
         void GerenciadorColisao::incluirObstaculo(entidades::obstaculos::Obstaculo *pObstaculo)
         {
             listaObstaculos.push_back(pObstaculo);
         }
+
         void GerenciadorColisao::incluirProjetil(entidades::Projetil *pProjetil)
         {
             listaProjeteis.insert(pProjetil);
         }
 
 
-
-
         void GerenciadorColisao::retirarJogador(entidades::personagens::Jogador *pJogador)
         {
-            std::vector<entidades::personagens::Jogador*>::iterator itJogador;
+            std::vector<entidades::personagens::Jogador *>::iterator itJogador;
             for
             (
                 itJogador = listaJogadores.begin();
                 itJogador != listaJogadores.end();
                 ++itJogador
-            )
-            {
+            ) {
                 if (!(*itJogador))
                     continue;
 
-                if (*itJogador == pJogador)
-                {
+                if (*itJogador == pJogador) {
                     listaJogadores.erase(itJogador);
                     break;
                 }
             }
         }
+
         void GerenciadorColisao::retirarInimigo(entidades::personagens::inimigos::Inimigo *pInimigo)
         {
-            std::vector<entidades::personagens::inimigos::Inimigo*>::iterator itInimigo;
+            std::vector<entidades::personagens::inimigos::Inimigo *>::iterator itInimigo;
             for
             (
                 itInimigo = listaInimigos.begin();
                 itInimigo != listaInimigos.end();
                 ++itInimigo
-            )
-            {
+            ) {
                 if (!(*itInimigo))
                     continue;
 
-                if (*itInimigo == pInimigo)
-                {
+                if (*itInimigo == pInimigo) {
                     listaInimigos.erase(itInimigo);
                     break;
                 }
             }
         }
+
         void GerenciadorColisao::retirarProjetil(entidades::Projetil *pProjetil)
         {
-            std::set<entidades::Projetil*>::iterator itProjetil;
+            std::set<entidades::Projetil *>::iterator itProjetil;
             for
             (
                 itProjetil = listaProjeteis.begin();
                 itProjetil != listaProjeteis.end();
                 ++itProjetil
-            )
-            {
+            ) {
                 if (!(*itProjetil))
                     continue;
 
-                if (*itProjetil == pProjetil)
-                {
+                if (*itProjetil == pProjetil) {
                     listaProjeteis.erase(itProjetil);
                     break;
                 }
             }
         }
-
     }
 }

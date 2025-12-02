@@ -22,15 +22,11 @@
 
 namespace jogo {
     namespace fases {
-
         Jogo *Fase::pJogo = nullptr;
         void Fase::setJogo(Jogo *r_pJogo) { pJogo = r_pJogo; }
 
 
-
-
-        Fase::Fase(int r_numJogadores):
-        numJogadores(r_numJogadores), faseAcabou(false), jogCont(0), jogAtivos(0)
+        Fase::Fase(int r_numJogadores) : numJogadores(r_numJogadores), faseAcabou(false), jogCont(0), jogAtivos(0)
         {
             entidades::personagens::inimigos::Terrestre::setInstancias(0);
             entidades::personagens::inimigos::Voador::setInstancias(0);
@@ -45,36 +41,31 @@ namespace jogo {
             entidades::personagens::Personagem::setFase(this);
             setarProporcao();
         }
-        Fase::~Fase() {
-            for (auto it = listaEntidades.begin(); it != listaEntidades.end(); ++it)
-            {
-                if (!(dynamic_cast<entidades::personagens::Jogador*>(*it)))
+
+        Fase::~Fase()
+        {
+            for (auto it = listaEntidades.begin(); it != listaEntidades.end(); ++it) {
+                if (!(dynamic_cast<entidades::personagens::Jogador *>(*it)))
                     delete *it;
             }
             listaEntidades.limpar();
         }
 
 
-
-
         void Fase::setarProporcao()
         {
-            if (pGerenciadorGrafico)
-            {
+            if (pGerenciadorGrafico) {
                 proporcao.x = pGerenciadorGrafico->getWindowSize().x / 42.f;
                 proporcao.y = pGerenciadorGrafico->getWindowSize().y / 24.f;
             }
         }
 
 
-
-
         void Fase::criarCenario()
         {
-            try
-            {
+            try {
                 std::ifstream faseTemplate;
-                if (dynamic_cast<PrimeiraFase*>(this))
+                if (dynamic_cast<PrimeiraFase *>(this))
                     faseTemplate.open("../fases-template/primeira-fase.txt");
                 else
                     faseTemplate.open("../fases-template/segunda-fase.txt");
@@ -83,10 +74,8 @@ namespace jogo {
 
                 float x = 0.f;
                 float y = 0.f;
-                while (std::getline(faseTemplate, linha))
-                {
-                    for (char c: linha)
-                    {
+                while (std::getline(faseTemplate, linha)) {
+                    for (char c: linha) {
                         criarEntidade(c, x, y);
                         x += proporcao.x;
                     }
@@ -94,12 +83,11 @@ namespace jogo {
                     x = 0.f;
                     y += proporcao.y;
                 }
-            }
-            catch (const std::exception e)
-            {
+            } catch (const std::exception e) {
                 std::cerr << "Erro: " << e.what() << std::endl;
             }
         }
+
         void Fase::criarEntidade(char c, float x, float y)
         {
             if (c == 't' || c == '1' || c == 'v' || c == '2' || c == 'b' || c == '3')
@@ -109,8 +97,6 @@ namespace jogo {
             else if (c == 'j')
                 criarJogador(sf::Vector2f(x, y), proporcao);
         }
-
-
 
 
         void Fase::criarJogador(sf::Vector2f posicao, sf::Vector2f tamanho)
@@ -133,73 +119,64 @@ namespace jogo {
         }
 
 
-
-
         void Fase::criarTerrestre(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
             entidades::personagens::inimigos::Terrestre *pTerrestre =
-                new entidades::personagens::inimigos::Terrestre(posicao, tamanho);
+                    new entidades::personagens::inimigos::Terrestre(posicao, tamanho);
 
             listaEntidades.incluir(pTerrestre);
             gerenciadorColisao.incluirInimigo(pTerrestre);
         }
 
 
-
-
         void Fase::criarPlataforma(sf::Vector2f posicao, sf::Vector2f tamanho, bool ehChao, IDs id)
         {
             entidades::obstaculos::Plataforma *pPlataforma =
-                new entidades::obstaculos::Plataforma(posicao, tamanho, false, ehChao, id);
+                    new entidades::obstaculos::Plataforma(posicao, tamanho, false, ehChao, id);
 
             listaEntidades.incluir(pPlataforma);
             gerenciadorColisao.incluirObstaculo(pPlataforma);
         }
+
         void Fase::criaBandeira(sf::Vector2f posicao, sf::Vector2f tamanho)
         {
-            entidades::obstaculos::Bandeira* pBandeira =
-                new entidades::obstaculos::Bandeira(posicao, tamanho, false);
+            entidades::obstaculos::Bandeira *pBandeira =
+                    new entidades::obstaculos::Bandeira(posicao, tamanho, false);
             listaEntidades.incluir(pBandeira);
             gerenciadorColisao.incluirObstaculo(pBandeira);
         }
 
 
-
-
         void Fase::criarProjetil(entidades::personagens::inimigos::Chefao *pChefao, float velocidade)
         {
             entidades::Projetil *pProjetil =
-                new entidades::Projetil
-                (
-                    pChefao->getPosicao(), proporcao / 2.f, pChefao,
-                    velocidade, pChefao->getNivelMaldade()
-                );
+                    new entidades::Projetil(
+                        pChefao->getPosicao(), proporcao / 2.f, pChefao,
+                        velocidade, pChefao->getNivelMaldade()
+                    );
 
             listaEntidades.incluir(pProjetil);
             gerenciadorColisao.incluirProjetil(pProjetil);
         }
 
 
-
-
         void Fase::retirarPersonagem(entidades::personagens::Personagem *pPersonagem)
         {
             entidades::personagens::Jogador *pJogador =
-                dynamic_cast<entidades::personagens::Jogador*>(pPersonagem);
-            if (pJogador)
-            {
+                    dynamic_cast<entidades::personagens::Jogador *>(pPersonagem);
+            if (pJogador) {
                 gerenciadorColisao.retirarJogador(pJogador);
 
                 if (--jogAtivos <= 0)
                     faseAcabou = true;
-            }
-            else
+            } else
                 gerenciadorColisao.retirarInimigo(
-                    dynamic_cast<entidades::personagens::inimigos::Inimigo*>(pPersonagem)
+                    dynamic_cast<entidades::personagens::inimigos::Inimigo *>(pPersonagem)
                 );
 
             pPersonagem->setAtivo(false);
         }
+
         void Fase::retirarProjetil(entidades::Projetil *pProjetil)
         {
             gerenciadorColisao.retirarProjetil(pProjetil);
@@ -208,12 +185,11 @@ namespace jogo {
         }
 
 
-
-
         void Fase::inicializar()
         {
             criarCenario();
         }
+
         void Fase::executar()
         {
             pGerenciadorGrafico->desenhar(*pSprite);
@@ -222,39 +198,26 @@ namespace jogo {
         }
 
 
-
-
         void Fase::salvarFase()
         {
             listaEntidades.salvarEntidades(Id);
         }
 
 
-
-
         bool Fase::getfaseAcabou() const
         {
             return faseAcabou;
         }
-        void Fase::acabarFase() {
+
+        void Fase::acabarFase()
+        {
             faseAcabou = true;
         }
+
         int Fase::getNumJogadores() const
         {
             return numJogadores;
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         void Fase::carregarFase()
@@ -262,91 +225,105 @@ namespace jogo {
             std::ifstream file("../salvamentos/salvamento.txt");
 
             //  Se não conseguir abrir o arquivo, criar uma nova fase
-            if (!file)
-            {
+            if (!file) {
                 inicializar();
                 return;
             }
 
             std::string linha;
-            std::getline(file, linha);  //  Pula a linha da fase
-            while (std::getline(file, linha))
-            {
+            std::getline(file, linha); //  Pula a linha da fase
+            while (std::getline(file, linha)) {
                 std::stringstream linhaUtilizavel(linha);
 
-                int idNumber;   linhaUtilizavel >> idNumber;
-                bool ativo;     linhaUtilizavel >> ativo;
-                float posicaoX; linhaUtilizavel >> posicaoX;
-                float posicaoY; linhaUtilizavel >> posicaoY;
-                float tamanhoX; linhaUtilizavel >> tamanhoX;
-                float tamanhoY; linhaUtilizavel >> tamanhoY;
+                int idNumber;
+                linhaUtilizavel >> idNumber;
+                bool ativo;
+                linhaUtilizavel >> ativo;
+                float posicaoX;
+                linhaUtilizavel >> posicaoX;
+                float posicaoY;
+                linhaUtilizavel >> posicaoY;
+                float tamanhoX;
+                linhaUtilizavel >> tamanhoX;
+                float tamanhoY;
+                linhaUtilizavel >> tamanhoY;
 
                 dtos::EntidadeDTO entDTO(
                     idNumber, ativo, sf::Vector2f(posicaoX, posicaoY), sf::Vector2f(tamanhoX, tamanhoY)
                 );
 
-                int t; linhaUtilizavel >> t;
+                int t;
+                linhaUtilizavel >> t;
                 IDs tipo = static_cast<IDs>(t);
 
                 if (tipo == IDs::obstaculo)
                     carregaObstaculos(linhaUtilizavel, entDTO);
-                else if (tipo == IDs::personagem)
-                {
+                else if (tipo == IDs::personagem) {
                     carregaPersonagem(linhaUtilizavel, entDTO);
-                }
-                else if (tipo == IDs::projetil)
+                } else if (tipo == IDs::projetil)
                     carregaProjetil(linhaUtilizavel, entDTO);
             }
         }
 
 
-
-
-        dtos::ObstaculoDTO Fase::carregaObstaculos(std::stringstream& linha, dtos::EntidadeDTO entDTO)
+        dtos::ObstaculoDTO Fase::carregaObstaculos(std::stringstream &linha, dtos::EntidadeDTO entDTO)
         {
-            bool danoso; linha >> danoso;
-            double cooldown; linha >> cooldown;
+            bool danoso;
+            linha >> danoso;
+            double cooldown;
+            linha >> cooldown;
 
             return dtos::ObstaculoDTO(entDTO, danoso, cooldown);
         }
+
         void Fase::carregaPlataforma(std::stringstream &linha, dtos::ObstaculoDTO obsDTO)
         {
-            bool ehChao; linha >> ehChao;
-            bool invisivel; linha >> invisivel;
+            bool ehChao;
+            linha >> ehChao;
+            bool invisivel;
+            linha >> invisivel;
 
             entidades::obstaculos::Plataforma *pPlataforma =
-                new entidades::obstaculos::Plataforma(obsDTO, ehChao, invisivel);
+                    new entidades::obstaculos::Plataforma(obsDTO, ehChao, invisivel);
 
             listaEntidades.incluir(pPlataforma);
             gerenciadorColisao.incluirObstaculo(pPlataforma);
         }
-        void Fase::carregaBandeira(dtos::ObstaculoDTO obsDTO) {
+
+        void Fase::carregaBandeira(dtos::ObstaculoDTO obsDTO)
+        {
             entidades::obstaculos::Bandeira *pBandeira =
-                new entidades::obstaculos::Bandeira(obsDTO);
+                    new entidades::obstaculos::Bandeira(obsDTO);
 
             listaEntidades.incluir(pBandeira);
             gerenciadorColisao.incluirObstaculo(pBandeira);
         }
 
 
-
-
         void Fase::carregaPersonagem(std::stringstream &linha, dtos::EntidadeDTO entDTO)
         {
-            int vidas; linha >> vidas;
-            float velocidadeX; linha >> velocidadeX;
-            float velocidadeY; linha >> velocidadeY;
-            bool sofreGravidade; linha >> sofreGravidade;
-            bool noChao; linha >> noChao;
-            bool olhandoDireita; linha >> olhandoDireita;
-            bool knokback; linha >> knokback;
+            int vidas;
+            linha >> vidas;
+            float velocidadeX;
+            linha >> velocidadeX;
+            float velocidadeY;
+            linha >> velocidadeY;
+            bool sofreGravidade;
+            linha >> sofreGravidade;
+            bool noChao;
+            linha >> noChao;
+            bool olhandoDireita;
+            linha >> olhandoDireita;
+            bool knokback;
+            linha >> knokback;
 
             dtos::PersonagemDTO perDTO(
                 entDTO, vidas, sf::Vector2f(velocidadeX, velocidadeY),
                 sofreGravidade, noChao, olhandoDireita, knokback
             );
 
-            int t; linha >> t;
+            int t;
+            linha >> t;
             IDs tipo = static_cast<IDs>(t);
 
             if (tipo == IDs::inimigo)
@@ -356,42 +333,48 @@ namespace jogo {
         }
 
 
-
-
         dtos::InimigoDTO Fase::carregaInimigos(std::stringstream &linha, dtos::PersonagemDTO perDTO)
         {
-            int pJogadorAlvoId; linha >> pJogadorAlvoId;
-            int nivelMaldade; linha >> nivelMaldade;
-            int deslocamento; linha >> deslocamento;
+            int pJogadorAlvoId;
+            linha >> pJogadorAlvoId;
+            int nivelMaldade;
+            linha >> nivelMaldade;
+            int deslocamento;
+            linha >> deslocamento;
 
             entidades::personagens::Jogador *pJogadorAlvo =
-                dynamic_cast<entidades::personagens::Jogador*>(listaEntidades.procurarPeloId(pJogadorAlvoId));
+                    dynamic_cast<entidades::personagens::Jogador *>(listaEntidades.procurarPeloId(pJogadorAlvoId));
 
-            return dtos::InimigoDTO(perDTO, pJogadorAlvo,nivelMaldade, deslocamento);
+            return dtos::InimigoDTO(perDTO, pJogadorAlvo, nivelMaldade, deslocamento);
         }
+
         void Fase::carregaTerrestre(std::stringstream &linha, dtos::InimigoDTO iniDTO)
         {
-            int atrito; linha >> atrito;
+            int atrito;
+            linha >> atrito;
 
             entidades::personagens::inimigos::Terrestre *pTerrestre =
-                new entidades::personagens::inimigos::Terrestre(iniDTO, atrito);
+                    new entidades::personagens::inimigos::Terrestre(iniDTO, atrito);
 
             listaEntidades.incluir(pTerrestre);
             gerenciadorColisao.incluirInimigo(pTerrestre);
         }
 
 
-
-
-
         void Fase::carregaJogador(std::stringstream &linha, dtos::PersonagemDTO perDTO)
         {
-            bool ehPrimeiro; linha >> ehPrimeiro;
-            float deslocamentoX; linha >> deslocamentoX;
-            bool naMeleca; linha >> naMeleca;
-            bool atacando; linha >> atacando;
-            int cooldown; linha >> cooldown;
-            int pontos; linha >> pontos;
+            bool ehPrimeiro;
+            linha >> ehPrimeiro;
+            float deslocamentoX;
+            linha >> deslocamentoX;
+            bool naMeleca;
+            linha >> naMeleca;
+            bool atacando;
+            linha >> atacando;
+            int cooldown;
+            linha >> cooldown;
+            int pontos;
+            linha >> pontos;
 
             entidades::personagens::Jogador *pJogador = pJogo->getJogadores()[jogCont];
             pJogador->setJogador(perDTO, ehPrimeiro, deslocamentoX, naMeleca, atacando, cooldown, pontos);
@@ -407,24 +390,23 @@ namespace jogo {
         }
 
 
-
-
         void Fase::carregaProjetil(std::stringstream &linha, dtos::EntidadeDTO entDTO)
         {
-            int dano; linha >> dano;
-            int vel; linha >> vel;
-            int pDonoId; linha >> pDonoId;
+            int dano;
+            linha >> dano;
+            int vel;
+            linha >> vel;
+            int pDonoId;
+            linha >> pDonoId;
 
             entidades::personagens::Personagem *pDono =
-                dynamic_cast<entidades::personagens::Personagem*>(listaEntidades.procurarPeloId(pDonoId));
+                    dynamic_cast<entidades::personagens::Personagem *>(listaEntidades.procurarPeloId(pDonoId));
 
             entidades::Projetil *pProjetil =
-                new entidades::Projetil(entDTO, dano, vel, pDono);
+                    new entidades::Projetil(entDTO, dano, vel, pDono);
 
             listaEntidades.incluir(pProjetil);
             gerenciadorColisao.incluirProjetil(pProjetil);
         }
-
     }
 }
-

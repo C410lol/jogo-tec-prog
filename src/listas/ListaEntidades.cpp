@@ -10,12 +10,14 @@
 
 namespace jogo {
     namespace listas {
-
-        ListaEntidades::ListaEntidades() : LEs() {}
+        ListaEntidades::ListaEntidades() : LEs()
+        {
+        }
 
         ListaEntidades::~ListaEntidades() { limpar(); }
 
-        void ListaEntidades::incluir(entidades::Entidade *e) {
+        void ListaEntidades::incluir(entidades::Entidade *e)
+        {
             if (e != nullptr) LEs.incluir(e);
         }
 
@@ -24,7 +26,8 @@ namespace jogo {
             if (pE != nullptr) LEs.incluirNoInicio(pE);
         }
 
-        void ListaEntidades::deletar(entidades::Entidade *e, bool apagar) {
+        void ListaEntidades::deletar(entidades::Entidade *e, bool apagar)
+        {
             if (e != nullptr) LEs.remover(e, apagar);
         }
 
@@ -32,26 +35,27 @@ namespace jogo {
 
         void ListaEntidades::limpar() { LEs.limpar(); }
 
-        Lista<entidades::Entidade>::Iterator ListaEntidades::begin() {
+        Lista<entidades::Entidade>::Iterator ListaEntidades::begin()
+        {
             return LEs.begin();
         }
-        Lista<entidades::Entidade>::Iterator ListaEntidades::end() {
+
+        Lista<entidades::Entidade>::Iterator ListaEntidades::end()
+        {
             return LEs.end();
         }
 
-        void ListaEntidades::executar() {
+        void ListaEntidades::executar()
+        {
             entidades::Entidade *aux = nullptr;
             for (int i = 0; i < LEs.getSize(); i++) {
                 aux = LEs.operator[](i);
                 if (aux) {
-                    if (aux->getAtivo())
-                    {
+                    if (aux->getAtivo()) {
                         aux->executar();
                         aux->desenhar();
-                    }
-                    else
-                    {
-                        if (!(dynamic_cast<entidades::personagens::Jogador*>(aux)))
+                    } else {
+                        if (!(dynamic_cast<entidades::personagens::Jogador *>(aux)))
                             deletar(aux, true);
                     }
                 }
@@ -59,19 +63,16 @@ namespace jogo {
         }
 
 
-
-
-        void ListaEntidades::retirarJogadores() {
+        void ListaEntidades::retirarJogadores()
+        {
             entidades::Entidade *aux = nullptr;
             for (int i = 0; i < LEs.getSize(); ++i) {
                 aux = LEs[i];
                 if (aux)
-                    if (dynamic_cast<entidades::personagens::Jogador*>(aux))
+                    if (dynamic_cast<entidades::personagens::Jogador *>(aux))
                         deletar(aux, false);
             }
         }
-
-
 
 
         void ListaEntidades::salvarEntidades(IDs fase)
@@ -85,9 +86,8 @@ namespace jogo {
                 file << "2";
             file << std::endl;
 
-            entidades::Entidade* entidade = nullptr;
-            for (int i = 0; i < LEs.getSize(); ++i)
-            {
+            entidades::Entidade *entidade = nullptr;
+            for (int i = 0; i < LEs.getSize(); ++i) {
                 entidade = LEs[i];
                 if (!entidade)
                     continue;
@@ -97,11 +97,11 @@ namespace jogo {
             }
             file.close();
         }
+
         entidades::Entidade *ListaEntidades::procurarPeloId(int id)
         {
             entidades::Entidade *pEntidade = nullptr;
-            for (int i = 0; i < LEs.getSize(); ++i)
-            {
+            for (int i = 0; i < LEs.getSize(); ++i) {
                 pEntidade = LEs[i];
                 if (!pEntidade)
                     continue;
@@ -112,6 +112,5 @@ namespace jogo {
 
             return nullptr;
         }
-
-    }  // namespace Listas
+    } // namespace Listas
 }

@@ -7,14 +7,10 @@
 #include "dtos/PersonagemDTO.h"
 
 
-
-
 namespace jogo {
     namespace entidades {
         namespace personagens {
-
-            class Jogador: public Personagem
-            {
+            class Jogador : public Personagem {
             private:
                 static int numInstancias;
                 static bool primeiroExiste;
@@ -26,17 +22,21 @@ namespace jogo {
                 int cooldown;
                 int pontos;
                 int ultimaPontuacao;
+
             private:
                 void atualizarNaMeleca();
 
             public:
                 Jogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho);
+
                 Jogador
                 (
                     dtos::PersonagemDTO perDTO, bool r_ehPrimeiro, float r_deslocamentoX, bool r_naMeleca,
                     bool r_atacando, int r_cooldown, int r_pontos
                 );
+
                 Jogador();
+
                 ~Jogador() override;
 
                 void executar() override;
@@ -44,6 +44,7 @@ namespace jogo {
                 void salvar() override;
 
                 void setNaMeleca(bool r_estaNaMeleca);
+
                 void setAtacando(bool r_atacando);
 
                 bool getAtacando() const;
@@ -53,11 +54,15 @@ namespace jogo {
                 void atacar(inimigos::Inimigo *pInimigo);
 
                 void pular();
+
                 void moverEsquerda();
+
                 void moverDireita();
+
                 void ataque();
 
                 void resetarJogador(sf::Vector2f r_posicao, sf::Vector2f r_tamanho, bool resetarPontuacao);
+
                 void setJogador
                 (
                     dtos::PersonagemDTO perDTO, bool r_ehPrimeiro, float r_deslocamentoX, bool r_naMeleca,
@@ -65,19 +70,16 @@ namespace jogo {
                 );
 
                 int getUltimaPontuacao() const;
-                
+
                 static void setJogadorExiste(bool est);
 
                 static int getInstancias();
+
                 static void setInstancias(int instancias);
             };
-
         }
     }
-
 }
-
-
 
 
 #endif //JOGO_PLAYER_H

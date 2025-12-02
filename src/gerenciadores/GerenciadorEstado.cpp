@@ -1,5 +1,3 @@
-
-
 #include "gerenciadores/GerenciadorEstado.h"
 
 #include <iostream>
@@ -10,63 +8,72 @@
 
 namespace jogo {
     namespace gerenciadores {
-        GerenciadorEstado* GerenciadorEstado::pGerenciadorEstado = nullptr;
+        GerenciadorEstado *GerenciadorEstado::pGerenciadorEstado = nullptr;
 
-        GerenciadorEstado::GerenciadorEstado(): pilhaEstados() {
+        GerenciadorEstado::GerenciadorEstado() : pilhaEstados()
+        {
         }
-        GerenciadorEstado *GerenciadorEstado::getGerenEstado() {
+
+        GerenciadorEstado *GerenciadorEstado::getGerenEstado()
+        {
             if (pGerenciadorEstado == nullptr) {
                 pGerenciadorEstado = new GerenciadorEstado();
             }
             return pGerenciadorEstado;
         }
-        GerenciadorEstado::~GerenciadorEstado() {
+
+        GerenciadorEstado::~GerenciadorEstado()
+        {
             while (!pilhaEstados.empty()) {
                 removerEstado();
             }
         }
-        void GerenciadorEstado::adicionarEstado(IDs id, int numJogadores, IDs r_fase, bool continuar) {
-            estados::Estado* estado = nullptr;
+
+        void GerenciadorEstado::adicionarEstado(IDs id, int numJogadores, IDs r_fase, bool continuar)
+        {
+            estados::Estado *estado = nullptr;
             if (id == IDs::primeira_fase || id == IDs::segunda_fase) {
                 estado = (new estados::EstadoJogo(id, numJogadores, continuar));
-            }
-            else if
+            } else if
             (
                 id == IDs::menu_principal || id == IDs::menu_pausa ||
                 id == IDs::menu_pontuacao || id == IDs::menu_ranking
-            )
-            {
+            ) {
                 estado = new estados::EstadoMenu(id);
-            }
-            else if (id == IDs::menu_jogadores)
-            {
+            } else if (id == IDs::menu_jogadores) {
                 estado = new estados::EstadoMenu(id, r_fase);
             }
             pilhaEstados.push(estado);
         }
-        void GerenciadorEstado::removerEstado() {
-            if (!pilhaEstados.empty() && pilhaEstados.top()!=nullptr) {
+
+        void GerenciadorEstado::removerEstado()
+        {
+            if (!pilhaEstados.empty() && pilhaEstados.top() != nullptr) {
                 //delete pilhaEstados.top();
                 pilhaEstados.pop();
             }
         }
-        estados::Estado* GerenciadorEstado::getEstadoAtual() {
+
+        estados::Estado *GerenciadorEstado::getEstadoAtual()
+        {
             if (!pilhaEstados.empty()) {
                 return pilhaEstados.top();
             }
             return nullptr;
         }
 
-        void GerenciadorEstado::executar() {
+        void GerenciadorEstado::executar()
+        {
             if (!pilhaEstados.empty()) {
                 pilhaEstados.top()->executar();
             }
         }
-        void GerenciadorEstado::limparEstados() {
+
+        void GerenciadorEstado::limparEstados()
+        {
             while (!pilhaEstados.empty()) {
                 pilhaEstados.pop();
             }
         }
-
     }
 }

@@ -5,33 +5,31 @@
 #include "observer-pattern/Observer.h"
 
 
-
-
 namespace jogo {
     namespace observers {
-
-        class Subject
-        {
+        class Subject {
         private:
-            std::list<Observer*> observers;
+            std::list<Observer *> observers;
 
         public:
             Subject() = default;
+
             virtual ~Subject() = default;
 
-            void attach(Observer* observer)
+            void attach(Observer *observer)
             {
+                if (observer)
+                    observer->operator++();
                 observers.push_back(observer);
             }
-            void detach(Observer* observer)
+
+            void detach(Observer *observer)
             {
-                std::list<Observer*>::iterator itObserver;
-                for (itObserver = observers.begin(); itObserver != observers.end(); ++itObserver)
-                {
-                    if (*itObserver)
-                    {
-                        if (*itObserver == observer)
-                        {
+                std::list<Observer *>::iterator itObserver;
+                for (itObserver = observers.begin(); itObserver != observers.end(); ++itObserver) {
+                    if (*itObserver) {
+                        if (*itObserver == observer) {
+                            (*itObserver)->operator--();
                             observers.erase(itObserver);
                             break;
                         }
@@ -41,16 +39,14 @@ namespace jogo {
 
             void notify(int message)
             {
-                std::list<Observer*>::iterator itObserver;
+                std::list<Observer *>::iterator itObserver;
                 for (itObserver = observers.begin(); itObserver != observers.end(); ++itObserver)
                     if (*itObserver)
                         (*itObserver)->update(message);
             }
         };
-
     }
 }
-
 
 
 #endif //JOGO_SUBJECT_H

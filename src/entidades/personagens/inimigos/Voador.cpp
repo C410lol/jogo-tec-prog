@@ -19,7 +19,7 @@ namespace jogo {
                     energia((rand() % 6) + 1)
                 {
                     ++numInstancias;
-                    deslocamento = energia;
+                    deslocamento = std::abs(energia);
 
                     setTexture("../assets/personagens/voador.png");
                     fixTexture();
